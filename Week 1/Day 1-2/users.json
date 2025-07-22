@@ -1,0 +1,32 @@
+{
+  "user2": {
+    "name": "suresh",
+    "password": "password2",
+    "profession": "librarian",
+    "id": 2
+  },
+  "user3": {
+    "name": "ramesh",
+    "password": "password3",
+    "profession": "clerk",
+    "id": 3
+  },
+  "user4": {
+    "name": "john",
+    "password": "password3",
+    "profession": "manager",
+    "id": 4
+  },
+  "user5": {
+    "name": "Alice",
+    "password": "password3",
+    "profession": "Tech Lead",
+    "id": 5
+  },
+  "user6": {
+    "name": "Joe biden",
+    "password": "password3",
+    "profession": "PM",
+    "id": 6
+  }
+}
