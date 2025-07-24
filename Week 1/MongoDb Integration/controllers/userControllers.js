@@ -78,7 +78,7 @@ export const fetchAllUsers = async (req, res) => {
     const users = await User.find();
 
     if (users.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: true,
         message: "No users found !",
       });

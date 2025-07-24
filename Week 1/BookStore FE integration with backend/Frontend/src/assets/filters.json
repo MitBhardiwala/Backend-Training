@@ -1,0 +1,90 @@
+[
+    {
+        "filterId":1,
+        "filterOption":"Update By Name"
+    },
+    {
+        "filterId":2,
+        "filterOption":"Update By Name and Author"
+    },
+    {
+        "filterId":3,
+        "filterOption":"Delete By Book Id"
+    },
+    {
+        "filterId":4,
+        "filterOption":"Delete By Book Name"
+    },
+    {
+        "filterId":5,
+        "filterOption":"Delete By Book Desc and Author"
+    },
+    {
+        "filterId":6,
+        "filterOption":"Delete By Book Name and Category"
+    },
+    {
+        "filterId":7,
+        "filterOption":"Show All"
+    },
+    {
+        "filterId":8,
+        "filterOption":"Show Book By Id"
+    },
+    {
+        "filterId":9,
+        "filterOption":"Show Book By Name"
+    },
+    {
+        "filterId":10,
+        "filterOption":"Show Book By Name and Author"
+    },
+    {
+        "filterId":11,
+        "filterOption":"Show Book Pages more than 100"
+    },
+    {
+        "filterId":12,
+        "filterOption":"Show Book Pages Less than 90 More than 25"
+    },
+    {
+        "filterId":13,
+        "filterOption":"Show Book Pages Less than 90 More than 25 But not 80"
+    },
+    {
+        "filterId":14,
+        "filterOption":"Show Book Pages Zero"
+    },
+    {
+        "filterId":15,
+        "filterOption":"Show Book Release Year 2015 and 2001"
+    },
+    {
+        "filterId":16,
+        "filterOption":"Sort By Book Name"
+    },
+    {
+        "filterId":17,
+        "filterOption":"Sort By Book Price"
+    },
+    {
+        "filterId":18,
+        "filterOption":"Sort By Book Author"
+    },
+    {
+        "filterId":19,
+        "filterOption":"Sort By Book No Of Pages"
+    },
+    {
+        "filterId":20,
+        "filterOption":"Sort By Book Category"
+    },
+    {
+        "filterId":21,
+        "filterOption":"Sort By Book Released Year"
+    },
+    {
+        "filterId":22,
+        "filterOption":"Create Book"
+    }
+]
