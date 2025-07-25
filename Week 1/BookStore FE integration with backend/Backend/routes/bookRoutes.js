@@ -1,28 +1,32 @@
 import express from "express";
 import {
-  addBookController,
+  fetchAllBooksBetweenYear2001And2015,
   fetchAllBooksData,
+  fetchAllBooksHavingPagesBetween25And90,
+  fetchAllBooksHavingPagesBetween25And90Not80,
+  fetchBooksHavingMoreThan100Pages,
+  fetchBooksHavingZeroPages,
+  fetchBooksSortedByAuthor,
+  fetchBooksSortedByCategory,
+  fetchBooksSortedByName,
+  fetchBooksSortedByPage,
+  fetchBooksSortedByPrice,
+  fetchBooksSortedByReleaseYear,
+} from "../controllers/Book_Controllers/getRequestControllers.js";
+import {
+  addBookController,
   fetchBookById,
   fetchBookByName,
   fetchBookByNameAndAuthor,
-  fetchBooksHavingMoreThan100Pages,
-  fetchAllBooksHavingPagesBetween25And90,
-  fetchAllBooksHavingPagesBetween25And90Not80,
-  fetchBooksHavingZeroPages,
-  fetchAllBooksBetweenYear2001And2015,
-  fetchBooksSortedByName,
-  fetchBooksSortedByPrice,
-  fetchBooksSortedByAuthor,
-  fetchBooksSortedByPage,
-  fetchBooksSortedByCategory,
-  fetchBooksSortedByReleaseYear,
+} from "../controllers/Book_Controllers/postRequestControllers.js";
+import {
+  deleteBookByAuthorAndDesc,
   deleteBookById,
   deleteBookByIdAndName,
-  deleteBookByAuthorAndDesc,
+  deleteBookByName,
   deleteBookByNameAndCategory,
-  updateBookName,
-  updateBookNameAndAuthor
-} from "../controllers/bookController.js";
+} from "../controllers/Book_Controllers/deleteRequestControllers.js";
+import { updateBookName, updateBookNameAndAuthor } from "../controllers/Book_Controllers/updateRequestControllers.js";
 
 const router = express.Router();
 
@@ -53,13 +57,14 @@ router.get("/books-sort-by-category", fetchBooksSortedByCategory);
 router.get("/books-sort-by-release-year", fetchBooksSortedByReleaseYear);
 
 //delete request
-router.delete("/delete-by-id",deleteBookById)
-router.delete("/delete-by-id-and-name",deleteBookByIdAndName)
-router.delete("/delete-by-author-and-desc",deleteBookByAuthorAndDesc)
-router.delete("/delete-by-name-and-category",deleteBookByNameAndCategory)
+router.delete("/delete-by-id", deleteBookById);
+router.delete("/delete-by-name", deleteBookByName);
+router.delete("/delete-by-id-and-name", deleteBookByIdAndName);
+router.delete("/delete-by-author-and-desc", deleteBookByAuthorAndDesc);
+router.delete("/delete-by-name-and-category", deleteBookByNameAndCategory);
 
 //update request
-router.put("/update-book-by-name",updateBookName)
-router.put("/update-book-by-name-and-author",updateBookNameAndAuthor)
+router.put("/update-book-by-name", updateBookName);
+router.put("/update-book-by-name-and-author", updateBookNameAndAuthor);
 
 export default router;

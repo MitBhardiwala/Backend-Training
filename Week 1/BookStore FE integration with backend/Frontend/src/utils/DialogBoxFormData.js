@@ -1,13 +1,13 @@
-const oldBookName = {
+const oldName = {
   type: "text",
   label: "Enter Old Book Name",
-  name: "oldBookName",
+  name: "oldName",
   required: true,
 };
-const newBookName = {
+const newName = {
   type: "text",
   label: "Enter New Book Name",
-  name: "newBookName",
+  name: "newName",
   required: true,
 };
 
@@ -25,58 +25,58 @@ const newAuthorName = {
   required: true,
 };
 
-const bookId = {
-  type: "number",
+const id = {
+  type: "string",
   label: "Enter Book Id",
-  name: "bookId",
+  name: "id",
   required: true,
 };
 
-const bookName = {
+const name = {
   type: "text",
   label: "Enter Book Name",
-  name: "bookName",
+  name: "name",
   required: true,
 };
 
-const bookAuthor = {
+const author = {
   type: "text",
   label: "Enter  Author Name",
   name: "author",
   required: true,
 };
 
-const bookDesc = {
+const description = {
   type: "text",
   label: "Enter  Description",
-  name: "desc",
+  name: "description",
   required: true,
 };
 
-const bookCategory = {
+const category = {
   type: "text",
   label: "Enter  Book Category",
   name: "category",
   required: true,
 };
-const noOfPage = {
+const no_of_page = {
   type: "number",
   label: "Enter Number of Pages",
-  name: "noOfPage",
+  name: "no_of_page",
   required: true,
 };
 
-const bookPrice = {
+const price = {
   type: "number",
   label: "Enter Book Price",
-  name: "bookPrice",
+  name: "price",
   required: true,
 };
 
-const releasedYear = {
+const release_year = {
   type: "number",
   label: "Enter Released Year",
-  name: "releasedYear",
+  name: "release_year",
   required: true,
 };
 
@@ -84,15 +84,15 @@ const formData = [
   {
     id: 1,
     formData: {
-      oldBookName: oldBookName,
-      newBookName: newBookName,
+      oldName: oldName,
+      newName: newName,
     },
   },
   {
     id: 2,
     formData: {
-      oldBookName: oldBookName,
-      newBookName: newBookName,
+      oldName: oldName,
+      newName: newName,
       oldAuthorName: oldAuthorName,
       newAuthorName: newAuthorName,
     },
@@ -101,59 +101,59 @@ const formData = [
   {
     id: 3,
     formData: {
-      bookId: bookId,
+      id: id,
     },
   },
   {
     id: 4,
     formData: {
-      bookName: bookName,
+      name: name,
     },
   },
   {
     id: 5,
     formData: {
-      bookDesc: bookDesc,
-      bookAuthor: bookAuthor,
+      description: description,
+      author: author,
     },
   },
   {
     id: 6,
     formData: {
-      bookName: bookName,
-      bookCategory: bookCategory,
+      name: name,
+      category: category,
     },
   },
   {
     id: 8,
     formData: {
-      bookId: bookId,
+      id: id,
     },
   },
   {
     id: 9,
     formData: {
-      bookName: bookName,
+      name: name,
     },
   },
   {
     id: 10,
     formData: {
-      bookName: bookName,
-      bookAuthor: bookAuthor,
+      name: name,
+      author: author,
     },
   },
   {
     id: 22,
     formData: {
-      bookId: bookId,
-      bookName: bookName,
-      bookDesc: bookDesc,
-      bookAuthor: bookAuthor,
-      noOfPage: noOfPage,
-      bookCategory: bookCategory,
-      bookPrice: bookPrice,
-      releasedYear: releasedYear,
+ 
+      name: name,
+      description: description,
+      author: author,
+      no_of_page: no_of_page,
+      category: category,
+      price: price,
+      release_year: release_year,
     },
   },
 ];

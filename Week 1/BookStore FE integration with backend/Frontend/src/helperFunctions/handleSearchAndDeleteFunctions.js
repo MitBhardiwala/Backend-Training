@@ -1,203 +1,158 @@
 import axios from "axios";
 import { fetchAllData } from "./showFunctions";
+import toast from "react-hot-toast";
+
+const base_url = import.meta.env.VITE_API_URL;
 
 const searchBookById = async (setData, form) => {
   try {
-    const { data } = await axios.get("http://localhost:3000/books", {
-      params: { id: form.bookId },
+    const { data } = await axios.post(`${base_url}/books/get-book-by-id`, {
+      id: form.id,
     });
 
-    if (data.length == 0) {
-      console.log("No Data Found");
-      return;
-    }
-
-    setData(data);
+    toast.success(data.message);
+    setData([{ ...data.data }]);
   } catch (error) {
     console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
 };
 
 const searchBookByName = async (setData, form) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookName: form.bookName },
+    const { data } = await axios.post(`${base_url}/books/get-book-by-name`, {
+      name: form.name,
     });
 
-    if (!data.length) {
-      console.log("No data found");
-      return;
-    }
-    setData(data);
-  } catch (err) {
-    console.log("Error:", err);
+    toast.success(data.message);
+    setData(data.data);
+  } catch (error) {
+    console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
 };
 
 const searchByNameandAuthor = async (setData, form) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookName: form.bookName, bookAuthor: form.author },
-    });
-
-    if (!data.length) {
-      console.log("No data found");
-      return;
-    }
-    setData(data);
-  } catch (err) {
-    console.log("Error:", err);
-  }
-};
-
-const deleteByid = async (form,setData) => {
-  try {
-   await axios.delete(
-      `http://localhost:3000/books/${form.bookId}`
+    const { data } = await axios.post(
+      `${base_url}/books/get-book-by-name-and-author`,
+      {
+        name: form.name,
+        author: form.author,
+      }
     );
-    
-    fetchAllData(setData)
-    
+
+    toast.success(data.message);
+    setData(data.data);
   } catch (error) {
     console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
 };
 
-const deleteByBookName = async (form,setData) => {
+const deleteByid = async (form, setData) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookName: form.bookName },
+    const { data } = await axios.delete(`${base_url}/books/delete-by-id`, {
+      data: form,
     });
 
-    if (!data.length) {
-      console.log("No data found");
-      return;
-    }
-    const bookId = data[0].id;
-    await axios.delete(`http://localhost:3000/books/${bookId}`);
+    toast.success(data.message);
     fetchAllData(setData);
-    return;
   } catch (error) {
     console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
 };
 
-const deleteByBookDescAndAuthor = async (form,setData) => {
+const deleteByBookName = async (form, setData) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookAuthor: form.author, bookDesc: form.desc },
+    const { data } = await axios.delete(`${base_url}/books/delete-by-name`, {
+      data: form,
     });
 
-    if (!data.length) {
-      console.log("No data found");
-      return;
-    }
-
-    const bookId = data[0].id;
-    await axios.delete(`http://localhost:3000/books/${bookId}`);
-    fetchAllData(setData)
-    return;
+    toast.success(data.message);
+    fetchAllData(setData);
   } catch (error) {
     console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
 };
 
-const deleteByBookNameAndCategory = async (form,setData) => {
+const deleteByBookDescAndAuthor = async (form, setData) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookName: form.bookName, bookCategory: form.category },
-    });
+    const { data } = await axios.delete(
+      `${base_url}/books/delete-by-author-and-desc`,
+      {
+        data: form,
+      }
+    );
 
-    if (!data.length) {
-      console.log("No data found");
-      return;
-    }
-
-    const bookId = data[0].id;
-    await axios.delete(`http://localhost:3000/books/${bookId}`);
-    fetchAllData(setData)
-    return;
+    toast.success(data.message);
+    fetchAllData(setData);
   } catch (error) {
     console.log("Error : ", error);
+    toast.error(error.response.data.message);
+  }
+};
+
+const deleteByBookNameAndCategory = async (form, setData) => {
+  try {
+    const { data } = await axios.delete(
+      `${base_url}/books/delete-by-name-and-category`,
+      {
+        data: form,
+      }
+    );
+
+    toast.success(data.message);
+    fetchAllData(setData);
+  } catch (error) {
+    console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
 };
 const updateByName = async (form, setData) => {
-  const oldBookName = form.oldBookName;
-  const newBookName = form.newBookName;
-
   try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookName: oldBookName },
-    });
-
-    if (!data.length) {
-      console.log("No book found");
-      return;
-    }
-
-    const bookId = data[0].id;
-    let newBook = { ...data[0], bookName: newBookName };
-    console.log(newBook);
-    await axios.put(`http://localhost:3000/books/${bookId}`, newBook);
-    fetchAllData(setData);
-    return;
-  } catch (error) {
-    console.log("Error : ", error);
-  }
-};
-
-const updateByNameAndAuthor = async (form,setData ) => {
-  const oldBookName = form.oldBookName;
-  const newBookName = form.newBookName;
-  const oldAuthorName = form.oldAuthorName;
-  const newAuthorName = form.newAuthorName;
-
-  try {
-    const { data } = await axios.get(`http://localhost:3000/books`, {
-      params: { bookName: oldBookName, bookAuthor: oldAuthorName },
-    });
-
-    if (!data.length) {
-      console.log("No book found");
-      return;
-    }
-
-    const bookId = data[0].id;
-    let newBook = {
-      ...data[0],
-      bookName: newBookName,
-      bookAuthor: newAuthorName,
-    };
-    console.log(newBook);
-    await axios.put(`http://localhost:3000/books/${bookId}`, newBook);
-    fetchAllData(setData);
-
-    return;
-  } catch (error) {
-    console.log("Error : ", error);
-  }
-};
-const handleCreate = async (form) => {
-  try {
-    const { data } = await axios.get(
-      `http://localhost:3000/books/${form.bookId}`
+    const { data } = await axios.put(
+      `${base_url}/books/update-book-by-name`,
+      form
     );
-    if (data) {
-      console.log("Book with same id already exists");
-      return;
-    }
+
+    toast.success(data.message);
+    fetchAllData(setData);
   } catch (error) {
     console.log("Error : ", error);
+    toast.error(error.response.data.message);
   }
+};
 
-  form = {
-    ...form,
-    id: form.bookId,
-    bookDesc: form.desc,
-    bookAuthor: form.author,
-    bookCategory: form.category,
-  };
-  await axios.post("http://localhost:3000/books", form);
+const updateByNameAndAuthor = async (form, setData) => {
+  try {
+    const { data } = await axios.put(
+      `${base_url}/books/update-book-by-name-and-author`,
+      form
+    );
+
+    toast.success(data.message);
+    fetchAllData(setData);
+  } catch (error) {
+    console.log("Error : ", error);
+    toast.error(error.response.data.message);
+  }
+};
+const handleCreate = async (form, setData) => {
+  try {
+    const { data } = await axios.post(
+      `${base_url}/books/add-book`,
+      form
+    );
+
+    toast.success(data.message);
+    fetchAllData(setData);
+  } catch (error) {
+    console.log("Error : ", error);
+    toast.error(error.response.data.message);
+  }
 };
 
 const handleSearchAndDeleteFunctions = async (filterId, setData, form) => {
@@ -212,19 +167,19 @@ const handleSearchAndDeleteFunctions = async (filterId, setData, form) => {
   } else if (filterId == 10) {
     await searchByNameandAuthor(setData, form);
   } else if (filterId == 3) {
-    await deleteByid(form,setData);
+    await deleteByid(form, setData);
   } else if (filterId == 4) {
-    await deleteByBookName(form,setData);
+    await deleteByBookName(form, setData);
   } else if (filterId == 5) {
-    await deleteByBookDescAndAuthor(form,setData);
+    await deleteByBookDescAndAuthor(form, setData);
   } else if (filterId == 6) {
-    await deleteByBookNameAndCategory(form,setData);
+    await deleteByBookNameAndCategory(form, setData);
   } else if (filterId == 1) {
     await updateByName(form, setData);
   } else if (filterId == 2) {
     await updateByNameAndAuthor(form, setData);
   } else if (filterId == 22) {
-    await handleCreate(form,setData);
+    await handleCreate(form, setData);
   }
   return false;
 };
