@@ -47,10 +47,11 @@ export const fetchAllBooksHavingPagesBetween25And90 = async (req, res) => {
   try {
     const bookData = await Book.find({ no_of_page: { $gte: 25, $lte: 90 } });
 
-    if (bookData.length === 0) {
-      return res.status(404).json({
+    if (bookData.length) {
+      return res.status(200).json({
         success: false,
         message: "No book found",
+        data:[]
       });
     }
 

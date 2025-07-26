@@ -10,6 +10,10 @@ const itemSchema = Schema(
       type: Number,
       required: true,
     },
+    total_price:{
+      type:Number,
+      required:true
+    }
   },
   { _id: false }
 );

@@ -31,34 +31,43 @@ router.get("/total-sales-per-customer",async (req,res)=>{
     // const allCustomers = await Customer.find();
 
     const aggregateTable = await Customer.aggregate([
+      //lookup used for getting corresponding orders for each customer 
       {
         $lookup:{
           from :"orders",
           localField:"_id",
           foreignField:"customer_id",
           as:"orderDetails"
+        },
+      },
+
+    
+      {
+        $unwind: '$orderDetails'
+      },
+      {
+        $group:{
+          _id:"$orderDetails.customer_id",
+          totalSales:{$sum:"$orderDetails.total_amount"},
+          totalOrders :{$sum:1},
+          customer_name:{$first:"$name"}
+        }
+      }
+      ,{
+        $project:{
+          customer_name:  1,
+          totalSales:1,
+          totalOrders:1,
+          _id:0
         }
       }
     ])
-
-
-    const outputJSON = aggregateTable.map(user=>{
-      const name=user.name;
-      const totalSales = user.orderDetails.reduce((accumulator,current_order)=>{
-        return accumulator+current_order.total_amount
-      },0);
-
-      return {
-        customer_name:name,
-        totalSales:totalSales
-      }
-     
-    })
+   
 
     res.status(200).json({
       success:true,
       message:"Sales per customer fetched successfully",
-      data:outputJSON
+      data:aggregateTable
     })
 
   } catch (error) {

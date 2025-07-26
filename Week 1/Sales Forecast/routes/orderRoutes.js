@@ -26,6 +26,13 @@ router.post("/add-order", async (req, res) => {
       0
     );
 
+    //added total_price for each product purchased (helpful to track price if multiple products are purchased)
+
+    productsPurchased.map((product,index)=>{
+      body.items[index].total_price=body.items[index].quantity*product.price
+    });
+
+
     const average_order_quantity = productsPurchased.length;
 
     const newOrderJSON = {
