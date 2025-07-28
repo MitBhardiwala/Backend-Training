@@ -6,6 +6,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import { Order } from "./models/Order.js";
+import { API_MESSAGES } from "./utils/constants.js";
 
 dotenv.config();
 
@@ -29,9 +30,8 @@ app.use("/order", orderRoutes);
 export const months = [];
 
 //monthly sales trend
-app.get("/monthly-sales-trends", async (req, res) => {
+app.get("/getMonthlySalesTrendData", async (req, res) => {
   try {
-
     //get current data
     let currentDate = new Date();
 
@@ -41,43 +41,43 @@ app.get("/monthly-sales-trends", async (req, res) => {
     const aggregateTable = await Order.aggregate([
       {
         $addFields: {
-          order_month: { $dateToString: { format: "%B", date: "$order_date" } },
+          orderMonth: { $dateToString: { format: "%B", date: "$orderDate" } },
         },
       },
       {
         $match: {
-          order_date: {
-            $gte:oneYearAgo,
+          orderDate: {
+            $gte: oneYearAgo,
           },
         },
       },
       {
         $group: {
-          _id: "$order_month",
-          total_sales: { $sum: "$total_amount" },
-          total_orders:{ $sum:1}
+          _id: "$orderMonth",
+          totalSales: { $sum: "$totalAmount" },
+          totalOrders: { $sum: 1 },
         },
       },
       {
         $project: {
-          month_name: "$_id",
-          total_sales: "$total_sales",
+          monthName: "$_id",
+          totalSales: "$totalSales",
           _id: 0,
-          total_orders:1
+          totalOrders: 1,
         },
       },
-    ]).sort({total_sales:1});
+    ]).sort({ totalSales: 1 });
 
     res.status(200).json({
       success: true,
-      message: "Monthly sales trend data fetched successfully",
+      message: API_MESSAGES.SUCCESS.DATA_FETCHED,
       data: aggregateTable,
     });
   } catch (error) {
     console.log("Error in fetching monthly sales trend : ", error);
     res.status(500).json({
       success: false,
-      message: "Error in fetching monthly sales trend data",
+      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
       error,
     });
   }

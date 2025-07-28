@@ -1,9 +1,10 @@
 import express from "express";
 import { Product } from "../models/Product.js";
 import { Order } from "../models/Order.js";
+import { API_MESSAGES } from "../utils/constants.js";
 const router = express.Router();
 
-router.post("/add-product", async (req, res) => {
+router.post("/addProduct", async (req, res) => {
   try {
     const body = req.body;
 
@@ -12,20 +13,20 @@ router.post("/add-product", async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Product has been added successfully",
+      message: API_MESSAGES.SUCCESS.PRODUCT_ADDED,
       data: newProduct,
     });
   } catch (error) {
     console.log("Error in adding product : ", error);
     res.status(500).json({
       success: false,
-      message: "Error in adding product",
+      message: API_MESSAGES.ERROR.PRODUCT_NOT_ADDED,
       error,
     });
   }
 });
 
-router.get("/top-3-selled-products", async (req, res) => {
+router.get("/top3SelledProducts", async (req, res) => {
   try {
     const aggregateTable = await Order.aggregate([
       {
@@ -33,9 +34,9 @@ router.get("/top-3-selled-products", async (req, res) => {
       },
       {
         $group: {
-          _id: "$items.product_id",
-          totalRenvenue: { $sum: "$items.total_price" },
-          numberOfTimesOrdered:{$sum:"$items.quantity"}
+          _id: "$items.productId",
+          totalRenvenue: { $sum: "$items.totalPrice" },
+          numberOfTimesOrdered: { $sum: "$items.quantity" },
         },
       },
       {
@@ -46,14 +47,14 @@ router.get("/top-3-selled-products", async (req, res) => {
           as: "productDetails",
         },
       },
-        {
-          $unwind: "$productDetails",
-        },
+      {
+        $unwind: "$productDetails",
+      },
       {
         $project: {
-          product_name: "$productDetails.name",
+          productName: "$productDetails.name",
           totalRenvenue: "$totalRenvenue",
-          numberOfTimesOrdered:1,
+          numberOfTimesOrdered: 1,
           _id: 0,
         },
       },
@@ -63,14 +64,14 @@ router.get("/top-3-selled-products", async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Top 3 selled products fetched successfully",
+      message: API_MESSAGES.SUCCESS.DATA_FETCHED,
       data: aggregateTable,
     });
   } catch (error) {
     console.log("Error in fetching top 3 selled products :", error);
     res.status(500).json({
       success: false,
-      message: "Error in fetching top 3 selled products",
+      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
       error,
     });
   }

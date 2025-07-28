@@ -65,10 +65,10 @@ const BooksSection = ({ booksData }) => {
                 <TableCell>{book.name}</TableCell>
                 <TableCell>{book.description}</TableCell>
                 <TableCell>{book.author}</TableCell>
-                <TableCell>{book.no_of_page}</TableCell>
+                <TableCell>{book.noOfPage}</TableCell>
                 <TableCell>{book.category}</TableCell>
                 <TableCell>{book.price}</TableCell>
-                <TableCell>{book.release_year}</TableCell>
+                <TableCell>{book.releaseYear}</TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (

@@ -4,39 +4,38 @@ const BookSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Book name is required"],
       unique: true,
       trim: true,
-
     },
     description: {
       type: String,
-      required: true,
+      required: [true, "Description is required"],
       trim: true,
     },
-    no_of_page: {
+    noOfPage: {
       type: Number,
-      required: true,
+      required: [true, "No of Pages are required"],
       min: 0,
     },
     author: {
       type: String,
-      required: true,
+      required: [true, "Author name is required"],
       trim: true,
     },
     category: {
       type: String,
-      required: true,
+      required: [true, "Category is required"],
       trim: true,
     },
     price: {
       type: Number,
-      requred: true,
+      requred: [true, "Book Price is required"],
       min: 1,
     },
-    release_year: {
+    releaseYear: {
       type: Number,
-      required: true,
+      required: [true, "Book Release Year is required"],
       min: 2000,
     },
     status: {

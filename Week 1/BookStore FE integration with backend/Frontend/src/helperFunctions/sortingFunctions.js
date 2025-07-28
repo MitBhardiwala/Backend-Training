@@ -3,11 +3,13 @@ import toast, { Toaster } from "react-hot-toast";
 
 const base_url = import.meta.env.VITE_API_URL;
 
-
-
 const sortBookByPrice = async (setData) => {
   try {
-    let { data } = await axios.get(`${base_url}/books/books-sort-by-price`);
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        sortBy: "price",
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -19,7 +21,11 @@ const sortBookByPrice = async (setData) => {
 
 const sortBookByPage = async (setData) => {
   try {
-    let { data } = await axios.get(`${base_url}/books/books-sort-by-page`);
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        sortBy: "page",
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -31,9 +37,11 @@ const sortBookByPage = async (setData) => {
 
 const sortBookByYear = async (setData) => {
   try {
-    let { data } = await axios.get(
-      `${base_url}/books/books-sort-by-release-year`
-    );
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        sortBy: "year",
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -45,7 +53,11 @@ const sortBookByYear = async (setData) => {
 
 const sortBookByName = async (setData) => {
   try {
-    let { data } = await axios.get(`${base_url}/books/books-sort-by-name`);
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        sortBy: "name",
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -57,7 +69,11 @@ const sortBookByName = async (setData) => {
 
 const sortBookByCategory = async (setData) => {
   try {
-    let { data } = await axios.get(`${base_url}/books/books-sort-by-category`);
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        sortBy: "category",
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -69,7 +85,11 @@ const sortBookByCategory = async (setData) => {
 
 const sortBookByAuthor = async (setData) => {
   try {
-    let { data } = await axios.get(`${base_url}/books/books-sort-by-author`);
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        sortBy: "author",
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);

@@ -6,12 +6,14 @@ const base_url = import.meta.env.VITE_API_URL;
 
 const searchBookById = async (setData, form) => {
   try {
-    const { data } = await axios.post(`${base_url}/books/get-book-by-id`, {
-      id: form.id,
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        _id: form.id,
+      },
     });
 
     toast.success(data.message);
-    setData([{ ...data.data }]);
+    setData(data.data);
   } catch (error) {
     console.log("Error : ", error);
     toast.error(error.response.data.message);
@@ -20,8 +22,10 @@ const searchBookById = async (setData, form) => {
 
 const searchBookByName = async (setData, form) => {
   try {
-    const { data } = await axios.post(`${base_url}/books/get-book-by-name`, {
-      name: form.name,
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        name: form.name,
+      },
     });
 
     toast.success(data.message);
@@ -34,13 +38,9 @@ const searchBookByName = async (setData, form) => {
 
 const searchByNameandAuthor = async (setData, form) => {
   try {
-    const { data } = await axios.post(
-      `${base_url}/books/get-book-by-name-and-author`,
-      {
-        name: form.name,
-        author: form.author,
-      }
-    );
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: form,
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -52,8 +52,10 @@ const searchByNameandAuthor = async (setData, form) => {
 
 const deleteByid = async (form, setData) => {
   try {
-    const { data } = await axios.delete(`${base_url}/books/delete-by-id`, {
-      data: form,
+    const { data } = await axios.delete(`${base_url}/books`, {
+      params: {
+        _id: form.id,
+      },
     });
 
     toast.success(data.message);
@@ -66,8 +68,8 @@ const deleteByid = async (form, setData) => {
 
 const deleteByBookName = async (form, setData) => {
   try {
-    const { data } = await axios.delete(`${base_url}/books/delete-by-name`, {
-      data: form,
+    const { data } = await axios.delete(`${base_url}/books`, {
+      params: form,
     });
 
     toast.success(data.message);
@@ -80,13 +82,9 @@ const deleteByBookName = async (form, setData) => {
 
 const deleteByBookDescAndAuthor = async (form, setData) => {
   try {
-    const { data } = await axios.delete(
-      `${base_url}/books/delete-by-author-and-desc`,
-      {
-        data: form,
-      }
-    );
-
+    const { data } = await axios.delete(`${base_url}/books`, {
+      params: form,
+    });
     toast.success(data.message);
     fetchAllData(setData);
   } catch (error) {
@@ -97,12 +95,9 @@ const deleteByBookDescAndAuthor = async (form, setData) => {
 
 const deleteByBookNameAndCategory = async (form, setData) => {
   try {
-    const { data } = await axios.delete(
-      `${base_url}/books/delete-by-name-and-category`,
-      {
-        data: form,
-      }
-    );
+    const { data } = await axios.delete(`${base_url}/books`, {
+      params: form,
+    });
 
     toast.success(data.message);
     fetchAllData(setData);
@@ -113,10 +108,9 @@ const deleteByBookNameAndCategory = async (form, setData) => {
 };
 const updateByName = async (form, setData) => {
   try {
-    const { data } = await axios.put(
-      `${base_url}/books/update-book-by-name`,
-      form
-    );
+    const { data } = await axios.put(`${base_url}/books`, null, {
+      params: form,
+    });
 
     toast.success(data.message);
     fetchAllData(setData);
@@ -128,10 +122,9 @@ const updateByName = async (form, setData) => {
 
 const updateByNameAndAuthor = async (form, setData) => {
   try {
-    const { data } = await axios.put(
-      `${base_url}/books/update-book-by-name-and-author`,
-      form
-    );
+    const { data } = await axios.put(`${base_url}/books`, null, {
+      params: form,
+    });
 
     toast.success(data.message);
     fetchAllData(setData);
@@ -142,10 +135,7 @@ const updateByNameAndAuthor = async (form, setData) => {
 };
 const handleCreate = async (form, setData) => {
   try {
-    const { data } = await axios.post(
-      `${base_url}/books/add-book`,
-      form
-    );
+    const { data } = await axios.post(`${base_url}/books/add-book`, form);
 
     toast.success(data.message);
     fetchAllData(setData);

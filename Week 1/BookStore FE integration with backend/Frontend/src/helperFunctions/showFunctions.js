@@ -6,7 +6,7 @@ const base_url = import.meta.env.VITE_API_URL;
 export const fetchAllData = (setData) => {
   const fetchData = async () => {
     try {
-      let { data } = await axios.get(`${base_url}/books/get-all-books`);
+      let { data } = await axios.get(`${base_url}/books`);
 
       toast.success(data.message);
       setData(data.data);
@@ -21,9 +21,12 @@ export const fetchAllData = (setData) => {
 
 const showMoreThan100 = async (setData) => {
   try {
-    const { data } = await axios.get(
-      `${base_url}/books/get-books-gt-100-pages`
-    );
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        searchTerm: "noOfPage",
+        gt: 100,
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -35,7 +38,13 @@ const showMoreThan100 = async (setData) => {
 
 const showBetween25and90 = async (setData) => {
   try {
-    const { data } = await axios.get(`${base_url}/books/books-pages-bt-25-90`);
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        searchTerm: "noOfPage",
+        gt: 25,
+        lt:90
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -45,12 +54,16 @@ const showBetween25and90 = async (setData) => {
   }
 };
 
-const showBetween25and80 = async (setData) => {
+const showBetween25and90not80 = async (setData) => {
   try {
-    const { data } = await axios.get(
-      `${base_url}/books/books-pages-bt-25-90-not-80`
-    );
-
+     const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        searchTerm: "noOfPage",
+        gt: 25,
+        lt:90,
+        ne:80
+      },
+    });
     toast.success(data.message);
     setData(data.data);
   } catch (error) {
@@ -61,9 +74,12 @@ const showBetween25and80 = async (setData) => {
 
 const showZeroPageBooks = async (setData) => {
   try {
-    const { data } = await axios.get(
-      `${base_url}/books/get-books-equal-to-0-pages`
-    );
+   const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        searchTerm: "noOfPage",
+        eq:0
+      },
+    });
 
     toast.success(data.message);
     setData(data.data);
@@ -75,9 +91,14 @@ const showZeroPageBooks = async (setData) => {
 
 const showBetweenYear2001and2015 = async (setData) => {
   try {
-    const { data } = await axios.get(
-      `${base_url}/books/get-books-release-year-bt-2001-and-2015`
-    );
+    const { data } = await axios.get(`${base_url}/books`, {
+      params: {
+        searchTerm: "releaseYear",
+        gt:2001,
+        lt:2015
+      },
+    });
+
     toast.success(data.message);
     setData(data.data);
   } catch (error) {
@@ -94,7 +115,7 @@ function handleShowFunctions(id, setData) {
   } else if (id == 12) {
     showBetween25and90(setData);
   } else if (id == 13) {
-    showBetween25and80(setData);
+    showBetween25and90not80(setData);
   } else if (id == 14) {
     showZeroPageBooks(setData);
   } else if (id == 15) {

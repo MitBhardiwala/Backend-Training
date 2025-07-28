@@ -2,43 +2,43 @@ import mongoose, { Schema } from "mongoose";
 
 const itemSchema = Schema(
   {
-    product_id: {
+    productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
     },
     quantity: {
       type: Number,
-      required: true,
+      required: [true, "Quantity is required"],
     },
-    total_price:{
-      type:Number,
-      required:true
-    }
+    totalPrice: {
+      type: Number,
+      required: [true, "Total Price is required"],
+    },
   },
   { _id: false }
 );
 
 const OrderSchema = Schema({
-  customer_id: {
+  customerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Customer",
   },
-  order_date: {
+  orderDate: {
     type: Date,
     default: Date.now,
   },
   items: [itemSchema],
-  total_quantity: {
+  totalQuantity: {
     type: Number,
-    required: true,
+    required: [true, "Total Order Quantity is required"],
   },
-  total_amount: {
+  totalAmount: {
     type: Number,
-    required: true,
+    required: [true,"Total Amount is required"],
   },
-  average_order_quantity: {
+  averageOrderQuantity: {
     type: Number,
-    required: true,
+    required: [true,"Average Order Quantity is required"],
   },
 });
 

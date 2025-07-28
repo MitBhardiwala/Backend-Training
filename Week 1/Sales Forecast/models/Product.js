@@ -3,22 +3,22 @@ import mongoose, { Schema } from "mongoose";
 const ProductSchema = Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Product Name is required"],
     unique: true,
     trim: true,
   },
   description: {
     type: String,
-    required: true,
+    required: [true, "Product Description is required"],
   },
   price: {
     type: Number,
-    required: true,
+    required: [true, "Product Price is required"],
   },
   stockQuantity: {
     type: Number,
-    required: true,
-    min:0
+    required: [true, "Product Stock Quantity is required"],
+    min: 0,
   },
 });
 

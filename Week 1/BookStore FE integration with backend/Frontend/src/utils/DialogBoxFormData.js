@@ -59,10 +59,10 @@ const category = {
   name: "category",
   required: true,
 };
-const no_of_page = {
+const noOfPage = {
   type: "number",
   label: "Enter Number of Pages",
-  name: "no_of_page",
+  name: "noOfPage",
   required: true,
 };
 
@@ -73,10 +73,10 @@ const price = {
   required: true,
 };
 
-const release_year = {
+const releaseYear = {
   type: "number",
   label: "Enter Released Year",
-  name: "release_year",
+  name: "releaseYear",
   required: true,
 };
 
@@ -150,10 +150,10 @@ const formData = [
       name: name,
       description: description,
       author: author,
-      no_of_page: no_of_page,
+      noOfPage: noOfPage,
       category: category,
       price: price,
-      release_year: release_year,
+      releaseYear: releaseYear,
     },
   },
 ];

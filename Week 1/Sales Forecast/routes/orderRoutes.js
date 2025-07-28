@@ -1,46 +1,50 @@
 import express from "express";
 import { Order } from "../models/Order.js";
 import { Product } from "../models/Product.js";
+import { API_MESSAGES } from "../utils/constants.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
-router.post("/add-order", async (req, res) => {
+router.post("/addOrder", async (req, res) => {
   try {
     const body = req.body;
 
     //fetch all ids
-    const productIds = body.items.map((item) => item.product_id);
-
+    const productIds = body.items.map(
+      (item) => new mongoose.Types.ObjectId(item.productId)
+    );
     //fetch all purchased product details
     const productsPurchased = await Product.find({ _id: { $in: productIds } });
 
-    const total_quantity = body.items.reduce((accumulator, current_item) => {
+    console.log(productsPurchased);
+
+    const totalQuantity = body.items.reduce((accumulator, current_item) => {
       return accumulator + current_item.quantity;
     }, 0);
 
-    const total_amount = productsPurchased.reduce(
-      (accumulator, current_item, index) => {
-        console.log(current_item.price);
-        return accumulator + current_item.price * body.items[index].quantity;
+    const totalAmount = productsPurchased.reduce(
+      (accumulator, currentItem, index) => {
+        console.log(currentItem.price);
+        return accumulator + currentItem.price * body.items[index].quantity;
       },
       0
     );
 
     //added total_price for each product purchased (helpful to track price if multiple products are purchased)
 
-    productsPurchased.map((product,index)=>{
-      body.items[index].total_price=body.items[index].quantity*product.price
+    productsPurchased.map((product, index) => {
+      body.items[index].totalPrice = body.items[index].quantity * product.price;
     });
 
-
-    const average_order_quantity = productsPurchased.length;
+    const averageOrderQuantity = productsPurchased.length;
 
     const newOrderJSON = {
-      customer_id: body.customer_id,
+      customerId: body.customerId,
       items: body.items,
-      total_quantity: total_quantity,
-      total_amount: total_amount,
-      average_order_quantity: average_order_quantity,
+      totalQuantity: totalQuantity,
+      totalAmount: totalAmount,
+      averageOrderQuantity: averageOrderQuantity,
     };
 
     const newOrder = new Order(newOrderJSON);
@@ -48,32 +52,31 @@ router.post("/add-order", async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Order has been added successfully",
+      message: API_MESSAGES.SUCCESS.ORDER_ADDED,
       data: newOrder,
     });
   } catch (error) {
     console.log("Error in adding order : ", error);
     res.status(500).json({
       success: false,
-      message: "Error in adding order",
+      message: API_MESSAGES.ERROR.ORDER_NOT_ADDED,
       error,
     });
   }
 });
 
 router.get(
-  "/get-orders-greater-than-average-order-quantity",
+  "/getOrdersGreaterThanAverageQuantity",
   async (req, res) => {
     try {
       const ordersFetched = await Order.find({
         $expr: {
-          $lt: ["$average_order_quantity", "$total_quantity"], // $lt for less than, comparing fieldA and fieldB
+          $lt: ["$averageOrderQuantity", "$totalQuantity"], 
         },
       });
       res.status(200).json({
         success: true,
-        message:
-          "Orders greater than average order qunatity fetched successfully",
+        message: API_MESSAGES.SUCCESS.DATA_FETCHED,
         total_orders: ordersFetched.length,
         data: ordersFetched,
       });
@@ -81,8 +84,7 @@ router.get(
       console.log("error in fetching orders details", error);
       res.status(500).json({
         success: false,
-        message: "Error in fetching in order details",
-
+        message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
         error,
       });
     }
