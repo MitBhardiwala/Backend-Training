@@ -2,21 +2,42 @@ import { Op } from "sequelize";
 import { Course, Enrollment, Student } from "../models/index.js";
 import API_MESSAGES from "../utils/constants.js";
 import { raw } from "mysql2";
+import { StudentSchema } from "../utils/validateSchema.js";
+import z from "zod";
+import { checkIfEmailExists } from "../utils/helperFunctions.js";
 
 export const addStudent = async (req, res) => {
   try {
     const student = req.body;
+
+    StudentSchema.parse(student);
+
+    const ifEmailExists = await checkIfEmailExists(student.email);
+
+    if (ifEmailExists) {
+      return res.status(500).json({
+        success: false,
+        message: API_MESSAGES.DATA.EMAIL_ALREADY_EXISTS,
+      });
+    }
     const createdStudent = await Student.create(student);
 
     res.status(201).json({
       success: true,
-      message: API_MESSAGES.SUCCESS.STUDENT_ADDED,
+      message: API_MESSAGES.STUDENT.SUCCESS,
       createdStudent,
     });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        success: false,
+        message: error.issues,
+        error: API_MESSAGES.VALIDATION.ZOD_ERROR,
+      });
+    }
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.STUDENT_NOT_ADDED,
+      message: API_MESSAGES.STUDENT.ERROR,
       error,
     });
   }
@@ -50,15 +71,14 @@ export const fetchAllStudents = async (req, res) => {
     res.status(200).json({
       success: true,
       message: students.length
-        ? API_MESSAGES.SUCCESS.DATA_FETCHED
-        : API_MESSAGES.SUCCESS.NO_DATA_FOUND,
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
       students,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
+      message: API_MESSAGES.DATA.FETCH_ERROR,
       error,
     });
   }
@@ -81,14 +101,14 @@ export const fetchStudent = async (req, res) => {
     res.status(200).json({
       success: true,
       message: student
-        ? API_MESSAGES.SUCCESS.DATA_FETCHED
-        : API_MESSAGES.SUCCESS.NO_DATA_FOUND,
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
       student,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
+      message: API_MESSAGES.DATA.FETCH_ERROR,
       error,
     });
   }
@@ -112,16 +132,15 @@ export const updateStudent = async (req, res) => {
       success: true,
       message:
         updatedStudent[0] > 0
-          ? API_MESSAGES.SUCCESS.DATA_UPDATED
-          : API_MESSAGES.SUCCESS.NO_DATA_FOUND +
+          ? API_MESSAGES.DATA.UPDATE_SUCCESS
+          : API_MESSAGES.DATA.NOT_FOUND +
             " or " +
-            API_MESSAGES.SUCCESS.NO_CHANGES_MADE,
-      updatedStudent,
+            API_MESSAGES.DATA.NO_MODIFICATIONS,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_UPDATED,
+      message: API_MESSAGES.DATA.UPDATE_ERROR,
       error,
     });
   }
@@ -141,14 +160,13 @@ export const deleteStudent = async (req, res) => {
       success: true,
       message:
         deletedStudent > 0
-          ? API_MESSAGES.SUCCESS.DATA_DELETED
-          : API_MESSAGES.SUCCESS.NO_DATA_FOUND,
-      deletedStudent,
+          ? API_MESSAGES.DATA.DELETE_SUCCESS
+          : API_MESSAGES.DATA.NOT_FOUND,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_DELETED,
+      message: API_MESSAGES.DATA.DELETE_ERROR,
       error,
     });
   }
@@ -182,13 +200,15 @@ export const fetchAllCoursesEnrolledByStudent = async (req, res) => {
 
     res.json({
       success: true,
-      message: coursesData[0].Enrollments.length ? API_MESSAGES.SUCCESS.DATA_FETCHED :API_MESSAGES.SUCCESS.NO_DATA_FOUND,
+      message: coursesData[0].Enrollments.length
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
       coursesData,
     });
   } catch (error) {
     res.json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
+      message: API_MESSAGES.DATA.FETCH_ERROR,
     });
   }
 };

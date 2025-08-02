@@ -8,11 +8,11 @@ const Category = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate:{
-        notEmpty:{
-          msg:"Name cannot be empty"
-        }
-      }
+      validate: {
+        notEmpty: {
+          msg: "Name cannot be empty",
+        },
+      },
     },
   },
   {

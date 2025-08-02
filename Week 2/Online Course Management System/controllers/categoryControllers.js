@@ -1,20 +1,31 @@
+import z from "zod";
 import { Category } from "../models/index.js";
 import API_MESSAGES from "../utils/constants.js";
+import { categorySchema } from "../utils/validateSchema.js";
 
 export const addCategory = async (req, res) => {
   try {
-    const course = req.body;
-    const createdCourse = await Category.create(course);
+    const category = req.body;
+
+    categorySchema.parse(category);
+    const createdCategory = await Category.create(category);
 
     res.status(201).json({
       success: true,
-      message: API_MESSAGES.SUCCESS.CATEGORY_ADDED,
-      createdCourse,
+      message: API_MESSAGES.CATEGORY.SUCCESS,
+      createdCategory,
     });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        success: false,
+        message: error.issues,
+        error: API_MESSAGES.VALIDATION.ZOD_ERROR,
+      });
+    }
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.CATEGORY_NOT_ADDED,
+      message: API_MESSAGES.CATEGORY.ERROR,
       error,
     });
   }
@@ -27,14 +38,14 @@ export const fetchAllCategories = async (req, res) => {
     res.status(200).json({
       success: true,
       message: categories.length
-        ? API_MESSAGES.SUCCESS.DATA_FETCHED
-        : API_MESSAGES.SUCCESS.NO_DATA_FOUND,
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
       categories,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
+      message: API_MESSAGES.DATA.FETCH_ERROR,
       error,
     });
   }
@@ -53,14 +64,14 @@ export const fetchCategory = async (req, res) => {
     res.status(200).json({
       success: true,
       message: category
-        ? API_MESSAGES.SUCCESS.DATA_FETCHED
-        : API_MESSAGES.SUCCESS.NO_DATA_FOUND,
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
       category,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_FETCHED,
+      message: API_MESSAGES.DATA.FETCH_ERROR,
       error,
     });
   }
@@ -84,16 +95,15 @@ export const updateCategory = async (req, res) => {
       success: true,
       message:
         updatedCategory[0] > 0
-          ? API_MESSAGES.SUCCESS.DATA_UPDATED
-          : API_MESSAGES.SUCCESS.NO_DATA_FOUND +
+          ? API_MESSAGES.DATA.UPDATE_SUCCESS
+          : API_MESSAGES.DATA.NOT_FOUND +
             " or " +
-            API_MESSAGES.SUCCESS.NO_CHANGES_MADE,
-      updatedCategory,
+            API_MESSAGES.DATA.NO_MODIFICATIONS,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_UPDATED,
+      message: API_MESSAGES.DATA.UPDATE_ERROR,
       error,
     });
   }
@@ -113,14 +123,13 @@ export const deleteCategory = async (req, res) => {
       success: true,
       message:
         deletedCategory > 0
-          ? API_MESSAGES.SUCCESS.DATA_DELETED
-          : API_MESSAGES.SUCCESS.NO_DATA_FOUND,
-      deletedCategory,
+          ? API_MESSAGES.DATA.DELETE_SUCCESS
+          : API_MESSAGES.DATA.NOT_FOUND,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.ERROR.DATA_NOT_DELETED,
+      message: API_MESSAGES.DATA.DELETE_ERROR,
       error,
     });
   }

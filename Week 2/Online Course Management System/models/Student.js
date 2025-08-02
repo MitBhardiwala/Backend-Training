@@ -7,21 +7,21 @@ const Student = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate:{
-        notEmpty:{
-          msg:"Name cannot be empty"
-        }
-      }
+      validate: {
+        notEmpty: {
+          msg: "Name cannot be empty",
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
-      allowNull:false,
-      unique:true,
-      validate:{
-        isEmail:{
-          msg:"Please provide correct format of email"
-        }
-      }
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: {
+          msg: "Please provide correct format of email",
+        },
+      },
     },
   },
   {

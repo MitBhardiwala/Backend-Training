@@ -5,7 +5,7 @@ import {
   fetchStudent,
   updateStudent,
   deleteStudent,
-  fetchAllCoursesEnrolledByStudent
+  fetchAllCoursesEnrolledByStudent,
 } from "../controllers/studentControllers.js";
 
 const router = express.Router();
@@ -17,5 +17,5 @@ router.put("/:id", updateStudent);
 router.delete("/:id", deleteStudent);
 
 //show all courses enrolled by student
-router.get("/:id/enrollments",fetchAllCoursesEnrolledByStudent)
+router.get("/:id/enrollments", fetchAllCoursesEnrolledByStudent);
 export default router;

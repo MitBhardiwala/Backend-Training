@@ -1,28 +1,42 @@
 const API_MESSAGES = {
-  SUCCESS: {
-    DATA_FETCHED: "Data has been fetched",
-    NO_DATA_FOUND: "No Data found",
-    DATA_UPDATED: "Data updated successfully",
-    COURSE_ADDED: "Course added Successfully",
-    INSTRUCTOR_ADDED: "Instructor Added successfully",
-    DATA_DELETED: "Data has been deleted successfully",
-    STUDENT_ADDED: "Student has been added successfully",
-    CATEGORY_ADDED: "Category has been added successfully",
-    ENROLLMENT_ADDED: "Enrollment has been added successfully",
-    NO_CHANGES_MADE: "No changes made",
-  },  
-  ERROR: {
-    DATA_NOT_FETCHED: "Error in fetching data",
-    INSTRUCTOR_NOT_ADDED: "Error in adding instructor",
-    STUDENT_NOT_ADDED: "Error in adding student",
-    CATEGORY_NOT_ADDED: "Error in adding category",
-    ENROLLMENT_NOT_ADDED: "Error in adding enrollment",
-    COURSE_NOT_ADDED: "Error in adding course",
-    DATA_NOT_UPDATED: "Error in updating data",
-    DATA_NOT_DELETED: "Error in deleting data",
-    VALIDATION_ERROR:{
-      ZOD_ERROR:"Zod Validation error"
-    }
+  COURSE: {
+    SUCCESS: "Course added successfully",
+    ERROR: "Error in adding course",
+  },
+
+  CATEGORY: {
+    SUCCESS: "Category added successfully",
+    ERROR: "Error in adding category",
+  },
+  INSTRUCTOR: {
+    SUCCESS: "Instrcutor added successfully",
+    ERROR: "Error in adding instructor",
+  },
+  STUDENT: {
+    SUCCESS: "Student added successfully",
+    ERROR: "Error in adding student",
+  },
+  ENROLLMENT: {
+    SUCCESS: "Enrollment added successfully",
+    ERROR: "Error in adding Enrollment",
+  },
+  DATA: {
+    FETCH_SUCCESS: "Data fetched successfully",
+    FETCH_ERROR: "Error in fetching data",
+
+    UPDATE_SUCCESS: "Data updated successfully",
+    UPDATE_ERROR: "Error in updating data",
+
+    DELETE_SUCCESS: "Data deleted successfully",
+    DELETE_ERROR: "Error in deleting data",
+
+    NOT_FOUND: "No data found",
+    NO_MODIFICATIONS: "No modifications found",
+
+    EMAIL_ALREADY_EXISTS: "Email already exists",
+  },
+  VALIDATION: {
+    ZOD_ERROR: "Zod Validation error",
   },
 };
 
