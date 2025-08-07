@@ -13,7 +13,7 @@ dotenv.config();
 
 const SECRET_KEY: any = process.env.JWT_SECRET;
 
-export const registerUser = async (
+export const  registerUser = async (
   req: Request,
   res: Response<ApiResponse>
 ) => {

@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int            @id @default(autoincrement())
+  name            String
+  email           String         @unique
+  password        String
+  gender          Gender
+  image           String
+  gr_number       String?
+  phone           String
+  address         String
+  department      String?
+  class           String?
+  role_id         Int
+  role            Role           @relation(fields: [role_id], references: [id])
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  RequestedLeaves LeaveRequest[] @relation("RequestedBy")
+  ReceivedLeaves  LeaveRequest[] @relation("RequestedTo")
+  UserLeave       UserLeave[]
+}
+
+model Role {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  priority Int
+  User     User[]
+}
+
+model LeaveRequest {
+  id         Int       @id @default(autoincrement())
+  start_date DateTime
+  end_date   DateTime
+  leave_type LeaveType
+  reason     String
+  status     Status    @default(Pending)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  user_id     Int
+  RequestedBy User @relation("RequestedBy", fields: [user_id], references: [id])
+
+  request_to_id Int
+  RequestedTo   User @relation("RequestedTo", fields: [request_to_id], references: [id])
+}
+
+model UserLeave {
+  id                    Int      @id @default(autoincrement())
+  user_id               Int
+  total_leave           Int
+  available_leave       Int
+  used_leave            Int
+  academic_year         String
+  total_working_days    Int
+  attendance_percentage Decimal
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [user_id], references: [id])
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+enum LeaveType {
+  FirstHalf
+  SecondHalf
+  FullDay
+}
+
+enum Status {
+  Pending
+  Approved
+  Rejected
+}
