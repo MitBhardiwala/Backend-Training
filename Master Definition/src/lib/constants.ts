@@ -8,9 +8,17 @@ const API_MESSAGES = {
 
     ROLE_NOT_FOUND: "No role found, please enter correct role id",
     ALREADY_EXISTS: "User with same email already exists, enter new email",
+
+    LEAVE_SUCCESS: "Applied for leave successfully",
+    LEAVE_ERROR: "Error in applying leave",
+
     NOT_FOUND: "User not found",
+    INVALID_ROLE_ID: "Invalid role id",
+  },
 
-
+  HOD: {
+    DEPARTMENT_NOT_ASSIGNED:
+      "No department has been assigned, please contact admin",
   },
 
   DATA: {
@@ -24,6 +32,9 @@ const API_MESSAGES = {
     DELETE_ERROR: "Error in deleting data",
 
     NOT_FOUND: "No data found",
+    ID_NOT_FOUND: "Id not found",
+
+    POPULATING_USER_LEAVE_ERROR: "Error in populating user leave table",
   },
   AUTH: {
     INVALID_TOKEN: "Invalid Token or Expired token. Please logIn again",
@@ -32,7 +43,10 @@ const API_MESSAGES = {
   },
   VALIDATION: {
     JOI_ERROR: "Joi validation error",
+    IMAGE_NOT_FOUND: "Image not found",
   },
+
+  INTERNAL_SERVER_ERROR: "Internal server error",
 };
 
 export default API_MESSAGES;

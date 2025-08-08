@@ -39,26 +39,26 @@ export type UserLeave = $Result.DefaultSelection<Prisma.$UserLeavePayload>
  */
 export namespace $Enums {
   export const Gender: {
-  Male: 'Male',
-  Female: 'Female'
+  male: 'male',
+  female: 'female'
 };
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
 export const LeaveType: {
-  FirstHalf: 'FirstHalf',
-  SecondHalf: 'SecondHalf',
-  FullDay: 'FullDay'
+  firstHalf: 'firstHalf',
+  secondHalf: 'secondHalf',
+  fullDay: 'fullDay'
 };
 
 export type LeaveType = (typeof LeaveType)[keyof typeof LeaveType]
 
 
 export const Status: {
-  Pending: 'Pending',
-  Approved: 'Approved',
-  Rejected: 'Rejected'
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
 };
 
 export type Status = (typeof Status)[keyof typeof Status]
@@ -1291,12 +1291,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     id: number | null
-    role_id: number | null
+    roleId: number | null
   }
 
   export type UserSumAggregateOutputType = {
     id: number | null
-    role_id: number | null
+    roleId: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1306,12 +1306,12 @@ export namespace Prisma {
     password: string | null
     gender: $Enums.Gender | null
     image: string | null
-    gr_number: string | null
+    grNumber: string | null
     phone: string | null
     address: string | null
     department: string | null
     class: string | null
-    role_id: number | null
+    roleId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1323,12 +1323,12 @@ export namespace Prisma {
     password: string | null
     gender: $Enums.Gender | null
     image: string | null
-    gr_number: string | null
+    grNumber: string | null
     phone: string | null
     address: string | null
     department: string | null
     class: string | null
-    role_id: number | null
+    roleId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1340,12 +1340,12 @@ export namespace Prisma {
     password: number
     gender: number
     image: number
-    gr_number: number
+    grNumber: number
     phone: number
     address: number
     department: number
     class: number
-    role_id: number
+    roleId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1354,12 +1354,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     id?: true
-    role_id?: true
+    roleId?: true
   }
 
   export type UserSumAggregateInputType = {
     id?: true
-    role_id?: true
+    roleId?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1369,12 +1369,12 @@ export namespace Prisma {
     password?: true
     gender?: true
     image?: true
-    gr_number?: true
+    grNumber?: true
     phone?: true
     address?: true
     department?: true
     class?: true
-    role_id?: true
+    roleId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1386,12 +1386,12 @@ export namespace Prisma {
     password?: true
     gender?: true
     image?: true
-    gr_number?: true
+    grNumber?: true
     phone?: true
     address?: true
     department?: true
     class?: true
-    role_id?: true
+    roleId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1403,12 +1403,12 @@ export namespace Prisma {
     password?: true
     gender?: true
     image?: true
-    gr_number?: true
+    grNumber?: true
     phone?: true
     address?: true
     department?: true
     class?: true
-    role_id?: true
+    roleId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1507,12 +1507,12 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number: string | null
+    grNumber: string | null
     phone: string
     address: string
     department: string | null
     class: string | null
-    role_id: number
+    roleId: number
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1543,12 +1543,12 @@ export namespace Prisma {
     password?: boolean
     gender?: boolean
     image?: boolean
-    gr_number?: boolean
+    grNumber?: boolean
     phone?: boolean
     address?: boolean
     department?: boolean
     class?: boolean
-    role_id?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
@@ -1565,12 +1565,12 @@ export namespace Prisma {
     password?: boolean
     gender?: boolean
     image?: boolean
-    gr_number?: boolean
+    grNumber?: boolean
     phone?: boolean
     address?: boolean
     department?: boolean
     class?: boolean
-    role_id?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
@@ -1583,12 +1583,12 @@ export namespace Prisma {
     password?: boolean
     gender?: boolean
     image?: boolean
-    gr_number?: boolean
+    grNumber?: boolean
     phone?: boolean
     address?: boolean
     department?: boolean
     class?: boolean
-    role_id?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
@@ -1601,17 +1601,17 @@ export namespace Prisma {
     password?: boolean
     gender?: boolean
     image?: boolean
-    gr_number?: boolean
+    grNumber?: boolean
     phone?: boolean
     address?: boolean
     department?: boolean
     class?: boolean
-    role_id?: boolean
+    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "gender" | "image" | "gr_number" | "phone" | "address" | "department" | "class" | "role_id" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "gender" | "image" | "grNumber" | "phone" | "address" | "department" | "class" | "roleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | RoleDefaultArgs<ExtArgs>
     RequestedLeaves?: boolean | User$RequestedLeavesArgs<ExtArgs>
@@ -1641,12 +1641,12 @@ export namespace Prisma {
       password: string
       gender: $Enums.Gender
       image: string
-      gr_number: string | null
+      grNumber: string | null
       phone: string
       address: string
       department: string | null
       class: string | null
-      role_id: number
+      roleId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2082,12 +2082,12 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'Gender'>
     readonly image: FieldRef<"User", 'String'>
-    readonly gr_number: FieldRef<"User", 'String'>
+    readonly grNumber: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly address: FieldRef<"User", 'String'>
     readonly department: FieldRef<"User", 'String'>
     readonly class: FieldRef<"User", 'String'>
-    readonly role_id: FieldRef<"User", 'Int'>
+    readonly roleId: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3672,106 +3672,106 @@ export namespace Prisma {
 
   export type LeaveRequestAvgAggregateOutputType = {
     id: number | null
-    user_id: number | null
-    request_to_id: number | null
+    userId: number | null
+    requestToId: number | null
   }
 
   export type LeaveRequestSumAggregateOutputType = {
     id: number | null
-    user_id: number | null
-    request_to_id: number | null
+    userId: number | null
+    requestToId: number | null
   }
 
   export type LeaveRequestMinAggregateOutputType = {
     id: number | null
-    start_date: Date | null
-    end_date: Date | null
-    leave_type: $Enums.LeaveType | null
+    startDate: Date | null
+    endDate: Date | null
+    leaveType: $Enums.LeaveType | null
     reason: string | null
     status: $Enums.Status | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_id: number | null
-    request_to_id: number | null
+    userId: number | null
+    requestToId: number | null
   }
 
   export type LeaveRequestMaxAggregateOutputType = {
     id: number | null
-    start_date: Date | null
-    end_date: Date | null
-    leave_type: $Enums.LeaveType | null
+    startDate: Date | null
+    endDate: Date | null
+    leaveType: $Enums.LeaveType | null
     reason: string | null
     status: $Enums.Status | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_id: number | null
-    request_to_id: number | null
+    userId: number | null
+    requestToId: number | null
   }
 
   export type LeaveRequestCountAggregateOutputType = {
     id: number
-    start_date: number
-    end_date: number
-    leave_type: number
+    startDate: number
+    endDate: number
+    leaveType: number
     reason: number
     status: number
     createdAt: number
     updatedAt: number
-    user_id: number
-    request_to_id: number
+    userId: number
+    requestToId: number
     _all: number
   }
 
 
   export type LeaveRequestAvgAggregateInputType = {
     id?: true
-    user_id?: true
-    request_to_id?: true
+    userId?: true
+    requestToId?: true
   }
 
   export type LeaveRequestSumAggregateInputType = {
     id?: true
-    user_id?: true
-    request_to_id?: true
+    userId?: true
+    requestToId?: true
   }
 
   export type LeaveRequestMinAggregateInputType = {
     id?: true
-    start_date?: true
-    end_date?: true
-    leave_type?: true
+    startDate?: true
+    endDate?: true
+    leaveType?: true
     reason?: true
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_id?: true
-    request_to_id?: true
+    userId?: true
+    requestToId?: true
   }
 
   export type LeaveRequestMaxAggregateInputType = {
     id?: true
-    start_date?: true
-    end_date?: true
-    leave_type?: true
+    startDate?: true
+    endDate?: true
+    leaveType?: true
     reason?: true
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_id?: true
-    request_to_id?: true
+    userId?: true
+    requestToId?: true
   }
 
   export type LeaveRequestCountAggregateInputType = {
     id?: true
-    start_date?: true
-    end_date?: true
-    leave_type?: true
+    startDate?: true
+    endDate?: true
+    leaveType?: true
     reason?: true
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_id?: true
-    request_to_id?: true
+    userId?: true
+    requestToId?: true
     _all?: true
   }
 
@@ -3863,15 +3863,15 @@ export namespace Prisma {
 
   export type LeaveRequestGroupByOutputType = {
     id: number
-    start_date: Date
-    end_date: Date
-    leave_type: $Enums.LeaveType
+    startDate: Date
+    endDate: Date
+    leaveType: $Enums.LeaveType
     reason: string
     status: $Enums.Status
     createdAt: Date
     updatedAt: Date
-    user_id: number
-    request_to_id: number
+    userId: number
+    requestToId: number
     _count: LeaveRequestCountAggregateOutputType | null
     _avg: LeaveRequestAvgAggregateOutputType | null
     _sum: LeaveRequestSumAggregateOutputType | null
@@ -3895,63 +3895,63 @@ export namespace Prisma {
 
   export type LeaveRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    start_date?: boolean
-    end_date?: boolean
-    leave_type?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    leaveType?: boolean
     reason?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_id?: boolean
-    request_to_id?: boolean
+    userId?: boolean
+    requestToId?: boolean
     RequestedBy?: boolean | UserDefaultArgs<ExtArgs>
     RequestedTo?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveRequest"]>
 
   export type LeaveRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    start_date?: boolean
-    end_date?: boolean
-    leave_type?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    leaveType?: boolean
     reason?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_id?: boolean
-    request_to_id?: boolean
+    userId?: boolean
+    requestToId?: boolean
     RequestedBy?: boolean | UserDefaultArgs<ExtArgs>
     RequestedTo?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveRequest"]>
 
   export type LeaveRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    start_date?: boolean
-    end_date?: boolean
-    leave_type?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    leaveType?: boolean
     reason?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_id?: boolean
-    request_to_id?: boolean
+    userId?: boolean
+    requestToId?: boolean
     RequestedBy?: boolean | UserDefaultArgs<ExtArgs>
     RequestedTo?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveRequest"]>
 
   export type LeaveRequestSelectScalar = {
     id?: boolean
-    start_date?: boolean
-    end_date?: boolean
-    leave_type?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    leaveType?: boolean
     reason?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_id?: boolean
-    request_to_id?: boolean
+    userId?: boolean
+    requestToId?: boolean
   }
 
-  export type LeaveRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "start_date" | "end_date" | "leave_type" | "reason" | "status" | "createdAt" | "updatedAt" | "user_id" | "request_to_id", ExtArgs["result"]["leaveRequest"]>
+  export type LeaveRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startDate" | "endDate" | "leaveType" | "reason" | "status" | "createdAt" | "updatedAt" | "userId" | "requestToId", ExtArgs["result"]["leaveRequest"]>
   export type LeaveRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     RequestedBy?: boolean | UserDefaultArgs<ExtArgs>
     RequestedTo?: boolean | UserDefaultArgs<ExtArgs>
@@ -3973,15 +3973,15 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      start_date: Date
-      end_date: Date
-      leave_type: $Enums.LeaveType
+      startDate: Date
+      endDate: Date
+      leaveType: $Enums.LeaveType
       reason: string
       status: $Enums.Status
       createdAt: Date
       updatedAt: Date
-      user_id: number
-      request_to_id: number
+      userId: number
+      requestToId: number
     }, ExtArgs["result"]["leaveRequest"]>
     composites: {}
   }
@@ -4408,15 +4408,15 @@ export namespace Prisma {
    */
   interface LeaveRequestFieldRefs {
     readonly id: FieldRef<"LeaveRequest", 'Int'>
-    readonly start_date: FieldRef<"LeaveRequest", 'DateTime'>
-    readonly end_date: FieldRef<"LeaveRequest", 'DateTime'>
-    readonly leave_type: FieldRef<"LeaveRequest", 'LeaveType'>
+    readonly startDate: FieldRef<"LeaveRequest", 'DateTime'>
+    readonly endDate: FieldRef<"LeaveRequest", 'DateTime'>
+    readonly leaveType: FieldRef<"LeaveRequest", 'LeaveType'>
     readonly reason: FieldRef<"LeaveRequest", 'String'>
     readonly status: FieldRef<"LeaveRequest", 'Status'>
     readonly createdAt: FieldRef<"LeaveRequest", 'DateTime'>
     readonly updatedAt: FieldRef<"LeaveRequest", 'DateTime'>
-    readonly user_id: FieldRef<"LeaveRequest", 'Int'>
-    readonly request_to_id: FieldRef<"LeaveRequest", 'Int'>
+    readonly userId: FieldRef<"LeaveRequest", 'Int'>
+    readonly requestToId: FieldRef<"LeaveRequest", 'Int'>
   }
     
 
@@ -4845,59 +4845,59 @@ export namespace Prisma {
 
   export type UserLeaveAvgAggregateOutputType = {
     id: number | null
-    user_id: number | null
-    total_leave: number | null
-    available_leave: number | null
-    used_leave: number | null
-    total_working_days: number | null
-    attendance_percentage: Decimal | null
+    userId: number | null
+    totalLeave: number | null
+    availableLeave: number | null
+    usedLeave: number | null
+    totalWorkingDays: number | null
+    attendancePercentage: Decimal | null
   }
 
   export type UserLeaveSumAggregateOutputType = {
     id: number | null
-    user_id: number | null
-    total_leave: number | null
-    available_leave: number | null
-    used_leave: number | null
-    total_working_days: number | null
-    attendance_percentage: Decimal | null
+    userId: number | null
+    totalLeave: number | null
+    availableLeave: number | null
+    usedLeave: number | null
+    totalWorkingDays: number | null
+    attendancePercentage: Decimal | null
   }
 
   export type UserLeaveMinAggregateOutputType = {
     id: number | null
-    user_id: number | null
-    total_leave: number | null
-    available_leave: number | null
-    used_leave: number | null
-    academic_year: string | null
-    total_working_days: number | null
-    attendance_percentage: Decimal | null
+    userId: number | null
+    totalLeave: number | null
+    availableLeave: number | null
+    usedLeave: number | null
+    academicYear: string | null
+    totalWorkingDays: number | null
+    attendancePercentage: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserLeaveMaxAggregateOutputType = {
     id: number | null
-    user_id: number | null
-    total_leave: number | null
-    available_leave: number | null
-    used_leave: number | null
-    academic_year: string | null
-    total_working_days: number | null
-    attendance_percentage: Decimal | null
+    userId: number | null
+    totalLeave: number | null
+    availableLeave: number | null
+    usedLeave: number | null
+    academicYear: string | null
+    totalWorkingDays: number | null
+    attendancePercentage: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserLeaveCountAggregateOutputType = {
     id: number
-    user_id: number
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: number
-    total_working_days: number
-    attendance_percentage: number
+    userId: number
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: number
+    totalWorkingDays: number
+    attendancePercentage: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4906,59 +4906,59 @@ export namespace Prisma {
 
   export type UserLeaveAvgAggregateInputType = {
     id?: true
-    user_id?: true
-    total_leave?: true
-    available_leave?: true
-    used_leave?: true
-    total_working_days?: true
-    attendance_percentage?: true
+    userId?: true
+    totalLeave?: true
+    availableLeave?: true
+    usedLeave?: true
+    totalWorkingDays?: true
+    attendancePercentage?: true
   }
 
   export type UserLeaveSumAggregateInputType = {
     id?: true
-    user_id?: true
-    total_leave?: true
-    available_leave?: true
-    used_leave?: true
-    total_working_days?: true
-    attendance_percentage?: true
+    userId?: true
+    totalLeave?: true
+    availableLeave?: true
+    usedLeave?: true
+    totalWorkingDays?: true
+    attendancePercentage?: true
   }
 
   export type UserLeaveMinAggregateInputType = {
     id?: true
-    user_id?: true
-    total_leave?: true
-    available_leave?: true
-    used_leave?: true
-    academic_year?: true
-    total_working_days?: true
-    attendance_percentage?: true
+    userId?: true
+    totalLeave?: true
+    availableLeave?: true
+    usedLeave?: true
+    academicYear?: true
+    totalWorkingDays?: true
+    attendancePercentage?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserLeaveMaxAggregateInputType = {
     id?: true
-    user_id?: true
-    total_leave?: true
-    available_leave?: true
-    used_leave?: true
-    academic_year?: true
-    total_working_days?: true
-    attendance_percentage?: true
+    userId?: true
+    totalLeave?: true
+    availableLeave?: true
+    usedLeave?: true
+    academicYear?: true
+    totalWorkingDays?: true
+    attendancePercentage?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserLeaveCountAggregateInputType = {
     id?: true
-    user_id?: true
-    total_leave?: true
-    available_leave?: true
-    used_leave?: true
-    academic_year?: true
-    total_working_days?: true
-    attendance_percentage?: true
+    userId?: true
+    totalLeave?: true
+    availableLeave?: true
+    usedLeave?: true
+    academicYear?: true
+    totalWorkingDays?: true
+    attendancePercentage?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5052,13 +5052,13 @@ export namespace Prisma {
 
   export type UserLeaveGroupByOutputType = {
     id: number
-    user_id: number
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal
+    userId: number
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal
     createdAt: Date
     updatedAt: Date
     _count: UserLeaveCountAggregateOutputType | null
@@ -5084,13 +5084,13 @@ export namespace Prisma {
 
   export type UserLeaveSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    user_id?: boolean
-    total_leave?: boolean
-    available_leave?: boolean
-    used_leave?: boolean
-    academic_year?: boolean
-    total_working_days?: boolean
-    attendance_percentage?: boolean
+    userId?: boolean
+    totalLeave?: boolean
+    availableLeave?: boolean
+    usedLeave?: boolean
+    academicYear?: boolean
+    totalWorkingDays?: boolean
+    attendancePercentage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5098,13 +5098,13 @@ export namespace Prisma {
 
   export type UserLeaveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    user_id?: boolean
-    total_leave?: boolean
-    available_leave?: boolean
-    used_leave?: boolean
-    academic_year?: boolean
-    total_working_days?: boolean
-    attendance_percentage?: boolean
+    userId?: boolean
+    totalLeave?: boolean
+    availableLeave?: boolean
+    usedLeave?: boolean
+    academicYear?: boolean
+    totalWorkingDays?: boolean
+    attendancePercentage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5112,13 +5112,13 @@ export namespace Prisma {
 
   export type UserLeaveSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    user_id?: boolean
-    total_leave?: boolean
-    available_leave?: boolean
-    used_leave?: boolean
-    academic_year?: boolean
-    total_working_days?: boolean
-    attendance_percentage?: boolean
+    userId?: boolean
+    totalLeave?: boolean
+    availableLeave?: boolean
+    usedLeave?: boolean
+    academicYear?: boolean
+    totalWorkingDays?: boolean
+    attendancePercentage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5126,18 +5126,18 @@ export namespace Prisma {
 
   export type UserLeaveSelectScalar = {
     id?: boolean
-    user_id?: boolean
-    total_leave?: boolean
-    available_leave?: boolean
-    used_leave?: boolean
-    academic_year?: boolean
-    total_working_days?: boolean
-    attendance_percentage?: boolean
+    userId?: boolean
+    totalLeave?: boolean
+    availableLeave?: boolean
+    usedLeave?: boolean
+    academicYear?: boolean
+    totalWorkingDays?: boolean
+    attendancePercentage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserLeaveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "total_leave" | "available_leave" | "used_leave" | "academic_year" | "total_working_days" | "attendance_percentage" | "createdAt" | "updatedAt", ExtArgs["result"]["userLeave"]>
+  export type UserLeaveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "totalLeave" | "availableLeave" | "usedLeave" | "academicYear" | "totalWorkingDays" | "attendancePercentage" | "createdAt" | "updatedAt", ExtArgs["result"]["userLeave"]>
   export type UserLeaveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5155,13 +5155,13 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      user_id: number
-      total_leave: number
-      available_leave: number
-      used_leave: number
-      academic_year: string
-      total_working_days: number
-      attendance_percentage: Prisma.Decimal
+      userId: number
+      totalLeave: number
+      availableLeave: number
+      usedLeave: number
+      academicYear: string
+      totalWorkingDays: number
+      attendancePercentage: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["userLeave"]>
@@ -5589,13 +5589,13 @@ export namespace Prisma {
    */
   interface UserLeaveFieldRefs {
     readonly id: FieldRef<"UserLeave", 'Int'>
-    readonly user_id: FieldRef<"UserLeave", 'Int'>
-    readonly total_leave: FieldRef<"UserLeave", 'Int'>
-    readonly available_leave: FieldRef<"UserLeave", 'Int'>
-    readonly used_leave: FieldRef<"UserLeave", 'Int'>
-    readonly academic_year: FieldRef<"UserLeave", 'String'>
-    readonly total_working_days: FieldRef<"UserLeave", 'Int'>
-    readonly attendance_percentage: FieldRef<"UserLeave", 'Decimal'>
+    readonly userId: FieldRef<"UserLeave", 'Int'>
+    readonly totalLeave: FieldRef<"UserLeave", 'Int'>
+    readonly availableLeave: FieldRef<"UserLeave", 'Int'>
+    readonly usedLeave: FieldRef<"UserLeave", 'Int'>
+    readonly academicYear: FieldRef<"UserLeave", 'String'>
+    readonly totalWorkingDays: FieldRef<"UserLeave", 'Int'>
+    readonly attendancePercentage: FieldRef<"UserLeave", 'Decimal'>
     readonly createdAt: FieldRef<"UserLeave", 'DateTime'>
     readonly updatedAt: FieldRef<"UserLeave", 'DateTime'>
   }
@@ -6033,12 +6033,12 @@ export namespace Prisma {
     password: 'password',
     gender: 'gender',
     image: 'image',
-    gr_number: 'gr_number',
+    grNumber: 'grNumber',
     phone: 'phone',
     address: 'address',
     department: 'department',
     class: 'class',
-    role_id: 'role_id',
+    roleId: 'roleId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6057,15 +6057,15 @@ export namespace Prisma {
 
   export const LeaveRequestScalarFieldEnum: {
     id: 'id',
-    start_date: 'start_date',
-    end_date: 'end_date',
-    leave_type: 'leave_type',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    leaveType: 'leaveType',
     reason: 'reason',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    user_id: 'user_id',
-    request_to_id: 'request_to_id'
+    userId: 'userId',
+    requestToId: 'requestToId'
   };
 
   export type LeaveRequestScalarFieldEnum = (typeof LeaveRequestScalarFieldEnum)[keyof typeof LeaveRequestScalarFieldEnum]
@@ -6073,13 +6073,13 @@ export namespace Prisma {
 
   export const UserLeaveScalarFieldEnum: {
     id: 'id',
-    user_id: 'user_id',
-    total_leave: 'total_leave',
-    available_leave: 'available_leave',
-    used_leave: 'used_leave',
-    academic_year: 'academic_year',
-    total_working_days: 'total_working_days',
-    attendance_percentage: 'attendance_percentage',
+    userId: 'userId',
+    totalLeave: 'totalLeave',
+    availableLeave: 'availableLeave',
+    usedLeave: 'usedLeave',
+    academicYear: 'academicYear',
+    totalWorkingDays: 'totalWorkingDays',
+    attendancePercentage: 'attendancePercentage',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6241,12 +6241,12 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     gender?: EnumGenderFilter<"User"> | $Enums.Gender
     image?: StringFilter<"User"> | string
-    gr_number?: StringNullableFilter<"User"> | string | null
+    grNumber?: StringNullableFilter<"User"> | string | null
     phone?: StringFilter<"User"> | string
     address?: StringFilter<"User"> | string
     department?: StringNullableFilter<"User"> | string | null
     class?: StringNullableFilter<"User"> | string | null
-    role_id?: IntFilter<"User"> | number
+    roleId?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
@@ -6262,12 +6262,12 @@ export namespace Prisma {
     password?: SortOrder
     gender?: SortOrder
     image?: SortOrder
-    gr_number?: SortOrderInput | SortOrder
+    grNumber?: SortOrderInput | SortOrder
     phone?: SortOrder
     address?: SortOrder
     department?: SortOrderInput | SortOrder
     class?: SortOrderInput | SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: RoleOrderByWithRelationInput
@@ -6286,12 +6286,12 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     gender?: EnumGenderFilter<"User"> | $Enums.Gender
     image?: StringFilter<"User"> | string
-    gr_number?: StringNullableFilter<"User"> | string | null
+    grNumber?: StringNullableFilter<"User"> | string | null
     phone?: StringFilter<"User"> | string
     address?: StringFilter<"User"> | string
     department?: StringNullableFilter<"User"> | string | null
     class?: StringNullableFilter<"User"> | string | null
-    role_id?: IntFilter<"User"> | number
+    roleId?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
@@ -6307,12 +6307,12 @@ export namespace Prisma {
     password?: SortOrder
     gender?: SortOrder
     image?: SortOrder
-    gr_number?: SortOrderInput | SortOrder
+    grNumber?: SortOrderInput | SortOrder
     phone?: SortOrder
     address?: SortOrder
     department?: SortOrderInput | SortOrder
     class?: SortOrderInput | SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -6332,12 +6332,12 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     gender?: EnumGenderWithAggregatesFilter<"User"> | $Enums.Gender
     image?: StringWithAggregatesFilter<"User"> | string
-    gr_number?: StringNullableWithAggregatesFilter<"User"> | string | null
+    grNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     phone?: StringWithAggregatesFilter<"User"> | string
     address?: StringWithAggregatesFilter<"User"> | string
     department?: StringNullableWithAggregatesFilter<"User"> | string | null
     class?: StringNullableWithAggregatesFilter<"User"> | string | null
-    role_id?: IntWithAggregatesFilter<"User"> | number
+    roleId?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -6394,30 +6394,30 @@ export namespace Prisma {
     OR?: LeaveRequestWhereInput[]
     NOT?: LeaveRequestWhereInput | LeaveRequestWhereInput[]
     id?: IntFilter<"LeaveRequest"> | number
-    start_date?: DateTimeFilter<"LeaveRequest"> | Date | string
-    end_date?: DateTimeFilter<"LeaveRequest"> | Date | string
-    leave_type?: EnumLeaveTypeFilter<"LeaveRequest"> | $Enums.LeaveType
+    startDate?: DateTimeFilter<"LeaveRequest"> | Date | string
+    endDate?: DateTimeFilter<"LeaveRequest"> | Date | string
+    leaveType?: EnumLeaveTypeFilter<"LeaveRequest"> | $Enums.LeaveType
     reason?: StringFilter<"LeaveRequest"> | string
     status?: EnumStatusFilter<"LeaveRequest"> | $Enums.Status
     createdAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequest"> | Date | string
-    user_id?: IntFilter<"LeaveRequest"> | number
-    request_to_id?: IntFilter<"LeaveRequest"> | number
+    userId?: IntFilter<"LeaveRequest"> | number
+    requestToId?: IntFilter<"LeaveRequest"> | number
     RequestedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     RequestedTo?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type LeaveRequestOrderByWithRelationInput = {
     id?: SortOrder
-    start_date?: SortOrder
-    end_date?: SortOrder
-    leave_type?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    leaveType?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
     RequestedBy?: UserOrderByWithRelationInput
     RequestedTo?: UserOrderByWithRelationInput
   }
@@ -6427,30 +6427,30 @@ export namespace Prisma {
     AND?: LeaveRequestWhereInput | LeaveRequestWhereInput[]
     OR?: LeaveRequestWhereInput[]
     NOT?: LeaveRequestWhereInput | LeaveRequestWhereInput[]
-    start_date?: DateTimeFilter<"LeaveRequest"> | Date | string
-    end_date?: DateTimeFilter<"LeaveRequest"> | Date | string
-    leave_type?: EnumLeaveTypeFilter<"LeaveRequest"> | $Enums.LeaveType
+    startDate?: DateTimeFilter<"LeaveRequest"> | Date | string
+    endDate?: DateTimeFilter<"LeaveRequest"> | Date | string
+    leaveType?: EnumLeaveTypeFilter<"LeaveRequest"> | $Enums.LeaveType
     reason?: StringFilter<"LeaveRequest"> | string
     status?: EnumStatusFilter<"LeaveRequest"> | $Enums.Status
     createdAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequest"> | Date | string
-    user_id?: IntFilter<"LeaveRequest"> | number
-    request_to_id?: IntFilter<"LeaveRequest"> | number
+    userId?: IntFilter<"LeaveRequest"> | number
+    requestToId?: IntFilter<"LeaveRequest"> | number
     RequestedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     RequestedTo?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type LeaveRequestOrderByWithAggregationInput = {
     id?: SortOrder
-    start_date?: SortOrder
-    end_date?: SortOrder
-    leave_type?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    leaveType?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
     _count?: LeaveRequestCountOrderByAggregateInput
     _avg?: LeaveRequestAvgOrderByAggregateInput
     _max?: LeaveRequestMaxOrderByAggregateInput
@@ -6463,15 +6463,15 @@ export namespace Prisma {
     OR?: LeaveRequestScalarWhereWithAggregatesInput[]
     NOT?: LeaveRequestScalarWhereWithAggregatesInput | LeaveRequestScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"LeaveRequest"> | number
-    start_date?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
-    end_date?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
-    leave_type?: EnumLeaveTypeWithAggregatesFilter<"LeaveRequest"> | $Enums.LeaveType
+    startDate?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
+    leaveType?: EnumLeaveTypeWithAggregatesFilter<"LeaveRequest"> | $Enums.LeaveType
     reason?: StringWithAggregatesFilter<"LeaveRequest"> | string
     status?: EnumStatusWithAggregatesFilter<"LeaveRequest"> | $Enums.Status
     createdAt?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
-    user_id?: IntWithAggregatesFilter<"LeaveRequest"> | number
-    request_to_id?: IntWithAggregatesFilter<"LeaveRequest"> | number
+    userId?: IntWithAggregatesFilter<"LeaveRequest"> | number
+    requestToId?: IntWithAggregatesFilter<"LeaveRequest"> | number
   }
 
   export type UserLeaveWhereInput = {
@@ -6479,13 +6479,13 @@ export namespace Prisma {
     OR?: UserLeaveWhereInput[]
     NOT?: UserLeaveWhereInput | UserLeaveWhereInput[]
     id?: IntFilter<"UserLeave"> | number
-    user_id?: IntFilter<"UserLeave"> | number
-    total_leave?: IntFilter<"UserLeave"> | number
-    available_leave?: IntFilter<"UserLeave"> | number
-    used_leave?: IntFilter<"UserLeave"> | number
-    academic_year?: StringFilter<"UserLeave"> | string
-    total_working_days?: IntFilter<"UserLeave"> | number
-    attendance_percentage?: DecimalFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
+    userId?: IntFilter<"UserLeave"> | number
+    totalLeave?: IntFilter<"UserLeave"> | number
+    availableLeave?: IntFilter<"UserLeave"> | number
+    usedLeave?: IntFilter<"UserLeave"> | number
+    academicYear?: StringFilter<"UserLeave"> | string
+    totalWorkingDays?: IntFilter<"UserLeave"> | number
+    attendancePercentage?: DecimalFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"UserLeave"> | Date | string
     updatedAt?: DateTimeFilter<"UserLeave"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -6493,13 +6493,13 @@ export namespace Prisma {
 
   export type UserLeaveOrderByWithRelationInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    academic_year?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    academicYear?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -6507,30 +6507,31 @@ export namespace Prisma {
 
   export type UserLeaveWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    id_userId?: UserLeaveIdUserIdCompoundUniqueInput
     AND?: UserLeaveWhereInput | UserLeaveWhereInput[]
     OR?: UserLeaveWhereInput[]
     NOT?: UserLeaveWhereInput | UserLeaveWhereInput[]
-    user_id?: IntFilter<"UserLeave"> | number
-    total_leave?: IntFilter<"UserLeave"> | number
-    available_leave?: IntFilter<"UserLeave"> | number
-    used_leave?: IntFilter<"UserLeave"> | number
-    academic_year?: StringFilter<"UserLeave"> | string
-    total_working_days?: IntFilter<"UserLeave"> | number
-    attendance_percentage?: DecimalFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
+    userId?: IntFilter<"UserLeave"> | number
+    totalLeave?: IntFilter<"UserLeave"> | number
+    availableLeave?: IntFilter<"UserLeave"> | number
+    usedLeave?: IntFilter<"UserLeave"> | number
+    academicYear?: StringFilter<"UserLeave"> | string
+    totalWorkingDays?: IntFilter<"UserLeave"> | number
+    attendancePercentage?: DecimalFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"UserLeave"> | Date | string
     updatedAt?: DateTimeFilter<"UserLeave"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "id_userId">
 
   export type UserLeaveOrderByWithAggregationInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    academic_year?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    academicYear?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserLeaveCountOrderByAggregateInput
@@ -6545,13 +6546,13 @@ export namespace Prisma {
     OR?: UserLeaveScalarWhereWithAggregatesInput[]
     NOT?: UserLeaveScalarWhereWithAggregatesInput | UserLeaveScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"UserLeave"> | number
-    user_id?: IntWithAggregatesFilter<"UserLeave"> | number
-    total_leave?: IntWithAggregatesFilter<"UserLeave"> | number
-    available_leave?: IntWithAggregatesFilter<"UserLeave"> | number
-    used_leave?: IntWithAggregatesFilter<"UserLeave"> | number
-    academic_year?: StringWithAggregatesFilter<"UserLeave"> | string
-    total_working_days?: IntWithAggregatesFilter<"UserLeave"> | number
-    attendance_percentage?: DecimalWithAggregatesFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
+    userId?: IntWithAggregatesFilter<"UserLeave"> | number
+    totalLeave?: IntWithAggregatesFilter<"UserLeave"> | number
+    availableLeave?: IntWithAggregatesFilter<"UserLeave"> | number
+    usedLeave?: IntWithAggregatesFilter<"UserLeave"> | number
+    academicYear?: StringWithAggregatesFilter<"UserLeave"> | string
+    totalWorkingDays?: IntWithAggregatesFilter<"UserLeave"> | number
+    attendancePercentage?: DecimalWithAggregatesFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"UserLeave"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserLeave"> | Date | string
   }
@@ -6562,7 +6563,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -6582,12 +6583,12 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
     class?: string | null
-    role_id: number
+    roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -6601,7 +6602,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6621,12 +6622,12 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
     class?: NullableStringFieldUpdateOperationsInput | string | null
-    role_id?: IntFieldUpdateOperationsInput | number
+    roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -6641,12 +6642,12 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
     class?: string | null
-    role_id: number
+    roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6657,7 +6658,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6673,12 +6674,12 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
     class?: NullableStringFieldUpdateOperationsInput | string | null
-    role_id?: IntFieldUpdateOperationsInput | number
+    roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6727,9 +6728,9 @@ export namespace Prisma {
   }
 
   export type LeaveRequestCreateInput = {
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
@@ -6740,21 +6741,21 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedCreateInput = {
     id?: number
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_id: number
-    request_to_id: number
+    userId: number
+    requestToId: number
   }
 
   export type LeaveRequestUpdateInput = {
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6765,34 +6766,34 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    request_to_id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    requestToId?: IntFieldUpdateOperationsInput | number
   }
 
   export type LeaveRequestCreateManyInput = {
     id?: number
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_id: number
-    request_to_id: number
+    userId: number
+    requestToId: number
   }
 
   export type LeaveRequestUpdateManyMutationInput = {
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6801,24 +6802,24 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    request_to_id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    requestToId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserLeaveCreateInput = {
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal | DecimalJsLike | number | string
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutUserLeaveInput
@@ -6826,24 +6827,24 @@ export namespace Prisma {
 
   export type UserLeaveUncheckedCreateInput = {
     id?: number
-    user_id: number
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal | DecimalJsLike | number | string
+    userId: number
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserLeaveUpdateInput = {
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserLeaveNestedInput
@@ -6851,50 +6852,50 @@ export namespace Prisma {
 
   export type UserLeaveUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    userId?: IntFieldUpdateOperationsInput | number
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLeaveCreateManyInput = {
     id?: number
-    user_id: number
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal | DecimalJsLike | number | string
+    userId: number
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserLeaveUpdateManyMutationInput = {
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLeaveUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    userId?: IntFieldUpdateOperationsInput | number
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6995,19 +6996,19 @@ export namespace Prisma {
     password?: SortOrder
     gender?: SortOrder
     image?: SortOrder
-    gr_number?: SortOrder
+    grNumber?: SortOrder
     phone?: SortOrder
     address?: SortOrder
     department?: SortOrder
     class?: SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -7017,12 +7018,12 @@ export namespace Prisma {
     password?: SortOrder
     gender?: SortOrder
     image?: SortOrder
-    gr_number?: SortOrder
+    grNumber?: SortOrder
     phone?: SortOrder
     address?: SortOrder
     department?: SortOrder
     class?: SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7034,19 +7035,19 @@ export namespace Prisma {
     password?: SortOrder
     gender?: SortOrder
     image?: SortOrder
-    gr_number?: SortOrder
+    grNumber?: SortOrder
     phone?: SortOrder
     address?: SortOrder
     department?: SortOrder
     class?: SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
-    role_id?: SortOrder
+    roleId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -7184,53 +7185,53 @@ export namespace Prisma {
 
   export type LeaveRequestCountOrderByAggregateInput = {
     id?: SortOrder
-    start_date?: SortOrder
-    end_date?: SortOrder
-    leave_type?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    leaveType?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
   }
 
   export type LeaveRequestAvgOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
   }
 
   export type LeaveRequestMaxOrderByAggregateInput = {
     id?: SortOrder
-    start_date?: SortOrder
-    end_date?: SortOrder
-    leave_type?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    leaveType?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
   }
 
   export type LeaveRequestMinOrderByAggregateInput = {
     id?: SortOrder
-    start_date?: SortOrder
-    end_date?: SortOrder
-    leave_type?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    leaveType?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
   }
 
   export type LeaveRequestSumOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    request_to_id?: SortOrder
+    userId?: SortOrder
+    requestToId?: SortOrder
   }
 
   export type EnumLeaveTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -7264,63 +7265,68 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type UserLeaveIdUserIdCompoundUniqueInput = {
+    id: number
+    userId: number
+  }
+
   export type UserLeaveCountOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    academic_year?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    academicYear?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserLeaveAvgOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
   }
 
   export type UserLeaveMaxOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    academic_year?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    academicYear?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserLeaveMinOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    academic_year?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    academicYear?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserLeaveSumOrderByAggregateInput = {
     id?: SortOrder
-    user_id?: SortOrder
-    total_leave?: SortOrder
-    available_leave?: SortOrder
-    used_leave?: SortOrder
-    total_working_days?: SortOrder
-    attendance_percentage?: SortOrder
+    userId?: SortOrder
+    totalLeave?: SortOrder
+    availableLeave?: SortOrder
+    usedLeave?: SortOrder
+    totalWorkingDays?: SortOrder
+    attendancePercentage?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -7834,9 +7840,9 @@ export namespace Prisma {
   }
 
   export type LeaveRequestCreateWithoutRequestedByInput = {
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
@@ -7846,14 +7852,14 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedCreateWithoutRequestedByInput = {
     id?: number
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
     updatedAt?: Date | string
-    request_to_id: number
+    requestToId: number
   }
 
   export type LeaveRequestCreateOrConnectWithoutRequestedByInput = {
@@ -7867,9 +7873,9 @@ export namespace Prisma {
   }
 
   export type LeaveRequestCreateWithoutRequestedToInput = {
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
@@ -7879,14 +7885,14 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedCreateWithoutRequestedToInput = {
     id?: number
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_id: number
+    userId: number
   }
 
   export type LeaveRequestCreateOrConnectWithoutRequestedToInput = {
@@ -7900,24 +7906,24 @@ export namespace Prisma {
   }
 
   export type UserLeaveCreateWithoutUserInput = {
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal | DecimalJsLike | number | string
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserLeaveUncheckedCreateWithoutUserInput = {
     id?: number
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal | DecimalJsLike | number | string
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7975,15 +7981,15 @@ export namespace Prisma {
     OR?: LeaveRequestScalarWhereInput[]
     NOT?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
     id?: IntFilter<"LeaveRequest"> | number
-    start_date?: DateTimeFilter<"LeaveRequest"> | Date | string
-    end_date?: DateTimeFilter<"LeaveRequest"> | Date | string
-    leave_type?: EnumLeaveTypeFilter<"LeaveRequest"> | $Enums.LeaveType
+    startDate?: DateTimeFilter<"LeaveRequest"> | Date | string
+    endDate?: DateTimeFilter<"LeaveRequest"> | Date | string
+    leaveType?: EnumLeaveTypeFilter<"LeaveRequest"> | $Enums.LeaveType
     reason?: StringFilter<"LeaveRequest"> | string
     status?: EnumStatusFilter<"LeaveRequest"> | $Enums.Status
     createdAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequest"> | Date | string
-    user_id?: IntFilter<"LeaveRequest"> | number
-    request_to_id?: IntFilter<"LeaveRequest"> | number
+    userId?: IntFilter<"LeaveRequest"> | number
+    requestToId?: IntFilter<"LeaveRequest"> | number
   }
 
   export type LeaveRequestUpsertWithWhereUniqueWithoutRequestedToInput = {
@@ -8023,13 +8029,13 @@ export namespace Prisma {
     OR?: UserLeaveScalarWhereInput[]
     NOT?: UserLeaveScalarWhereInput | UserLeaveScalarWhereInput[]
     id?: IntFilter<"UserLeave"> | number
-    user_id?: IntFilter<"UserLeave"> | number
-    total_leave?: IntFilter<"UserLeave"> | number
-    available_leave?: IntFilter<"UserLeave"> | number
-    used_leave?: IntFilter<"UserLeave"> | number
-    academic_year?: StringFilter<"UserLeave"> | string
-    total_working_days?: IntFilter<"UserLeave"> | number
-    attendance_percentage?: DecimalFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
+    userId?: IntFilter<"UserLeave"> | number
+    totalLeave?: IntFilter<"UserLeave"> | number
+    availableLeave?: IntFilter<"UserLeave"> | number
+    usedLeave?: IntFilter<"UserLeave"> | number
+    academicYear?: StringFilter<"UserLeave"> | string
+    totalWorkingDays?: IntFilter<"UserLeave"> | number
+    attendancePercentage?: DecimalFilter<"UserLeave"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"UserLeave"> | Date | string
     updatedAt?: DateTimeFilter<"UserLeave"> | Date | string
   }
@@ -8040,7 +8046,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -8059,7 +8065,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -8107,12 +8113,12 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     gender?: EnumGenderFilter<"User"> | $Enums.Gender
     image?: StringFilter<"User"> | string
-    gr_number?: StringNullableFilter<"User"> | string | null
+    grNumber?: StringNullableFilter<"User"> | string | null
     phone?: StringFilter<"User"> | string
     address?: StringFilter<"User"> | string
     department?: StringNullableFilter<"User"> | string | null
     class?: StringNullableFilter<"User"> | string | null
-    role_id?: IntFilter<"User"> | number
+    roleId?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -8123,7 +8129,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -8142,12 +8148,12 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
     class?: string | null
-    role_id: number
+    roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     ReceivedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedToInput
@@ -8165,7 +8171,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -8184,12 +8190,12 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
     class?: string | null
-    role_id: number
+    roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -8218,7 +8224,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8237,12 +8243,12 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
     class?: NullableStringFieldUpdateOperationsInput | string | null
-    role_id?: IntFieldUpdateOperationsInput | number
+    roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ReceivedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedToNestedInput
@@ -8266,7 +8272,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8285,12 +8291,12 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
     class?: NullableStringFieldUpdateOperationsInput | string | null
-    role_id?: IntFieldUpdateOperationsInput | number
+    roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -8303,7 +8309,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -8322,12 +8328,12 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
     class?: string | null
-    role_id: number
+    roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -8356,7 +8362,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8375,12 +8381,12 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
     class?: NullableStringFieldUpdateOperationsInput | string | null
-    role_id?: IntFieldUpdateOperationsInput | number
+    roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -8389,44 +8395,44 @@ export namespace Prisma {
 
   export type LeaveRequestCreateManyRequestedByInput = {
     id?: number
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
     updatedAt?: Date | string
-    request_to_id: number
+    requestToId: number
   }
 
   export type LeaveRequestCreateManyRequestedToInput = {
     id?: number
-    start_date: Date | string
-    end_date: Date | string
-    leave_type: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    leaveType: $Enums.LeaveType
     reason: string
     status?: $Enums.Status
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_id: number
+    userId: number
   }
 
   export type UserLeaveCreateManyUserInput = {
     id?: number
-    total_leave: number
-    available_leave: number
-    used_leave: number
-    academic_year: string
-    total_working_days: number
-    attendance_percentage: Decimal | DecimalJsLike | number | string
+    totalLeave: number
+    availableLeave: number
+    usedLeave: number
+    academicYear: string
+    totalWorkingDays: number
+    attendancePercentage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type LeaveRequestUpdateWithoutRequestedByInput = {
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8436,32 +8442,32 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedUpdateWithoutRequestedByInput = {
     id?: IntFieldUpdateOperationsInput | number
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    request_to_id?: IntFieldUpdateOperationsInput | number
+    requestToId?: IntFieldUpdateOperationsInput | number
   }
 
   export type LeaveRequestUncheckedUpdateManyWithoutRequestedByInput = {
     id?: IntFieldUpdateOperationsInput | number
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    request_to_id?: IntFieldUpdateOperationsInput | number
+    requestToId?: IntFieldUpdateOperationsInput | number
   }
 
   export type LeaveRequestUpdateWithoutRequestedToInput = {
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8471,59 +8477,59 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedUpdateWithoutRequestedToInput = {
     id?: IntFieldUpdateOperationsInput | number
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type LeaveRequestUncheckedUpdateManyWithoutRequestedToInput = {
     id?: IntFieldUpdateOperationsInput | number
-    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    leave_type?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserLeaveUpdateWithoutUserInput = {
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLeaveUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLeaveUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    total_leave?: IntFieldUpdateOperationsInput | number
-    available_leave?: IntFieldUpdateOperationsInput | number
-    used_leave?: IntFieldUpdateOperationsInput | number
-    academic_year?: StringFieldUpdateOperationsInput | string
-    total_working_days?: IntFieldUpdateOperationsInput | number
-    attendance_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalLeave?: IntFieldUpdateOperationsInput | number
+    availableLeave?: IntFieldUpdateOperationsInput | number
+    usedLeave?: IntFieldUpdateOperationsInput | number
+    academicYear?: StringFieldUpdateOperationsInput | string
+    totalWorkingDays?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8535,7 +8541,7 @@ export namespace Prisma {
     password: string
     gender: $Enums.Gender
     image: string
-    gr_number?: string | null
+    grNumber?: string | null
     phone: string
     address: string
     department?: string | null
@@ -8550,7 +8556,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8569,7 +8575,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8588,7 +8594,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     image?: StringFieldUpdateOperationsInput | string
-    gr_number?: NullableStringFieldUpdateOperationsInput | string | null
+    grNumber?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null

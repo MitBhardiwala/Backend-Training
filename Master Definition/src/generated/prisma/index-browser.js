@@ -127,12 +127,12 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   gender: 'gender',
   image: 'image',
-  gr_number: 'gr_number',
+  grNumber: 'grNumber',
   phone: 'phone',
   address: 'address',
   department: 'department',
   class: 'class',
-  role_id: 'role_id',
+  roleId: 'roleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -145,26 +145,26 @@ exports.Prisma.RoleScalarFieldEnum = {
 
 exports.Prisma.LeaveRequestScalarFieldEnum = {
   id: 'id',
-  start_date: 'start_date',
-  end_date: 'end_date',
-  leave_type: 'leave_type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  leaveType: 'leaveType',
   reason: 'reason',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  user_id: 'user_id',
-  request_to_id: 'request_to_id'
+  userId: 'userId',
+  requestToId: 'requestToId'
 };
 
 exports.Prisma.UserLeaveScalarFieldEnum = {
   id: 'id',
-  user_id: 'user_id',
-  total_leave: 'total_leave',
-  available_leave: 'available_leave',
-  used_leave: 'used_leave',
-  academic_year: 'academic_year',
-  total_working_days: 'total_working_days',
-  attendance_percentage: 'attendance_percentage',
+  userId: 'userId',
+  totalLeave: 'totalLeave',
+  availableLeave: 'availableLeave',
+  usedLeave: 'usedLeave',
+  academicYear: 'academicYear',
+  totalWorkingDays: 'totalWorkingDays',
+  attendancePercentage: 'attendancePercentage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -184,20 +184,20 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Gender = exports.$Enums.Gender = {
-  Male: 'Male',
-  Female: 'Female'
+  male: 'male',
+  female: 'female'
 };
 
 exports.LeaveType = exports.$Enums.LeaveType = {
-  FirstHalf: 'FirstHalf',
-  SecondHalf: 'SecondHalf',
-  FullDay: 'FullDay'
+  firstHalf: 'firstHalf',
+  secondHalf: 'secondHalf',
+  fullDay: 'fullDay'
 };
 
 exports.Status = exports.$Enums.Status = {
-  Pending: 'Pending',
-  Approved: 'Approved',
-  Rejected: 'Rejected'
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
 };
 
 exports.Prisma.ModelName = {

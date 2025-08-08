@@ -21,15 +21,15 @@ model User {
   password        String
   gender          Gender
   image           String
-  gr_number       String?
+  grNumber        String?
   phone           String
   address         String
   department      String?
   class           String?
-  role_id         Int
-  role            Role           @relation(fields: [role_id], references: [id])
-  createdAt       DateTime       @default(now()) @map("created_at")
-  updatedAt       DateTime       @updatedAt @map("updated_at")
+  roleId          Int
+  role            Role           @relation(fields: [roleId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   RequestedLeaves LeaveRequest[] @relation("RequestedBy")
   ReceivedLeaves  LeaveRequest[] @relation("RequestedTo")
   UserLeave       UserLeave[]
@@ -43,50 +43,52 @@ model Role {
 }
 
 model LeaveRequest {
-  id         Int       @id @default(autoincrement())
-  start_date DateTime
-  end_date   DateTime
-  leave_type LeaveType
-  reason     String
-  status     Status    @default(Pending)
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime  @updatedAt @map("updated_at")
+  id        Int       @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  leaveType LeaveType
+  reason    String
+  status    Status    @default(pending)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
-  user_id     Int
-  RequestedBy User @relation("RequestedBy", fields: [user_id], references: [id])
+  userId      Int
+  RequestedBy User @relation("RequestedBy", fields: [userId], references: [id])
 
-  request_to_id Int
-  RequestedTo   User @relation("RequestedTo", fields: [request_to_id], references: [id])
+  requestToId Int
+  RequestedTo User @relation("RequestedTo", fields: [requestToId], references: [id])
 }
 
 model UserLeave {
-  id                    Int      @id @default(autoincrement())
-  user_id               Int
-  total_leave           Int
-  available_leave       Int
-  used_leave            Int
-  academic_year         String
-  total_working_days    Int
-  attendance_percentage Decimal
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @updatedAt @map("updated_at")
+  id                   Int      @id @default(autoincrement())
+  userId               Int
+  totalLeave           Int
+  availableLeave       Int
+  usedLeave            Int
+  academicYear         String
+  totalWorkingDays     Int
+  attendancePercentage Decimal
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([id, userId])
 }
 
 enum Gender {
-  Male
-  Female
+  male
+  female
 }
 
 enum LeaveType {
-  FirstHalf
-  SecondHalf
-  FullDay
+  firstHalf
+  secondHalf
+  fullDay
 }
 
 enum Status {
-  Pending
-  Approved
-  Rejected
+  pending
+  approved
+  rejected
 }
