@@ -4,7 +4,7 @@ import {
   fetchJobsList,
   fetchJobById,
   deleteJob,
-} from "../controllers/jobControllers.ts";
+} from "../controllers/job.ts";
 import {
   authenticateRecruiter,
   authenticateToken,

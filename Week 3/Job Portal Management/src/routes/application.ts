@@ -2,8 +2,8 @@ import express from "express";
 import {
   applyForJob,
   fetchApplicationsForUser,
-  fetchApplicationsForRecruiter
-} from "../controllers/applicationControllers.ts";
+  fetchApplicationsForRecruiter,
+} from "../controllers/application.ts";
 import {
   authenticateApplicant,
   authenticateRecruiter,
@@ -19,5 +19,10 @@ router.post("", authenticateToken, authenticateApplicant, applyForJob);
 router.get("/user", authenticateToken, fetchApplicationsForUser);
 
 //get applications for jobs that recruiter created
-router.get("/jobs",authenticateToken, authenticateRecruiter,fetchApplicationsForRecruiter)
+router.get(
+  "/jobs",
+  authenticateToken,
+  authenticateRecruiter,
+  fetchApplicationsForRecruiter
+);
 export default router;

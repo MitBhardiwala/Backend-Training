@@ -1,5 +1,5 @@
 import express from "express";
-import { fetchUser, updateUser } from "../controllers/userControllers.ts";
+import { fetchUser, updateUser } from "../controllers/user.ts";
 
 const router = express.Router();
 

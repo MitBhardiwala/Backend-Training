@@ -3,7 +3,7 @@ import {
   createCompany,
   fetchCompany,
   updateCompany,
-} from "../controllers/companyControllers.ts";
+} from "../controllers/company.ts";
 import {
   authenticateRecruiter,
   authenticateToken,
