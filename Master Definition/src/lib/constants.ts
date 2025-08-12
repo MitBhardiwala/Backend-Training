@@ -19,8 +19,7 @@ const API_MESSAGES = {
     DEPARTMENT_NOT_ASSIGNED:
       "No department has been assigned, please contact admin",
     LEAVE_NOT_ALLOWED: "User has exceeded his/her total leaves qouta",
-    DEPT_CONFLICT_ERROR:
-      "Department conflict error",
+    DEPT_CONFLICT_ERROR: "Department conflict error",
   },
 
   LEAVE_REQUEST: {
@@ -56,6 +55,16 @@ const API_MESSAGES = {
   VALIDATION: {
     JOI_ERROR: "Joi validation error",
     IMAGE_NOT_FOUND: "Image not found",
+  },
+
+  OTP: {
+    SENT_SUCCESS: "Otp sent successfully",
+
+    VERIFY_ERROR: "Invalid credentials or expired otp",
+  },
+  PASSWORD: {
+    UPDATE_SUCCESS: "Password updated successfully",
+    UPDATE_ERROR: "Error in updating password",
   },
 
   INTERNAL_SERVER_ERROR: "Internal server error",

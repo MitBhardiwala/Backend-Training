@@ -37,7 +37,3 @@ export const fetchAllLeaves = async (
     });
   }
 };
-
-export const createFacultyLeaveApplication = ()=>{
-
-}

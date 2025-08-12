@@ -10,11 +10,12 @@ import bcrypt from "bcryptjs";
 import type { User, UserPayload } from "./types.ts";
 import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
-import API_MESSAGES from "./constants.ts";
 
-configDotenv();
+import API_MESSAGES from "./constants.ts";
+import { transporter } from "./smtp.config.ts";
 
 const SECRET_KEY: any = process.env.JWT_SECRET;
+const SMTP_EMAIL = process.env.SMTP_USER_MAIL;
 
 export interface ApiResponse {
   success: boolean;
@@ -24,10 +25,17 @@ export interface ApiResponse {
   token?: string;
 }
 
+interface GlobalUser {
+  id: number;
+  email: string;
+  roleId: number;
+  department: string | null;
+}
+
 declare global {
   namespace Express {
     interface Request {
-      user: UserPayload;
+      user: GlobalUser;
     }
   }
 }
@@ -61,10 +69,6 @@ export const generateToken = (user: User) => {
   const JWT_TOKEN = jwt.sign(
     {
       id: user.id,
-      name: user.name,
-      email: user.email,
-      roleId: user.roleId,
-      department: user.department,
     },
     SECRET_KEY,
     {
@@ -153,5 +157,29 @@ export const updateUserLeaveModel = async (userId: number) => {
       success: false,
       error: API_MESSAGES.DATA.POPULATING_USER_LEAVE_ERROR,
     });
+  }
+};
+
+export const sendOtpEmail = async (email: string) => {
+  try {
+    const verificationOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    const verificationOtpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+    await transporter.sendMail({
+      from: SMTP_EMAIL,
+      to: email,
+      subject: "Your OTP for Verification",
+      html: `<p>Your One-Time Password (OTP) is: <strong>${verificationOtp}</strong></p><p>This OTP is valid for 10 minutes.</p>`,
+    });
+
+    await prisma.user.update({
+      where: { email },
+      data: { verificationOtp, verificationOtpExpires },
+    });
+
+    return true;
+  } catch (error) {
+    // console.log(error);
+    return false;
   }
 };

@@ -4,12 +4,9 @@ import {
   createHod,
   createStudent,
   fetchLeaveReport,
-} from "../controllers/adminController.ts";
+} from "../controllers/admin.ts";
 import { upload } from "../lib/multerConfig.ts";
-import {
-  deleteUser,
-  updateUserDetails,
-} from "../controllers/userControllers.ts";
+import { deleteUser, updateUserDetails } from "../controllers/user.ts";
 
 const router = express.Router();
 
@@ -30,8 +27,6 @@ router.put("/user/:userId", upload.single("image"), updateUserDetails);
 router.delete("/user/:userId", deleteUser);
 
 //leave Report
-router.get("/leaveReport",fetchLeaveReport)
-
-
+router.get("/leaveReport", fetchLeaveReport);
 
 export default router;

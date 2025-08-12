@@ -8,7 +8,7 @@ import {
 } from "../lib/utils.ts";
 import API_MESSAGES from "../lib/constants.ts";
 import prisma from "../lib/db.ts";
-import { registerUser } from "./studentControllers.ts";
+import { registerUser } from "./student.ts";
 import {
   userApproveLeaveSchema,
   userUpdateSchema,
@@ -164,9 +164,6 @@ export const updateLeaveStatus = async (
       req.user.roleId
     );
 
-    console.log(userToBeUpdatedPriority);
-    console.log(currentUserPriority);
-
     if (currentUserPriority <= userToBeUpdatedPriority) {
       return res.status(400).json({
         success: false,
@@ -176,7 +173,7 @@ export const updateLeaveStatus = async (
 
     //approve leave request of the student or faculty
     const updatedUser = await prisma.leaveRequest.update({
-      where: { id: req.body.leaveId },
+      where: { id: req.body.leaveId, userId: req.body.userId },
       data: { status: req.body.updatedStatus },
     });
 

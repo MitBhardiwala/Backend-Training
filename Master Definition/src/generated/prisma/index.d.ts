@@ -1314,6 +1314,8 @@ export namespace Prisma {
     roleId: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    verificationOtp: string | null
+    verificationOtpExpires: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1331,6 +1333,8 @@ export namespace Prisma {
     roleId: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    verificationOtp: string | null
+    verificationOtpExpires: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1348,6 +1352,8 @@ export namespace Prisma {
     roleId: number
     createdAt: number
     updatedAt: number
+    verificationOtp: number
+    verificationOtpExpires: number
     _all: number
   }
 
@@ -1377,6 +1383,8 @@ export namespace Prisma {
     roleId?: true
     createdAt?: true
     updatedAt?: true
+    verificationOtp?: true
+    verificationOtpExpires?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1394,6 +1402,8 @@ export namespace Prisma {
     roleId?: true
     createdAt?: true
     updatedAt?: true
+    verificationOtp?: true
+    verificationOtpExpires?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1411,6 +1421,8 @@ export namespace Prisma {
     roleId?: true
     createdAt?: true
     updatedAt?: true
+    verificationOtp?: true
+    verificationOtpExpires?: true
     _all?: true
   }
 
@@ -1515,6 +1527,8 @@ export namespace Prisma {
     roleId: number
     createdAt: Date
     updatedAt: Date
+    verificationOtp: string | null
+    verificationOtpExpires: Date | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1551,6 +1565,8 @@ export namespace Prisma {
     roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    verificationOtp?: boolean
+    verificationOtpExpires?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
     RequestedLeaves?: boolean | User$RequestedLeavesArgs<ExtArgs>
     ReceivedLeaves?: boolean | User$ReceivedLeavesArgs<ExtArgs>
@@ -1573,6 +1589,8 @@ export namespace Prisma {
     roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    verificationOtp?: boolean
+    verificationOtpExpires?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1591,6 +1609,8 @@ export namespace Prisma {
     roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    verificationOtp?: boolean
+    verificationOtpExpires?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1609,9 +1629,11 @@ export namespace Prisma {
     roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    verificationOtp?: boolean
+    verificationOtpExpires?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "gender" | "image" | "grNumber" | "phone" | "address" | "department" | "class" | "roleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "gender" | "image" | "grNumber" | "phone" | "address" | "department" | "class" | "roleId" | "createdAt" | "updatedAt" | "verificationOtp" | "verificationOtpExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | RoleDefaultArgs<ExtArgs>
     RequestedLeaves?: boolean | User$RequestedLeavesArgs<ExtArgs>
@@ -1649,6 +1671,8 @@ export namespace Prisma {
       roleId: number
       createdAt: Date
       updatedAt: Date
+      verificationOtp: string | null
+      verificationOtpExpires: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2090,6 +2114,8 @@ export namespace Prisma {
     readonly roleId: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly verificationOtp: FieldRef<"User", 'String'>
+    readonly verificationOtpExpires: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -6040,7 +6066,9 @@ export namespace Prisma {
     class: 'class',
     roleId: 'roleId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    verificationOtp: 'verificationOtp',
+    verificationOtpExpires: 'verificationOtpExpires'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6249,6 +6277,8 @@ export namespace Prisma {
     roleId?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    verificationOtp?: StringNullableFilter<"User"> | string | null
+    verificationOtpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     RequestedLeaves?: LeaveRequestListRelationFilter
     ReceivedLeaves?: LeaveRequestListRelationFilter
@@ -6270,6 +6300,8 @@ export namespace Prisma {
     roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    verificationOtp?: SortOrderInput | SortOrder
+    verificationOtpExpires?: SortOrderInput | SortOrder
     role?: RoleOrderByWithRelationInput
     RequestedLeaves?: LeaveRequestOrderByRelationAggregateInput
     ReceivedLeaves?: LeaveRequestOrderByRelationAggregateInput
@@ -6294,6 +6326,8 @@ export namespace Prisma {
     roleId?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    verificationOtp?: StringNullableFilter<"User"> | string | null
+    verificationOtpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     RequestedLeaves?: LeaveRequestListRelationFilter
     ReceivedLeaves?: LeaveRequestListRelationFilter
@@ -6315,6 +6349,8 @@ export namespace Prisma {
     roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    verificationOtp?: SortOrderInput | SortOrder
+    verificationOtpExpires?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -6340,6 +6376,8 @@ export namespace Prisma {
     roleId?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    verificationOtp?: StringNullableWithAggregatesFilter<"User"> | string | null
+    verificationOtpExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type RoleWhereInput = {
@@ -6569,6 +6607,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     role: RoleCreateNestedOneWithoutUserInput
     RequestedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedByInput
     ReceivedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedToInput
@@ -6590,6 +6630,8 @@ export namespace Prisma {
     roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
     ReceivedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedToInput
     UserLeave?: UserLeaveUncheckedCreateNestedManyWithoutUserInput
@@ -6608,6 +6650,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: RoleUpdateOneRequiredWithoutUserNestedInput
     RequestedLeaves?: LeaveRequestUpdateManyWithoutRequestedByNestedInput
     ReceivedLeaves?: LeaveRequestUpdateManyWithoutRequestedToNestedInput
@@ -6629,6 +6673,8 @@ export namespace Prisma {
     roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     ReceivedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedToNestedInput
     UserLeave?: UserLeaveUncheckedUpdateManyWithoutUserNestedInput
@@ -6649,6 +6695,8 @@ export namespace Prisma {
     roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6664,6 +6712,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -6681,6 +6731,8 @@ export namespace Prisma {
     roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type RoleCreateInput = {
@@ -6958,6 +7010,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type RoleScalarRelationFilter = {
     is?: RoleWhereInput
     isNot?: RoleWhereInput
@@ -7003,6 +7066,8 @@ export namespace Prisma {
     roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    verificationOtp?: SortOrder
+    verificationOtpExpires?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -7025,6 +7090,8 @@ export namespace Prisma {
     roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    verificationOtp?: SortOrder
+    verificationOtpExpires?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -7042,6 +7109,8 @@ export namespace Prisma {
     roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    verificationOtp?: SortOrder
+    verificationOtpExpires?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -7123,6 +7192,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserListRelationFilter = {
@@ -7403,6 +7486,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type RoleUpdateOneRequiredWithoutUserNestedInput = {
     create?: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUserInput
@@ -7660,6 +7747,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -7754,6 +7852,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumLeaveTypeFilter<$PrismaModel = never> = {
@@ -8047,6 +8159,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     RequestedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedByInput
     ReceivedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedToInput
     UserLeave?: UserLeaveCreateNestedManyWithoutUserInput
@@ -8066,6 +8180,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
     ReceivedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedToInput
     UserLeave?: UserLeaveUncheckedCreateNestedManyWithoutUserInput
@@ -8115,6 +8231,8 @@ export namespace Prisma {
     roleId?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    verificationOtp?: StringNullableFilter<"User"> | string | null
+    verificationOtpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
   }
 
   export type UserCreateWithoutRequestedLeavesInput = {
@@ -8130,6 +8248,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     role: RoleCreateNestedOneWithoutUserInput
     ReceivedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedToInput
     UserLeave?: UserLeaveCreateNestedManyWithoutUserInput
@@ -8150,6 +8270,8 @@ export namespace Prisma {
     roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     ReceivedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedToInput
     UserLeave?: UserLeaveUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8172,6 +8294,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     role: RoleCreateNestedOneWithoutUserInput
     RequestedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedByInput
     UserLeave?: UserLeaveCreateNestedManyWithoutUserInput
@@ -8192,6 +8316,8 @@ export namespace Prisma {
     roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
     UserLeave?: UserLeaveUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8225,6 +8351,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: RoleUpdateOneRequiredWithoutUserNestedInput
     ReceivedLeaves?: LeaveRequestUpdateManyWithoutRequestedToNestedInput
     UserLeave?: UserLeaveUpdateManyWithoutUserNestedInput
@@ -8245,6 +8373,8 @@ export namespace Prisma {
     roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ReceivedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedToNestedInput
     UserLeave?: UserLeaveUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8273,6 +8403,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: RoleUpdateOneRequiredWithoutUserNestedInput
     RequestedLeaves?: LeaveRequestUpdateManyWithoutRequestedByNestedInput
     UserLeave?: UserLeaveUpdateManyWithoutUserNestedInput
@@ -8293,6 +8425,8 @@ export namespace Prisma {
     roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     UserLeave?: UserLeaveUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8310,6 +8444,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     role: RoleCreateNestedOneWithoutUserInput
     RequestedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedByInput
     ReceivedLeaves?: LeaveRequestCreateNestedManyWithoutRequestedToInput
@@ -8330,6 +8466,8 @@ export namespace Prisma {
     roleId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedByInput
     ReceivedLeaves?: LeaveRequestUncheckedCreateNestedManyWithoutRequestedToInput
   }
@@ -8363,6 +8501,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: RoleUpdateOneRequiredWithoutUserNestedInput
     RequestedLeaves?: LeaveRequestUpdateManyWithoutRequestedByNestedInput
     ReceivedLeaves?: LeaveRequestUpdateManyWithoutRequestedToNestedInput
@@ -8383,6 +8523,8 @@ export namespace Prisma {
     roleId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     ReceivedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedToNestedInput
   }
@@ -8542,6 +8684,8 @@ export namespace Prisma {
     class?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    verificationOtp?: string | null
+    verificationOtpExpires?: Date | string | null
   }
 
   export type UserUpdateWithoutRoleInput = {
@@ -8557,6 +8701,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     RequestedLeaves?: LeaveRequestUpdateManyWithoutRequestedByNestedInput
     ReceivedLeaves?: LeaveRequestUpdateManyWithoutRequestedToNestedInput
     UserLeave?: UserLeaveUpdateManyWithoutUserNestedInput
@@ -8576,6 +8722,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     RequestedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedByNestedInput
     ReceivedLeaves?: LeaveRequestUncheckedUpdateManyWithoutRequestedToNestedInput
     UserLeave?: UserLeaveUncheckedUpdateManyWithoutUserNestedInput
@@ -8595,6 +8743,8 @@ export namespace Prisma {
     class?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

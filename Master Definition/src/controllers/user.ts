@@ -3,15 +3,15 @@ import {
   fetchRolePriority,
   generateToken,
   hashPassword,
+  sendOtpEmail,
   toDataUri,
   type ApiResponse,
 } from "../lib/utils.ts";
 import API_MESSAGES from "../lib/constants.ts";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import {
+  resetPasswordSchema,
   userLoginSchema,
-  userRegistrationSchema,
   userUpdateSchema,
   userUpdateSchemaByHigherAuthority,
 } from "../lib/validateSchema.ts";
@@ -175,7 +175,6 @@ export const updateUserDetails = async (
       data: updatedData.count ? updatedData : [],
     });
   } catch (error) {
-   
     res.status(500).json({
       success: false,
       error: API_MESSAGES.DATA.UPDATE_ERROR,
@@ -240,6 +239,94 @@ export const deleteUser = async (req: Request, res: Response<ApiResponse>) => {
     res.status(500).json({
       success: false,
       error: API_MESSAGES.DATA.DELETE_ERROR,
+    });
+  }
+};
+
+export const requestPasswordReset = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const { email } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { email: email } });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: API_MESSAGES.USER.NOT_FOUND,
+      });
+    }
+
+    const success = await sendOtpEmail(email);
+
+    success
+      ? res.status(200).json({
+          success: true,
+          message: API_MESSAGES.OTP.SENT_SUCCESS,
+        })
+      : res.status(500).json({
+          success: false,
+          error: API_MESSAGES.INTERNAL_SERVER_ERROR,
+        });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.INTERNAL_SERVER_ERROR,
+    });
+  }
+};
+
+export const resetPassword = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const { error } = resetPasswordSchema.validate({ ...req.body });
+    if (error) {
+      return joiGlobalErrorHandler(error, res);
+    }
+
+    const { email, otp, password } = req.body;
+    const curDate = new Date();
+
+    const user = await prisma.user.findUnique({
+      where: { email: email },
+    });
+
+    if (
+      otp !== user?.verificationOtp ||
+      !user?.verificationOtpExpires ||
+      curDate > user.verificationOtpExpires
+    ) {
+      return res.status(400).json({
+        success: false,
+        error: API_MESSAGES.OTP.VERIFY_ERROR,
+      });
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    await prisma.user.update({
+      where: {
+        email: email,
+      },
+      data: {
+        password: hashedPassword,
+        verificationOtp: null,
+        verificationOtpExpires: null,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: API_MESSAGES.PASSWORD.UPDATE_SUCCESS,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.PASSWORD.UPDATE_ERROR,
     });
   }
 };

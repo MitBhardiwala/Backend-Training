@@ -5,18 +5,18 @@ import {
   updateLeaveStatus,
   fetchAllFaculties,
   createFaculty,
-} from "../controllers/hodControllers.ts";
+  fetchAllLeaveRequests,
+} from "../controllers/hod.ts";
 
 import { upload } from "../lib/multerConfig.ts";
 import {
   deleteUser,
   updateUser,
   updateUserDetails,
-} from "../controllers/userControllers.ts";
-import { fetchAllLeaves } from "../controllers/facultyControllers.ts";
+} from "../controllers/user.ts";
+import { fetchAllLeaves } from "../controllers/faculty.ts";
 
 const router = express.Router();
-
 
 //student management
 
@@ -24,7 +24,7 @@ const router = express.Router();
 router.get("/allStudents", fetchAllStudents);
 
 //fetch leave request of students
-router.get("/leaveRequests", fetchAllLeaves);
+router.get("/leaveRequests", fetchAllLeaveRequests);
 
 //create student
 router.post("/createStudent", upload.single("image"), createStudent);

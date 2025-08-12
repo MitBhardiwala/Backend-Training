@@ -15,8 +15,4 @@ export type User = {
 
 export type UserPayload = {
   id: number;
-  name: string;
-  email: string;
-  roleId: number;
-  department: string | null;
 };

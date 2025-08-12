@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import type { ApiResponse } from "../lib/utils.ts";
-import { registerUser } from "./studentControllers.ts";
+import { registerUser } from "./student.ts";
 import API_MESSAGES from "../lib/constants.ts";
 import prisma from "../lib/db.ts";
 
@@ -50,16 +50,16 @@ export const fetchLeaveReport = async (
       where: {
         usedLeave: maxLeaves._max.usedLeave,
       },
-      include:{
-        user:{
-          select:{
-            name:true,
-            email:true,
-            department:true,
-            phone:true
-          }
-        }
-      }
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+            department: true,
+            phone: true,
+          },
+        },
+      },
     });
 
     res.status(200).json({

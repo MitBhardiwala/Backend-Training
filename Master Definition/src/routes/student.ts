@@ -6,7 +6,7 @@ import {
   createLeaveApplication,
   fetchLeaveDetails,
   fetchLeaveBalance,
-} from "../controllers/studentControllers.ts";
+} from "../controllers/student.ts";
 import {
   authenticateToken,
   checkDeptAssigned,

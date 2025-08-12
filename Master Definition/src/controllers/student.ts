@@ -198,7 +198,7 @@ export const createLeaveApplication = async (
       });
     }
 
-    //RequestToUser should have priority greater than student priority
+    //RequestToUser should have priority greater requestByUser priority
     const requestedByPriority = await fetchRolePriority(requestedBy, undefined);
     const requestToUserPrioriy = await fetchRolePriority(
       undefined,

@@ -134,7 +134,9 @@ exports.Prisma.UserScalarFieldEnum = {
   class: 'class',
   roleId: 'roleId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  verificationOtp: 'verificationOtp',
+  verificationOtpExpires: 'verificationOtpExpires'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {

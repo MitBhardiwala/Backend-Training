@@ -1,23 +1,13 @@
 import express from "express";
 import { upload } from "../lib/multerConfig.ts";
-import {
-  createStudent,
-  fetchAllStudents,
-  updateLeaveStatus,
-} from "../controllers/hodControllers.ts";
-import {
-  deleteUser,
-  updateUserDetails,
-} from "../controllers/userControllers.ts";
-import {
-  createFacultyLeaveApplication,
-  fetchAllLeaves,
-} from "../controllers/facultyControllers.ts";
+import { createStudent, updateLeaveStatus } from "../controllers/hod.ts";
+import { deleteUser, updateUserDetails } from "../controllers/user.ts";
+import { fetchAllLeaves } from "../controllers/faculty.ts";
 import {
   createLeaveApplication,
   fetchLeaveBalance,
   fetchLeaveDetails,
-} from "../controllers/studentControllers.ts";
+} from "../controllers/student.ts";
 
 const router = express.Router();
 
