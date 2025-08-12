@@ -1,11 +1,14 @@
-import express from "express";
 import API_MESSAGES from "../lib/constants.js";
 import prisma from "../lib/db.js";
+import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.js";
+import { enrollmentSchema } from "../lib/validations.js";
 
-const router = express.Router();
-
-router.post("", async (req, res) => {
+export const createEnrollment = async (req, res) => {
   try {
+    const { error } = enrollmentSchema.validate(req.body);
+    if (error) {
+      return joiGlobalErrorHandler(error, res);
+    }
     const enrollmentData = req.body;
 
     const enrollment = await prisma.enrollments.create({
@@ -18,22 +21,21 @@ router.post("", async (req, res) => {
       enrollment,
     });
   } catch (error) {
-
     res.status(500).json({
       success: false,
       message: API_MESSAGES.DATA.ADD_ERROR,
       error,
     });
   }
-});
+};
 
-router.get("", async (req, res) => {
+export const fetchEnrollments = async (req, res) => {
   try {
     const enrollment = await prisma.enrollments.findMany({
-        include:{
-            student:true,
-            course:true
-        }
+      include: {
+        student: true,
+        course: true,
+      },
     });
 
     res.status(200).json({
@@ -48,6 +50,4 @@ router.get("", async (req, res) => {
       error,
     });
   }
-});
-
-export default router;
+};

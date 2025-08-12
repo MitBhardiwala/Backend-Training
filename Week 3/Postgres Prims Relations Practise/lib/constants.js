@@ -7,6 +7,9 @@ const API_MESSAGES = {
     ADD_SUCCESS:"Data added",
     ADD_ERROR:"Error in adding data"
   },
+  VALIDATION:{
+    JOI_ERROR:"Joi validation Error"
+  }
 };
 
 export default API_MESSAGES;

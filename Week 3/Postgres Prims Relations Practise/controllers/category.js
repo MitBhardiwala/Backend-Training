@@ -1,11 +1,15 @@
-import express from "express";
 import API_MESSAGES from "../lib/constants.js";
 import prisma from "../lib/db.js";
+import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.js";
+import { categorySchema } from "../lib/validations.js";
 
-const router = express.Router();
-
-router.post("", async (req, res) => {
+export const createCategory = async (req, res) => {
   try {
+    const { error } = categorySchema.validate(req.body);
+    if (error) {
+      return joiGlobalErrorHandler(error, res);
+    }
+    
     const categoryData = req.body;
 
     const category = await prisma.category.create({
@@ -24,7 +28,4 @@ router.post("", async (req, res) => {
       error,
     });
   }
-});
-
-
-export default router;
+};

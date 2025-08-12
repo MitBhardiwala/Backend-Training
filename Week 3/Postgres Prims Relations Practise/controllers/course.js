@@ -1,11 +1,14 @@
-import express from "express";
 import API_MESSAGES from "../lib/constants.js";
 import prisma from "../lib/db.js";
+import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.js";
+import { courseSchema } from "../lib/validations.js";
 
-const router = express.Router();
-
-router.post("", async (req, res) => {
+export const createCourse = async (req, res) => {
   try {
+    const { error } = courseSchema.validate(req.body);
+    if (error) {
+      return joiGlobalErrorHandler(error, res);
+    }
     const courseData = req.body;
 
     const course = await prisma.course.create({
@@ -24,21 +27,20 @@ router.post("", async (req, res) => {
       error,
     });
   }
-});
+};
 
-
-router.get("/:id", async (req, res) => {
+export const fetchCourse = async (req, res) => {
   try {
     const { id } = req.params;
 
     const course = await prisma.course.findMany({
-      where:{
-        id:Number(id)
+      where: {
+        id: Number(id),
       },
-      include:{
-        instructor:true,
-        category:true
-      }
+      include: {
+        instructor: true,
+        category: true,
+      },
     });
 
     res.status(200).json({
@@ -53,7 +55,4 @@ router.get("/:id", async (req, res) => {
       error,
     });
   }
-});
-
-
-export default router;
+};

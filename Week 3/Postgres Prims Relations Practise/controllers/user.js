@@ -1,11 +1,15 @@
-import express from "express";
 import API_MESSAGES from "../lib/constants.js";
 import prisma from "../lib/db.js";
+import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.js";
+import { userSchema } from "../lib/validations.js";
 
-const router = express.Router();
-
-router.post("", async (req, res) => {
+export const createUser = async (req, res) => {
   try {
+    const { error } = userSchema.validate(req.body);
+    if (error) {
+      return joiGlobalErrorHandler(error, res);
+    }
+
     const userData = req.body;
 
     const user = await prisma.user.create({
@@ -18,15 +22,16 @@ router.post("", async (req, res) => {
       user,
     });
   } catch (error) {
+
     res.status(500).json({
       success: false,
       message: API_MESSAGES.DATA.ADD_ERROR,
       error,
     });
   }
-});
-//get instructor with all courses
-router.get("/instructor/:id", async (req, res) => {
+};
+
+export const fetchInstructorWithCourses = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -52,24 +57,23 @@ router.get("/instructor/:id", async (req, res) => {
       error,
     });
   }
-});
+};
 
-//get students with enrollments
-router.get("/student/:id", async (req, res) => {
+export const fetchStudentWithEnrollments = async (req, res) => {
   try {
     const { id } = req.params;
 
     const instructor = await prisma.user.findMany({
       where: {
         role: "STUDENT",
-        id:Number(id)
+        id: Number(id),
       },
       include: {
         Enrollments: {
-            include:{
-                course:true
-            }
-        }
+          include: {
+            course: true,
+          },
+        },
       },
     });
 
@@ -85,6 +89,4 @@ router.get("/student/:id", async (req, res) => {
       error,
     });
   }
-});
-
-export default router;
+};
