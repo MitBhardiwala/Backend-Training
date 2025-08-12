@@ -6507,11 +6507,10 @@ export namespace Prisma {
 
   export type UserLeaveWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    id_userId?: UserLeaveIdUserIdCompoundUniqueInput
+    userId?: number
     AND?: UserLeaveWhereInput | UserLeaveWhereInput[]
     OR?: UserLeaveWhereInput[]
     NOT?: UserLeaveWhereInput | UserLeaveWhereInput[]
-    userId?: IntFilter<"UserLeave"> | number
     totalLeave?: IntFilter<"UserLeave"> | number
     availableLeave?: IntFilter<"UserLeave"> | number
     usedLeave?: IntFilter<"UserLeave"> | number
@@ -6521,7 +6520,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UserLeave"> | Date | string
     updatedAt?: DateTimeFilter<"UserLeave"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "id_userId">
+  }, "id" | "userId">
 
   export type UserLeaveOrderByWithAggregationInput = {
     id?: SortOrder
@@ -7263,11 +7262,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type UserLeaveIdUserIdCompoundUniqueInput = {
-    id: number
-    userId: number
   }
 
   export type UserLeaveCountOrderByAggregateInput = {

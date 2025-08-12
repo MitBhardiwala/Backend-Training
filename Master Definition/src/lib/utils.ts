@@ -1,4 +1,9 @@
-import type { NextFunction, Request, Response } from "express";
+import {
+  response,
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
 import * as fs from "fs";
 import prisma from "./db.ts";
 import bcrypt from "bcryptjs";
@@ -110,6 +115,41 @@ export const populateUserLeaveModel = async (
     });
   } catch (error) {
     return res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.POPULATING_USER_LEAVE_ERROR,
+    });
+  }
+};
+
+export const updateUserLeaveModel = async (userId: number) => {
+  try {
+    const previousLeaveData = await prisma.userLeave.findUnique({
+      where: { userId: userId },
+    });
+
+    if (!previousLeaveData) {
+      return response.status(500).json({
+        success: false,
+        error: API_MESSAGES.LEAVE_REQUEST.ERROR,
+      });
+    }
+
+    const leaveData = {
+      ...previousLeaveData,
+      availableLeave: previousLeaveData.availableLeave - 1,
+      usedLeave: previousLeaveData.usedLeave + 1,
+      attendancePercentage:
+        ((previousLeaveData.totalWorkingDays - previousLeaveData.usedLeave) /
+          previousLeaveData.totalWorkingDays) *
+        100,
+    };
+
+    const updatedLeave = await prisma.userLeave.update({
+      where: { userId: userId },
+      data: leaveData,
+    });
+  } catch (error) {
+    return response.status(500).json({
       success: false,
       error: API_MESSAGES.DATA.POPULATING_USER_LEAVE_ERROR,
     });

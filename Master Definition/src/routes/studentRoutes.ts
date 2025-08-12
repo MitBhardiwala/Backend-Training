@@ -1,21 +1,25 @@
-import express from "express";
+import express, { type Request, type Response } from "express";
 import {
-  registerStudent,
+  registerUser,
   fetchStudent,
   updateStudent,
   createLeaveApplication,
   fetchLeaveDetails,
-  fetchLeaveBalance
+  fetchLeaveBalance,
 } from "../controllers/studentControllers.ts";
-import { authenticateToken } from "../middleware/authMiddleware.ts";
-import multer from "multer";
+import {
+  authenticateToken,
+  checkDeptAssigned,
+} from "../middleware/authMiddleware.ts";
 
 const router = express.Router();
 
 // Initialize Multer with the storage engine
 
 //register
-router.post("/register", registerStudent);
+router.post("/register", (req: Request, res: Response) => {
+  registerUser(req, res);
+});
 
 //view profile
 router.get("", authenticateToken, fetchStudent);
@@ -24,11 +28,18 @@ router.get("", authenticateToken, fetchStudent);
 router.put("", authenticateToken, updateStudent);
 
 //apply for leave
-router.post("/applyLeave", authenticateToken, createLeaveApplication);
+router.post("/applyLeave", authenticateToken, checkDeptAssigned, (req, res) => {
+  return createLeaveApplication(req, res);
+});
 
 //view status
-router.get("/leaveStatus", authenticateToken, fetchLeaveDetails);
+router.get(
+  "/leaveStatus",
+  authenticateToken,
+  checkDeptAssigned,
+  fetchLeaveDetails
+);
 
 //view leave balance
-router.get("/leaveBalance",authenticateToken,fetchLeaveBalance)
+router.get("/leaveBalance", authenticateToken, fetchLeaveBalance);
 export default router;

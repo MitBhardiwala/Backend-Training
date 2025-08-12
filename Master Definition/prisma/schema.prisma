@@ -53,15 +53,15 @@ model LeaveRequest {
   updatedAt DateTime  @updatedAt
 
   userId      Int
-  RequestedBy User @relation("RequestedBy", fields: [userId], references: [id])
+  RequestedBy User @relation("RequestedBy", fields: [userId], references: [id], onDelete: Cascade)
 
   requestToId Int
-  RequestedTo User @relation("RequestedTo", fields: [requestToId], references: [id])
+  RequestedTo User @relation("RequestedTo", fields: [requestToId], references: [id], onDelete: Cascade)
 }
 
 model UserLeave {
   id                   Int      @id @default(autoincrement())
-  userId               Int
+  userId               Int      @unique
   totalLeave           Int
   availableLeave       Int
   usedLeave            Int
@@ -71,9 +71,7 @@ model UserLeave {
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
-
-  @@unique([id, userId])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {

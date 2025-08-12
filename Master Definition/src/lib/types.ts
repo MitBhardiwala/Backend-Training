@@ -18,5 +18,5 @@ export type UserPayload = {
   name: string;
   email: string;
   roleId: number;
-  department?: string;
+  department: string | null;
 };

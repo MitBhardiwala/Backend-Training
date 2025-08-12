@@ -1,8 +1,8 @@
 import express from "express";
-import userRoutes from "./routes/UserRoutes.js";
-import categoryRoutes from "./routes/categoryRoutes.js";
-import courseRoutes from "./routes/courseRoutes.js";
-import enrollmentRoutes from "./routes/enrollmentRoutes.js";
+import userRoutes from "./routes/user.js";
+import categoryRoutes from "./routes/category.js";
+import courseRoutes from "./routes/course.js";
+import enrollmentRoutes from "./routes/enrollment.js";
 
 const app = express();
 

@@ -14,11 +14,23 @@ const API_MESSAGES = {
 
     NOT_FOUND: "User not found",
     INVALID_ROLE_ID: "Invalid role id",
-  },
+    INVALID_USER_ID: "Invalid user id",
 
-  HOD: {
     DEPARTMENT_NOT_ASSIGNED:
       "No department has been assigned, please contact admin",
+    LEAVE_NOT_ALLOWED: "User has exceeded his/her total leaves qouta",
+    DEPT_CONFLICT_ERROR:
+      "Department conflict error",
+  },
+
+  LEAVE_REQUEST: {
+    SUCCESS: "Leave Request approved",
+    ERROR: "Error in approving leave request",
+
+    DEPT_CONFLICT_ERROR:
+      "Department conflict, Hod can only aprrove request of students of his/her department only ",
+
+    NOT_FOUND: "No leave request found",
   },
 
   DATA: {

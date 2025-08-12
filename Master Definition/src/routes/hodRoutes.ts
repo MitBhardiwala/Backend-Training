@@ -1,24 +1,49 @@
 import express from "express";
-import { fetchAllStudents } from "../controllers/hodControllers.ts";
 import {
-  authenticateHod,
-  authenticateToken,
-  fetchAllLeaves
-} from "../middleware/authMiddleware.ts";
+  fetchAllStudents,
+  createStudent,
+  updateLeaveStatus,
+  fetchAllFaculties,
+  createFaculty,
+} from "../controllers/hodControllers.ts";
+
+import { upload } from "../lib/multerConfig.ts";
+import {
+  deleteUser,
+  updateUser,
+  updateUserDetails,
+} from "../controllers/userControllers.ts";
+import { fetchAllLeaves } from "../controllers/facultyControllers.ts";
 
 const router = express.Router();
 
+
+//student management
+
 //get all students ( hod will be able to view the student details only of its own department)
-router.get(
-  "/allStudents",
-  authenticateToken,
-  authenticateHod,
-  fetchAllStudents
-);
+router.get("/allStudents", fetchAllStudents);
 
-//same as above for faculties
+//fetch leave request of students
+router.get("/leaveRequests", fetchAllLeaves);
 
+//create student
+router.post("/createStudent", upload.single("image"), createStudent);
 
-router.get("/leaveRequest",authenticateToken,authenticateHod,fetchAllLeaves)
+//create faculty
+router.post("/createFaculty", upload.single("image"), createFaculty);
+
+//update student or faculty
+router.put("/user/:userId", upload.single("image"), updateUserDetails);
+
+//delete student or faculty
+router.delete("/user/:userId", upload.single("image"), deleteUser);
+
+//update student or faculty leave status
+router.put("/updateLeaveStatus", updateLeaveStatus);
+
+//faculty management
+
+//get all faculties
+router.get("/allFaculties", fetchAllFaculties);
 
 export default router;

@@ -20,9 +20,11 @@ import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.ts";
 import prisma from "../lib/db.ts";
 import type { User } from "../lib/types.ts";
 
-export const registerStudent = async (
+export const registerUser = async (
   req: Request,
-  res: Response<ApiResponse>
+  res: Response<ApiResponse>,
+  department: string | null = null,
+  role: string = "Student"
 ) => {
   try {
     //user request validation
@@ -41,21 +43,23 @@ export const registerStudent = async (
       });
     }
     //creating the Student Object
-    const studentRoleId = await fetchRoleId("Student");
+    const studentRoleId = await fetchRoleId(role);
     const hashedPassword = await hashPassword(req.body.password);
     const encodedImage = toDataUri(req.file.path);
 
-    const newStudent: User = {
+    const newUserData: User = {
       ...req.body,
       password: hashedPassword,
       roleId: studentRoleId,
       image: encodedImage,
     };
 
+    department ? (newUserData.department = department) : {};
+
     //check if user exists or not
 
     const existingUser = await prisma.user.findUnique({
-      where: { email: newStudent.email },
+      where: { email: newUserData.email },
     });
 
     if (existingUser) {
@@ -64,10 +68,10 @@ export const registerStudent = async (
         error: API_MESSAGES.USER.ALREADY_EXISTS,
       });
     }
-    const token = generateToken(newStudent);
+    const token = generateToken(newUserData);
 
     const newUser = await prisma.user.create({
-      data: newStudent,
+      data: newUserData,
     });
     await populateUserLeaveModel(newUser.id, res);
 
@@ -78,7 +82,6 @@ export const registerStudent = async (
       token,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       error: API_MESSAGES.USER.LOGIN_ERROR,
@@ -126,15 +129,17 @@ export const updateStudent = async (
 
     req.file ? (dataToBeUpdated.image = toDataUri(req.file.path)) : {};
 
-    const updatedData = await prisma.user.update({
+    const updatedData = await prisma.user.updateMany({
       where: { id: req.user.id },
       data: dataToBeUpdated,
     });
 
     res.status(200).json({
       success: true,
-      message: API_MESSAGES.DATA.UPDATE_SUCCESS,
-      data: updatedData,
+      message: updatedData.count
+        ? API_MESSAGES.DATA.UPDATE_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: updatedData.count ? updatedData : [],
     });
   } catch (error) {
     res.status(500).json({
@@ -146,7 +151,8 @@ export const updateStudent = async (
 
 export const createLeaveApplication = async (
   req: Request,
-  res: Response<ApiResponse>
+  res: Response<ApiResponse>,
+  requestedBy: string = "Student"
 ) => {
   try {
     //user request validation
@@ -155,7 +161,7 @@ export const createLeaveApplication = async (
       return joiGlobalErrorHandler(error, res);
     }
 
-    //check if the requestToId exists or not
+    //check if the requestToId exists or not, or
     const requestToUser = await prisma.user.findUnique({
       where: { id: req.body.requestToId },
     });
@@ -167,14 +173,39 @@ export const createLeaveApplication = async (
       });
     }
 
-    //check if requestToUser has priority greater than equal to faculty
-    const facultyPriority = await fetchRolePriority("Faculty", undefined);
+    //check if user is eligible to take leave or not
+    const userLeaveDetails = await prisma.userLeave.findUnique({
+      where: { userId: req.user.id },
+    });
+    if (!userLeaveDetails || userLeaveDetails.availableLeave === 0) {
+      return res.status(400).json({
+        success: false,
+        error: API_MESSAGES.USER.LEAVE_NOT_ALLOWED,
+      });
+    }
+
+    // check if requested hod  has been assigned department or not - or user is applying to the hod or faculty of same department only
+    if (
+      !requestToUser.department ||
+      requestToUser.department != req.user.department
+    ) {
+      return res.status(500).json({
+        success: false,
+        error:
+          API_MESSAGES.USER.DEPARTMENT_NOT_ASSIGNED +
+          " or " +
+          API_MESSAGES.USER.DEPT_CONFLICT_ERROR,
+      });
+    }
+
+    //RequestToUser should have priority greater than student priority
+    const requestedByPriority = await fetchRolePriority(requestedBy, undefined);
     const requestToUserPrioriy = await fetchRolePriority(
       undefined,
       requestToUser.roleId
     );
 
-    if (requestToUserPrioriy < facultyPriority) {
+    if (requestToUserPrioriy <= requestedByPriority) {
       return res.status(500).json({
         success: false,
         error: API_MESSAGES.USER.LEAVE_ERROR,
@@ -191,6 +222,8 @@ export const createLeaveApplication = async (
     const newLeave = await prisma.leaveRequest.create({
       data: leaveData,
     });
+
+   
 
     res.status(201).json({
       success: true,
@@ -242,16 +275,15 @@ export const fetchLeaveBalance = async (
   try {
     const leaveBalance = await prisma.userLeave.findFirst({
       where: { userId: req.user.id },
-    //  include:{
-    //     user:true
-    //  }
-    omit:{
-        id:true,
-        userId:true,
-        createdAt:true,
-        updatedAt:true
-
-    }
+      //  include:{
+      //     user:true
+      //  }
+      omit: {
+        id: true,
+        userId: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     res.status(200).json({
@@ -262,7 +294,6 @@ export const fetchLeaveBalance = async (
       data: leaveBalance ? leaveBalance : [],
     });
   } catch (error) {
-    console.log(error);
     res.status(200).json({
       success: false,
       error: API_MESSAGES.DATA.FETCH_ERROR,
