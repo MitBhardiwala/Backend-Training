@@ -53,7 +53,6 @@ const sendPendingLeaveReminder = async () => {
       (leave) => leave.RequestedTo.email
     );
     const uniqueFacultyList = [...new Set(facultyEmails)];
-    console.log(uniqueFacultyList)
     uniqueFacultyList.map(async (email) => {
       await transporter.sendMail({
         from: SMTP_EMAIL,

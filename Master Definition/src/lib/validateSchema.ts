@@ -37,11 +37,8 @@ export const userUpdateSchema = Joi.object({
 }).options({ allowUnknown: false });
 
 export const userApplyLeaveSchema = Joi.object({
-  startDate: Joi.date().format("YYYY-MM-DD").required(),
-  endDate: Joi.date()
-    .format("YYYY-MM-DD")
-    .greater(Joi.ref("startDate"))
-    .required(),
+  startDate: Joi.date().required(),
+  endDate: Joi.date().min(Joi.ref("startDate")).required(),
   leaveType: Joi.string()
     .valid(...LEAVE_TYPE)
     .required(),
@@ -76,3 +73,5 @@ export const resetPasswordSchema = Joi.object({
   password: Joi.string().min(6).required(),
   otp: Joi.string().required(),
 });
+
+

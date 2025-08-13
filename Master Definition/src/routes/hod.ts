@@ -9,12 +9,7 @@ import {
 } from "../controllers/hod.ts";
 
 import { upload } from "../lib/multerConfig.ts";
-import {
-  deleteUser,
-  updateUser,
-  updateUserDetails,
-} from "../controllers/user.ts";
-import { fetchAllLeaves } from "../controllers/faculty.ts";
+import { deleteUser, updateUserDetails } from "../controllers/user.ts";
 
 const router = express.Router();
 

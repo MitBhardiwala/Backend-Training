@@ -16,3 +16,16 @@ export type User = {
 export type UserPayload = {
   id: number;
 };
+
+export type Leave = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: number;
+  startDate: Date;
+  endDate: Date;
+  leaveType: "firstHalf" | "secondHalf" | "fullDay";
+  reason: string;
+  requestToId: number;
+  status: "pending" | "approved" | "rejected";
+};

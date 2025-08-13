@@ -78,7 +78,6 @@ export const updateUser = async (req: Request, res: Response<ApiResponse>) => {
       return joiGlobalErrorHandler(error, res);
     }
 
-    console.log(req.body);
     const dataToBeUpdated = { ...req.body };
 
     req.file ? (dataToBeUpdated.image = toDataUri(req.file.path)) : {};
@@ -235,7 +234,6 @@ export const deleteUser = async (req: Request, res: Response<ApiResponse>) => {
       data: deletedUser ? deletedUser : [],
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       error: API_MESSAGES.DATA.DELETE_ERROR,
@@ -270,7 +268,6 @@ export const requestPasswordReset = async (
           error: API_MESSAGES.INTERNAL_SERVER_ERROR,
         });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       error: API_MESSAGES.INTERNAL_SERVER_ERROR,

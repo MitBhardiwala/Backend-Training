@@ -45,7 +45,6 @@ export const authenticateToken = async (
       department: user.department || null,
     };
 
-    console.log(req.user)
 
     next();
   } catch (error) {
@@ -109,7 +108,6 @@ export const checkDeptAssigned = async (
   next: NextFunction
 ) => {
   if (!req.user.department) {
-    console.log("hello");
     return res.status(400).json({
       success: false,
       error: API_MESSAGES.USER.DEPARTMENT_NOT_ASSIGNED,

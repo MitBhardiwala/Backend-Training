@@ -7,7 +7,7 @@ import {
   createLeaveApplication,
   fetchLeaveBalance,
   fetchLeaveDetails,
-} from "../controllers/student.ts";
+} from "../lib/leaveUtils.ts";
 
 const router = express.Router();
 

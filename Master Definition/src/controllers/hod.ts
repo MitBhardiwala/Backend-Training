@@ -135,7 +135,6 @@ export const updateLeaveStatus = async (
   res: Response<ApiResponse>
 ) => {
   try {
-    console.log("hello");
     const { error } = userApproveLeaveSchema.validate({ ...req.body });
     if (error) {
       return joiGlobalErrorHandler(error, res);

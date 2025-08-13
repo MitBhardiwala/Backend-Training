@@ -1,5 +1,5 @@
 import { configDotenv } from "dotenv";
-import nodemailer, { type SendMailOptions } from "nodemailer";
+import nodemailer from "nodemailer";
 
 configDotenv();
 

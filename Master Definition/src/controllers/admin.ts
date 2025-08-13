@@ -35,6 +35,7 @@ export const fetchLeaveReport = async (
             endDate: true,
             leaveType: true,
             reason: true,
+            status:true
           },
         },
       },
@@ -65,7 +66,7 @@ export const fetchLeaveReport = async (
     res.status(200).json({
       success: true,
       message: API_MESSAGES.DATA.FETCH_SUCCESS,
-      data: userwithMaxLeave,
+      data: {leaveDetails : leaveReport,userwithMaxLeave},
     });
   } catch (error) {
     res.status(500).json({

@@ -3,14 +3,12 @@ import {
   registerUser,
   fetchStudent,
   updateStudent,
-  createLeaveApplication,
-  fetchLeaveDetails,
-  fetchLeaveBalance,
 } from "../controllers/student.ts";
 import {
   authenticateToken,
   checkDeptAssigned,
 } from "../middleware/authMiddleware.ts";
+import { createLeaveApplication, fetchLeaveBalance, fetchLeaveDetails } from "../lib/leaveUtils.ts";
 
 const router = express.Router();
 

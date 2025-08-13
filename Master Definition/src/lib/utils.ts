@@ -7,15 +7,24 @@ import {
 import * as fs from "fs";
 import prisma from "./db.ts";
 import bcrypt from "bcryptjs";
-import type { User, UserPayload } from "./types.ts";
+import type { Leave, User, UserPayload } from "./types.ts";
 import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
+import { userApplyLeaveSchema } from "./validateSchema.ts";
 
 import API_MESSAGES from "./constants.ts";
 import { transporter } from "./smtp.config.ts";
 
 const SECRET_KEY: any = process.env.JWT_SECRET;
 const SMTP_EMAIL = process.env.SMTP_USER_MAIL;
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: GlobalUser;
+    }
+  }
+}
 
 export interface ApiResponse {
   success: boolean;
@@ -30,14 +39,6 @@ interface GlobalUser {
   email: string;
   roleId: number;
   department: string | null;
-}
-
-declare global {
-  namespace Express {
-    interface Request {
-      user: GlobalUser;
-    }
-  }
 }
 
 export const fetchRoleId = async (role: string) => {
@@ -182,4 +183,35 @@ export const sendOtpEmail = async (email: string) => {
     // console.log(error);
     return false;
   }
+};
+
+export const checkEligibleforLeave = (
+  newStartDate: Date,
+  newEndDate: Date,
+  userExistingLeaves: Array<Leave>
+): boolean => {
+  newStartDate = new Date(newStartDate);
+  newEndDate = new Date(newEndDate);
+
+  if (!userExistingLeaves.length) {
+    return false;
+  }
+
+  userExistingLeaves.sort(
+    (date1: any, date2: any) => date1.startDate - date2.startDate
+  );
+
+  for (let i = 0; i < userExistingLeaves.length - 1; i++) {
+    const leave: any = userExistingLeaves[i];
+    //new startdate should not be between existing leave
+    if (newStartDate >= leave.startDate && newStartDate <= leave.endDate) {
+      return false;
+    }
+
+    //new end date should also not be between existing leave
+    if (newEndDate >= leave.startDate && newEndDate <= leave.endDate) {
+      return false;
+    }
+  }
+  return true;
 };
