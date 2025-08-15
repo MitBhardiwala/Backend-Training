@@ -68,7 +68,6 @@ export const registerUser = async (
         error: API_MESSAGES.USER.ALREADY_EXISTS,
       });
     }
-    const token = generateToken(newUserData);
 
     const newUser = await prisma.user.create({
       data: newUserData,
@@ -79,7 +78,6 @@ export const registerUser = async (
       success: true,
       message: API_MESSAGES.USER.REGISTER_SUCCESS,
       data: newUser,
-      token,
     });
   } catch (error) {
     res.status(500).json({
@@ -89,30 +87,6 @@ export const registerUser = async (
   }
 };
 
-export const fetchStudent = async (
-  req: Request,
-  res: Response<ApiResponse>
-) => {
-  try {
-    const student = await prisma.user.findUnique({
-      where: { id: req.user.id },
-    });
-
-    const responseData = student ? excludePassword(student) : [];
-    res.status(200).json({
-      success: true,
-      message: student
-        ? API_MESSAGES.DATA.FETCH_SUCCESS
-        : API_MESSAGES.DATA.NOT_FOUND,
-      data: responseData,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: API_MESSAGES.DATA.FETCH_ERROR,
-    });
-  }
-};
 
 export const updateStudent = async (
   req: Request,
@@ -148,4 +122,3 @@ export const updateStudent = async (
     });
   }
 };
-

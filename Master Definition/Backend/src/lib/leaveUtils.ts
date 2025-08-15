@@ -80,18 +80,19 @@ export const createLeaveApplication = async (
       where: { userId: req.user.id },
     });
 
-    const isEligible = checkEligibleforLeave(
-      startDate,
-      endDate,
-      userExistingLeaves
-    );
+    // const isEligible = checkEligibleforLeave(
+    //   startDate,
+    //   endDate,
+    //   userExistingLeaves
+    // );
 
-    if (!isEligible) {
-      return res.status(500).json({
-        success: false,
-        error: API_MESSAGES.USER.LEAVE_ERROR,
-      });
-    }
+
+    // if (!isEligible) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     error: API_MESSAGES.USER.LEAVE_ERROR,
+    //   });
+    // }
 
     const leaveData = {
       startDate: startDate,

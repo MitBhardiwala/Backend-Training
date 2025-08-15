@@ -1,7 +1,6 @@
 import express, { type Request, type Response } from "express";
 import {
   registerUser,
-  fetchStudent,
   updateStudent,
 } from "../controllers/student.ts";
 import {
@@ -19,8 +18,6 @@ router.post("/register", (req: Request, res: Response) => {
   registerUser(req, res);
 });
 
-//view profile
-router.get("", authenticateToken, fetchStudent);
 
 //update profile
 router.put("", authenticateToken, updateStudent);
@@ -40,4 +37,6 @@ router.get(
 
 //view leave balance
 router.get("/leaveBalance", authenticateToken, fetchLeaveBalance);
+
+
 export default router;

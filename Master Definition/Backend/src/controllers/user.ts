@@ -1,5 +1,7 @@
 import type { Request, Response } from "express";
 import {
+  excludePassword,
+  fetchRoleName,
   fetchRolePriority,
   generateToken,
   hashPassword,
@@ -57,10 +59,20 @@ export const loginUser = async (req: Request, res: Response) => {
     const { createdAt, updatedAt, ...user } = existingUser;
 
     const token = generateToken(user);
+
+    const role = await fetchRoleName(existingUser.roleId);
+
     res.status(200).json({
       success: true,
       message: API_MESSAGES.USER.LOGIN_SUCCESS,
       token,
+      data: {
+        id: existingUser.id,
+        name: existingUser.name,
+        email: existingUser.email,
+        role: role,
+        department: existingUser.department,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -324,6 +336,148 @@ export const resetPassword = async (
     res.status(500).json({
       success: false,
       error: API_MESSAGES.PASSWORD.UPDATE_ERROR,
+    });
+  }
+};
+
+export const fetchUser = async (req: Request, res: Response<ApiResponse>) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      omit: {
+        password: true,
+        createdAt: true,
+        updatedAt: true,
+        verificationOtp: true,
+        verificationOtpExpires: true,
+      },
+    });
+
+    let responseData = {};
+
+    if (user) {
+      const role = await fetchRoleName(user.roleId);
+      responseData = { ...user, role: role };
+    }
+
+    res.status(200).json({
+      success: true,
+      message: user
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: responseData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
+    });
+  }
+};
+
+export const fetchUserLeaveBalance = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const { userId } = req.params;
+
+    const leaveBalance = await prisma.userLeave.findFirst({
+      where: { userId: Number(userId) },
+      //  include:{
+      //     user:true
+      //  }
+      omit: {
+        id: true,
+        userId: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: leaveBalance
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: leaveBalance ? leaveBalance : [],
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
+    });
+  }
+};
+
+export const getUserById = async (req: Request, res: Response<ApiResponse>) => {
+  try {
+    const { id } = req.params;
+    const user = await prisma.user.findUnique({
+      where: { id: Number(id) },
+      omit: {
+        password: true,
+        createdAt: true,
+        updatedAt: true,
+        verificationOtp: true,
+        verificationOtpExpires: true,
+      },
+    });
+
+    let responseData = {};
+
+    if (user) {
+      const role = await fetchRoleName(user.roleId);
+      responseData = { ...user, role: role };
+    }
+
+    res.status(200).json({
+      success: true,
+      message: user
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: responseData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
+    });
+  }
+};
+
+export const fetchLeaveHistory = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const leaveHistory = await prisma.leaveRequest.findMany({
+      where: { userId: req.user.id },
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        reason: true,
+        status: true,
+        createdAt: true,
+        RequestedTo: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: leaveHistory
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: leaveHistory ? leaveHistory : [],
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
     });
   }
 };

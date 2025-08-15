@@ -71,7 +71,5 @@ export const userUpdateSchemaByHigherAuthority = Joi.object({
 export const resetPasswordSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
-  otp: Joi.string().required(),
+  otp: Joi.number().required(),
 });
-
-

@@ -51,6 +51,15 @@ export const fetchRoleId = async (role: string) => {
   return roleDetails.id;
 };
 
+export const fetchRoleName = async (roleId: number) => {
+  const roleDetails = await prisma.role.findUnique({ where: { id: roleId } });
+  if (roleDetails === null) {
+    throw new Error(API_MESSAGES.USER.INVALID_ROLE_ID);
+  }
+
+  return roleDetails.name;
+};
+
 export const fetchRolePriority = async (name?: string, id?: number) => {
   const whereOptions: any = {};
 
@@ -163,7 +172,9 @@ export const updateUserLeaveModel = async (userId: number) => {
 
 export const sendOtpEmail = async (email: string) => {
   try {
-    const verificationOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    const verificationOtp = Math.floor(1000 + Math.random() * 9000);
+
+    //10 minutes
     const verificationOtpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
     await transporter.sendMail({

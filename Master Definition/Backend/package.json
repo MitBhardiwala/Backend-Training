@@ -17,6 +17,7 @@
     "@joi/date": "^2.1.1",
     "@types/bcrypt": "^6.0.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
     "@types/cron": "^2.0.1",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
@@ -32,6 +33,7 @@
     "base64-img": "^1.0.4",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
     "cron": "^4.3.3",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
@@ -45,6 +47,7 @@
     "node-schedule": "^2.1.1",
     "nodemailer": "^7.0.5",
     "nodemon": "^3.1.10",
+    "react-toastify": "^11.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
