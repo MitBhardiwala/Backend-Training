@@ -1,167 +1,148 @@
 "use client";
 
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
-import { registerSchema } from "../schemas/auth";
 import { toast } from "react-toastify";
-import { Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import Link from "next/link";
+import { registerSchema } from "../schemas/auth";
 import { handleRegister } from "../lib/services/auth/register";
+import ReusableForm from "../components/layout/ReusableForm";
 
-const RegisterPage = () => {
+// Type definitions for Register form
+interface RegisterFormValues {
+  name: string;
+  email: string;
+  password: string;
+  gender: string;
+  image: File | string;
+  phone: string;
+  address: string;
+  department: string;
+  class: string;
+}
+
+interface SelectFieldConfig {
+  name: string;
+  type: "select";
+  label: string;
+  options: Array<{
+    value: string;
+    label: string;
+    disabled?: boolean;
+  }>;
+}
+
+interface FileFieldConfig {
+  name: string;
+  type: "file";
+  label: string;
+  accept?: string;
+}
+
+interface BasicFieldConfig {
+  name: string;
+  type: "text" | "password" | "number";
+  label: string;
+}
+
+type RegisterFieldConfig =
+  | BasicFieldConfig
+  | SelectFieldConfig
+  | FileFieldConfig;
+
+const RegisterPage: React.FC = () => {
   const router = useRouter();
+
+  const registerFields: RegisterFieldConfig[] = [
+    {
+      name: "name",
+      type: "text",
+      label: "Name",
+    },
+    {
+      name: "email",
+      type: "text",
+      label: "Email",
+    },
+    {
+      name: "password",
+      type: "password",
+      label: "Password",
+    },
+    {
+      name: "phone",
+      type: "number",
+      label: "Phone",
+    },
+    {
+      name: "image",
+      type: "file",
+      label: "Upload File",
+      accept: "image/*",
+    },
+    {
+      name: "address",
+      type: "text",
+      label: "Address",
+    },
+    {
+      name: "class",
+      type: "text",
+      label: "Class",
+    },
+    {
+      name: "department",
+      type: "text",
+      label: "Department",
+    },
+    {
+      name: "gender",
+      type: "select",
+      label: "Select Gender",
+      options: [
+        { value: "", label: "Select gender", disabled: true },
+        { value: "male", label: "Male" },
+        { value: "female", label: "Female" },
+      ],
+    },
+  ];
+
+  const handleRegisterSubmit = async (
+    values: RegisterFormValues,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  ): Promise<void> => {
+    const result = await handleRegister(values);
+    if (result.success) {
+      toast.success(result.message);
+      router.push("/");
+    } else {
+      toast.error(result.error);
+    }
+    setSubmitting(false);
+  };
+
+  const initialValues: RegisterFormValues = {
+    name: "",
+    email: "",
+    password: "",
+    gender: "",
+    image: "",
+    phone: "",
+    address: "",
+    department: "",
+    class: "",
+  };
+
   return (
-    <>
-      <div className="container mx-auto h-screen w-[50%] flex flex-col justify-center items-center gap-5">
-        <p className="text-3xl">Register form</p>
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            password: "",
-            gender: "",
-            image: "",
-            phone: "",
-            address: "",
-            department: "",
-            class: "",
-          }}
-          validationSchema={registerSchema}
-          onSubmit={async (values, { setSubmitting }) => {
-            const result = await handleRegister(values);
-            if (result.success) {
-              toast.success(result.message);
-              router.push("/");
-            } else {
-              toast.error(result.error);
-            }
-
-            setSubmitting(false);
-          }}
-        >
-          {({ errors, touched, isSubmitting, setFieldValue }) => (
-            <Form className="flex flex-col gap-3 w-[60%]">
-              <Field
-                as={TextField}
-                name="name"
-                type="text"
-                label="Name"
-                variant="outlined"
-                fullWidth
-                error={touched.name && Boolean(errors.name)}
-                helperText={touched.name && errors.name}
-              />
-              <Field
-                as={TextField}
-                name="email"
-                type="text"
-                label="Email"
-                variant="outlined"
-                fullWidth
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
-              />
-
-              <Field
-                as={TextField}
-                type="password"
-                name="password"
-                label="Password"
-                variant="outlined"
-                fullWidth
-                error={touched.password && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
-              />
-              <Field
-                as={TextField}
-                type="number"
-                name="phone"
-                label="Phone"
-                variant="outlined"
-                fullWidth
-                error={touched.phone && Boolean(errors.phone)}
-                helperText={touched.phone && errors.phone}
-              />
-              <label htmlFor="myFile">Upload File:</label>
-              <input
-                id="myFile"
-                name="image"
-                type="file"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  if (
-                    event.currentTarget.files &&
-                    event.currentTarget.files[0]
-                  ) {
-                    setFieldValue("image", event.currentTarget.files[0]);
-                  }
-                }}
-              />
-              <ErrorMessage name="image" component="div" />
-              <Field
-                as={TextField}
-                type="text"
-                name="address"
-                label="Address"
-                variant="outlined"
-                fullWidth
-                error={touched.address && Boolean(errors.address)}
-                helperText={touched.address && errors.address}
-              />
-              <Field
-                as={TextField}
-                type="text"
-                name="class"
-                label="Class"
-                variant="outlined"
-                fullWidth
-                error={touched.class && Boolean(errors.class)}
-                helperText={touched.class && errors.class}
-              />
-              <Field
-                as={TextField}
-                type="department"
-                name="department"
-                label="Department"
-                variant="outlined"
-                fullWidth
-                error={touched.department && Boolean(errors.department)}
-                helperText={touched.department && errors.department}
-              />
-              <InputLabel id="gender">Select Gender:</InputLabel>
-              <Field
-                as={Select}
-                id="gender"
-                name="gender"
-                fullWidth
-                error={touched.gender && Boolean(errors.gender)}
-                helperText={touched.gender && errors.gender}
-              >
-                <MenuItem value="" disabled>
-                  Select gender
-                </MenuItem>
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-              </Field>
-
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-              >
-                Register
-              </Button>
-            </Form>
-          )}
-        </Formik>
-
-        <Link href="/login">
-          <Button variant="contained" color="secondary">
-            Sign in
-          </Button>
-        </Link>
-      </div>
-    </>
+    <ReusableForm
+      title="Register form"
+      initialValues={initialValues}
+      validationSchema={registerSchema}
+      onSubmit={handleRegisterSubmit}
+      fields={registerFields}
+      submitButtonText="Register"
+      additionalButtons={[
+        { href: "/login", text: "Sign in", color: "secondary" },
+      ]}
+    />
   );
 };
 

@@ -56,3 +56,33 @@ export const getUserLeaveHistory = async (accessToken: string) => {
     return { success: false, error: "An unknown error occurred." };
   }
 };
+
+
+export const applyLeave = async (
+  leaveData: {
+    startDate: string;
+    endDate: string;
+    leaveType: string;
+    reason: string;
+    requestToId: string;
+  },
+  accessToken: string
+) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/student/applyLeave`,
+      leaveData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    }
+    return { success: false, error: "An unknown error occurred." };
+  }
+};

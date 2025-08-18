@@ -13,7 +13,7 @@ const StudentLeave = async ({ userId }: MyServerComponentProps) => {
   const leaveDetails = response.data;
 
   return (
-    <div className="flex justify-between">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
       <LeaveBox
         icon={Clock9}
         leave={leaveDetails.availableLeave}
@@ -33,7 +33,7 @@ const StudentLeave = async ({ userId }: MyServerComponentProps) => {
         icon={Clock9}
         leave={leaveDetails.attendancePercentage}
         title="Attendance percentage"
-      />    
+      />
     </div>
   );
 };

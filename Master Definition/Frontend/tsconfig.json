@@ -30,6 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/lib/StoreProvider.jsx"
-, "src/app/lib/services/auth/auth.js"  ],
+, "src/app/lib/services/auth/auth.js", "src/app/components/layout/ReusableForm.jsx"  ],
   "exclude": ["node_modules"]
 }

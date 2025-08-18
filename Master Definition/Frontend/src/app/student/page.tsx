@@ -14,7 +14,7 @@ const StudentPage = async () => {
 
       <StudentLeave userId={session.user.id} />
       <LeaveHistory />
-      <ApplyLeave/>
+      <ApplyLeave />
     </>
   );
 };

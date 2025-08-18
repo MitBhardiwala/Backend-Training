@@ -5,15 +5,18 @@ interface IconProps {
   leave: number;
   title: string;
 }
+
 const LeaveBox = ({ icon: Icon, leave, title }: IconProps) => {
   return (
-    <div>
-      <div className="flex items-center border-1 gap-2 bg-green-200">
-        <Icon className="h-10 w-10" />
+    <div className="bg-white rounded-lg shadow-sm border p-4 ">
+      <div className="flex items-center space-x-3">
+        <div className="bg-blue-50 rounded-full p-2">
+          <Icon className="h-6 w-6 text-blue-600" />
+        </div>
 
-        <div className="flex flex-col">
-          <div className="font-bold">{leave}</div>
-          <div>{title}</div>
+        <div className="flex-1">
+          <div className="text-2xl font-semibold text-gray-900">{leave}</div>
+          <div className="text-sm text-gray-600">{title}</div>
         </div>
       </div>
     </div>
