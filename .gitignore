@@ -77,3 +77,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+#prisma generated folder
+generated/
