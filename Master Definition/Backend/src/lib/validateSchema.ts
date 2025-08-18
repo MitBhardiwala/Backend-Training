@@ -7,7 +7,7 @@ const LEAVE_TYPE = ["firstHalf", "secondHalf", "fullDay"];
 const LEAVE_STATUS = ["pending", "approved", "rejected"];
 
 export const userRegistrationSchema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   gender: Joi.string()
@@ -26,7 +26,7 @@ export const userLoginSchema = Joi.object({
 }).options({ allowUnknown: false });
 
 export const userUpdateSchema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(30).optional(),
+  name: Joi.string().min(3).max(30).required(),
   gender: Joi.string()
     .valid(...GENDER)
     .optional(),

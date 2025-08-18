@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,22 +18,26 @@
     "jsx": "preserve",
     "incremental": true,
     "allowImportingTsExtensions": true,
-
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/app/lib/StoreProvider.jsx"
-, "src/app/lib/services/auth/auth.js", "src/app/components/layout/ReusableForm.jsx"  ],
-  "exclude": ["node_modules"]
+    "next-env.d.ts",
+    "src/app/lib/services/auth/auth.js",
+    "src/types/next-auth.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

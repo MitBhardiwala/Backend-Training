@@ -191,7 +191,6 @@ export const sendOtpEmail = async (email: string) => {
 
     return true;
   } catch (error) {
-    // console.log(error);
     return false;
   }
 };

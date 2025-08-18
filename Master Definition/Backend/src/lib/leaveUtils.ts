@@ -113,7 +113,6 @@ export const createLeaveApplication = async (
       data: newLeave,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: API_MESSAGES.USER.LEAVE_ERROR,

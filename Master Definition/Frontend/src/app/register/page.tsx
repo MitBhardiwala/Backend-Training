@@ -2,11 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { registerSchema } from "../schemas/auth";
+import { registerSchema } from "../lib/schemas/auth";
 import { handleRegister } from "../lib/services/auth/register";
-import ReusableForm from "../components/layout/ReusableForm";
+import ReusableForm from "../lib/ReusableForm";
+import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { getDepartments } from "../lib/services/user/user";
 
-// Type definitions for Register form
 interface RegisterFormValues {
   name: string;
   email: string;
@@ -19,39 +21,13 @@ interface RegisterFormValues {
   class: string;
 }
 
-interface SelectFieldConfig {
-  name: string;
-  type: "select";
-  label: string;
-  options: Array<{
-    value: string;
-    label: string;
-    disabled?: boolean;
-  }>;
-}
-
-interface FileFieldConfig {
-  name: string;
-  type: "file";
-  label: string;
-  accept?: string;
-}
-
-interface BasicFieldConfig {
-  name: string;
-  type: "text" | "password" | "number";
-  label: string;
-}
-
-type RegisterFieldConfig =
-  | BasicFieldConfig
-  | SelectFieldConfig
-  | FileFieldConfig;
-
 const RegisterPage: React.FC = () => {
   const router = useRouter();
+  const [departments, setDepartments] = useState([
+    { value: "", label: "Select Department", disabled: true },
+  ]);
 
-  const registerFields: RegisterFieldConfig[] = [
+  const registerFields = [
     {
       name: "name",
       type: "text",
@@ -90,8 +66,9 @@ const RegisterPage: React.FC = () => {
     },
     {
       name: "department",
-      type: "text",
-      label: "Department",
+      type: "select",
+      label: "Select Department",
+      options: departments,
     },
     {
       name: "gender",
@@ -131,18 +108,36 @@ const RegisterPage: React.FC = () => {
     class: "",
   };
 
+  useEffect(() => {
+    const fetchDepartment = async () => {
+      const data = await getDepartments();
+
+      const formattedDepartments = data.map((department: string) => {
+        return { value: department, label: department };
+      });
+
+      setDepartments((prev) => {
+        return [...formattedDepartments];
+      });
+    };
+
+    fetchDepartment();
+  }, []);
+
   return (
-    <ReusableForm
-      title="Register form"
-      initialValues={initialValues}
-      validationSchema={registerSchema}
-      onSubmit={handleRegisterSubmit}
-      fields={registerFields}
-      submitButtonText="Register"
-      additionalButtons={[
-        { href: "/login", text: "Sign in", color: "secondary" },
-      ]}
-    />
+    <div className="flex flex-col h-screen justify-center gap-3">
+      <ReusableForm
+        title="Register form"
+        initialValues={initialValues}
+        validationSchema={registerSchema}
+        onSubmit={handleRegisterSubmit}
+        fields={registerFields}
+        submitButtonText="Register"
+      />
+      <Button color="secondary" onClick={() => router.push("/login")}>
+        Log in
+      </Button>
+    </div>
   );
 };
 

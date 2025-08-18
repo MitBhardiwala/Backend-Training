@@ -90,3 +90,37 @@ export const applyLeaveSchema = Yup.object({
       return true;
     }),
 });
+
+export const updateProfileSchema = Yup.object({
+  name: Yup.string().trim().min(1, "Name cannot be empty").required("Required"),
+  email: Yup.string()
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email address"
+    )
+    .required("Email is required"),
+  image: Yup.mixed()
+    .required("A file is required")
+    .test(
+      "fileSize",
+      "File too large",
+      (value) => value && value.size <= MAX_FILE_SIZE
+    )
+    .test(
+      "fileType",
+      "Unsupported file format",
+      (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+  gender: Yup.string()
+    .min(2, "Gender required")
+    .required("Please select gender"),
+  phone: Yup.string()
+    .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+    .required("Phone number is required"),
+  address: Yup.string().trim().min(1, "Address cannot be empty").required(),
+  department: Yup.string()
+    .trim()
+    .min(1, "Department cannot be empty")
+    .optional(),
+  class: Yup.string().optional(),
+});

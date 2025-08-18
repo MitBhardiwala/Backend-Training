@@ -2,15 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { applyLeaveSchema } from "@/app/schemas/auth";
+import { applyLeaveSchema } from "@/app/lib/schemas/auth";
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import { Field, Form, Formik } from "formik";
 import { Button, TextField, Select, MenuItem, InputLabel } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { applyLeave } from "@/app/lib/services/user/user";
+import { useEffect, useState } from "react";
+import { getFacultyHodList } from "@/app/lib/services/student/student";
 
-// Type definitions for Apply Leave form
 interface ApplyLeaveFormValues {
   reason: string;
   requestTo: number;
@@ -20,6 +21,7 @@ interface ApplyLeaveFormValues {
 
 const ApplyLeave: React.FC = () => {
   const { data: session } = useSession();
+  const [requestToUserList, setRequestToUserList] = useState([]);
   const router = useRouter();
 
   const handleApplyLeave = async (
@@ -40,11 +42,11 @@ const ApplyLeave: React.FC = () => {
 
     try {
       const leaveData = {
-        startDate: values.dateRange[0].toISOString(), // Full ISO-8601 DateTime format
-        endDate: values.dateRange[1].toISOString(), // Full ISO-8601 DateTime format
+        startDate: values.dateRange[0].toISOString(),
+        endDate: values.dateRange[1].toISOString(),
         leaveType: values.leaveType,
         reason: values.reason,
-        requestToId: Number(values.requestTo), // Assuming this is the user ID
+        requestToId: Number(values.requestTo),
       };
 
       const result = await applyLeave(leaveData, session.accessToken);
@@ -53,7 +55,6 @@ const ApplyLeave: React.FC = () => {
         toast.success(
           result.message || "Leave application submitted successfully!"
         );
-        // Reset form or perform any other action needed
       } else {
         toast.error(result.error || "Failed to submit leave application");
       }
@@ -65,26 +66,42 @@ const ApplyLeave: React.FC = () => {
     setSubmitting(false);
   };
 
-  const initialValues: ApplyLeaveFormValues = {
+  const initialValues = {
     reason: "",
     requestTo: "",
     leaveType: "",
     dateRange: [null, null],
   };
 
+  useEffect(() => {
+    const fetchRequestToUserList = async () => {
+      try {
+        const response = await getFacultyHodList(session.accessToken);
+        setRequestToUserList([...response]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchRequestToUserList();
+  }, []);
+
+  useEffect(() => {}, [requestToUserList]);
+
   return (
     <div>
       <div>Apply leave</div>
+
       <div className="container mx-auto w-[50%] flex flex-col justify-center items-center gap-5">
         <p className="text-3xl">Apply leave form</p>
         <Formik
           initialValues={initialValues}
           validationSchema={applyLeaveSchema}
           onSubmit={handleApplyLeave}
+          enableReinitialize={true}
         >
           {({ errors, touched, isSubmitting, setFieldValue, values }) => (
             <Form className="flex flex-col gap-3 w-[60%]">
-              {/* Reason Field */}
               <Field
                 as={TextField}
                 name="reason"
@@ -96,19 +113,42 @@ const ApplyLeave: React.FC = () => {
                 helperText={touched.reason && errors.reason}
               />
 
-              {/* Request To Field */}
-              <Field
-                as={TextField}
-                name="requestTo"
-                type="text"
-                label="Request To"
-                variant="outlined"
-                fullWidth
-                error={touched.requestTo && Boolean(errors.requestTo)}
-                helperText={touched.requestTo && errors.requestTo}
-              />
+              <div>
+                <InputLabel id="requestTo-label">
+                  Select Faculty or Hod:
+                </InputLabel>
+                <Field
+                  as={Select}
+                  labelId="requestTo-label"
+                  name="requestTo"
+                  fullWidth
+                  error={touched.requestTo && Boolean(errors.requestTo)}
+                >
+                  <MenuItem value="" disabled>
+                    Select Faculty or Hod type
+                  </MenuItem>
 
-              {/* Leave Type Select Field */}
+                  {requestToUserList.map(
+                    (user: { id: number; name: string }) => {
+                      return (
+                        <MenuItem value={user.id} key={user.id}>
+                          {user.name}
+                        </MenuItem>
+                      );
+                    }
+                  )}
+                </Field>
+                {touched.requestTo && errors.requestTo && (
+                  <div
+                    style={{
+                      color: "red",
+                    }}
+                  >
+                    {errors.requestTo}
+                  </div>
+                )}
+              </div>
+
               <div>
                 <InputLabel id="leaveType-label">Select Leave Type:</InputLabel>
                 <Field
@@ -136,7 +176,6 @@ const ApplyLeave: React.FC = () => {
                 )}
               </div>
 
-              {/* Date Range Picker - Handled explicitly with proper error handling */}
               <div>
                 <InputLabel>Select Date Range:</InputLabel>
                 <DateRangePicker
@@ -156,7 +195,7 @@ const ApplyLeave: React.FC = () => {
                       : "Please select a valid date range"}
                   </div>
                 )}
-                <p style={{ fontSize: "0.875rem", marginTop: "5px" }}>
+                <p>
                   Selected Date Range:{" "}
                   {values.dateRange &&
                   values.dateRange[0] &&

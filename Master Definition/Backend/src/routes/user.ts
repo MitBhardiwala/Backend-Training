@@ -8,6 +8,7 @@ import {
   fetchUserLeaveBalance,
   getUserById,
   fetchLeaveHistory,
+  fetchDepartments,
 } from "../controllers/user.ts";
 import { authenticateToken } from "../middleware/authMiddleware.ts";
 import { upload } from "../lib/multerConfig.ts";
@@ -22,9 +23,10 @@ router.get("", authenticateToken, fetchUser);
 router.post("/requestPasswordReset", requestPasswordReset);
 router.post("/resetPassword", resetPassword);
 
-router.get("/leaveBalance/:userId", fetchUserLeaveBalance);
+router.get("/leaveBalance", authenticateToken, fetchUserLeaveBalance);
 router.get("/leaveHistory", authenticateToken, fetchLeaveHistory);
-router.get("/:id", getUserById);
 
+//fetch departments
+router.get("/departments",fetchDepartments);
 
 export default router;

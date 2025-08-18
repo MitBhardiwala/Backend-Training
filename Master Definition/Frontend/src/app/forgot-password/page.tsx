@@ -3,9 +3,10 @@
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { emailSchema, forgotPasswordSchema } from "../schemas/auth";
+import { emailSchema, forgotPasswordSchema } from "../lib/schemas/auth";
 import { sendOtp, verifyOtp } from "../lib/services/auth/forgotPassword";
-import ReusableForm from "../components/layout/ReusableForm";
+import ReusableForm from "../lib/ReusableForm";
+import { Button } from "@mui/material";
 
 interface ForgotPasswordFormValues {
   email: string;
@@ -14,26 +15,11 @@ interface ForgotPasswordFormValues {
   otp: string;
 }
 
-interface LabelFieldConfig {
-  name: string;
-  type: "label";
-  text: string;
-  targetField: string;
-}
-
-interface BasicFieldConfig {
-  name: string;
-  type: "text" | "password" | "number";
-  label: string;
-}
-
-type ForgotPasswordFieldConfig = BasicFieldConfig | LabelFieldConfig;
-
 const ForgotPasswordPage: React.FC = () => {
   const router = useRouter();
   const [isOtpSent, setIsOtpSent] = useState<boolean>(false);
 
-  const emailFields: ForgotPasswordFieldConfig[] = [
+  const emailFields = [
     {
       name: "email-label",
       type: "label",
@@ -47,7 +33,7 @@ const ForgotPasswordPage: React.FC = () => {
     },
   ];
 
-  const resetFields: ForgotPasswordFieldConfig[] = [
+  const resetFields = [
     {
       name: "email-label",
       type: "label",
@@ -108,17 +94,19 @@ const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <ReusableForm
-      title="Forgot password form"
-      initialValues={initialValues}
-      validationSchema={isOtpSent ? forgotPasswordSchema : emailSchema}
-      onSubmit={handleForgotPassword}
-      fields={isOtpSent ? resetFields : emailFields}
-      submitButtonText={isOtpSent ? "Confirm Password" : "Send Otp"}
-      additionalButtons={[
-        { href: "/login", text: "Login", color: "secondary" },
-      ]}
-    />
+    <div className="flex flex-col h-screen justify-center gap-3">
+      <ReusableForm
+        title="Forgot password form"
+        initialValues={initialValues}
+        validationSchema={isOtpSent ? forgotPasswordSchema : emailSchema}
+        onSubmit={handleForgotPassword}
+        fields={isOtpSent ? resetFields : emailFields}
+        submitButtonText={isOtpSent ? "Confirm Password" : "Send Otp"}
+      />
+      <Button variant="text" onClick={() => router.push("/login")}>
+        Login
+      </Button>
+    </div>
   );
 };
 

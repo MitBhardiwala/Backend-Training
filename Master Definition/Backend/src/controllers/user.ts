@@ -380,10 +380,8 @@ export const fetchUserLeaveBalance = async (
   res: Response<ApiResponse>
 ) => {
   try {
-    const { userId } = req.params;
-
     const leaveBalance = await prisma.userLeave.findFirst({
-      where: { userId: Number(userId) },
+      where: { userId: Number(req.user.id) },
       //  include:{
       //     user:true
       //  }
@@ -473,6 +471,39 @@ export const fetchLeaveHistory = async (
         ? API_MESSAGES.DATA.FETCH_SUCCESS
         : API_MESSAGES.DATA.NOT_FOUND,
       data: leaveHistory ? leaveHistory : [],
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
+    });
+  }
+};
+
+export const fetchDepartments = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const data = await prisma.user.groupBy({
+      by: ["department"],
+      where: {
+        department: {
+          not: null,
+        },
+      },
+    });
+
+    const departments = data.map((department) => {
+      return department.department;
+    });
+
+    res.status(200).json({
+      success: true,
+      message: departments
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: departments ? departments : [],
     });
   } catch (error) {
     res.status(500).json({

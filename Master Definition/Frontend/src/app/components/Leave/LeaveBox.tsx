@@ -1,3 +1,5 @@
+"use client"
+
 import { LucideProps } from "lucide-react";
 
 interface IconProps {
@@ -15,7 +17,9 @@ const LeaveBox = ({ icon: Icon, leave, title }: IconProps) => {
         </div>
 
         <div className="flex-1">
-          <div className="text-2xl font-semibold text-gray-900">{leave}</div>
+          <div className="text-2xl font-semibold text-gray-900">
+            {leave || 0}
+          </div>
           <div className="text-sm text-gray-600">{title}</div>
         </div>
       </div>

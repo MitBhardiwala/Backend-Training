@@ -6,11 +6,11 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Profile from "./ProfilePhoto";
-import { User } from "@/app/lib/definitions";
+import { UserType } from "@/app/lib/definitions";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  const [userDetails, setUserDetails] = useState<User | null>(null);
+  const [userDetails, setUserDetails] = useState<UserType | null>(null);
 
   const router = useRouter();
 
@@ -20,7 +20,7 @@ const Navbar = () => {
         try {
           const response = await getUserDetails(session.accessToken);
 
-          setUserDetails(response.data);
+          setUserDetails(response);
         } catch (error) {
           console.log("Error in fetching user data :", error);
         }

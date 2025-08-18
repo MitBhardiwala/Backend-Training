@@ -1,4 +1,4 @@
-"use cl"
+"use cl";
 
 import * as React from "react";
 import Button from "@mui/material/Button";
@@ -120,12 +120,16 @@ const Profile: React.FC<ComponentProps> = ({
                       <p>{email}</p>
                       <p>{department}</p>
                     </MenuItem>
-                   
-                      <MenuItem onClick={(e)=>{
+
+                    <MenuItem
+                      onClick={(e) => {
                         handleClose(e);
-                        redirect(`/profile/${id}`)
-                      }}>Profile</MenuItem>
-                    
+                        redirect(`/profile`);
+                      }}
+                    >
+                      Profile
+                    </MenuItem>
+
                     <MenuItem
                       onClick={() => signOut({ callbackUrl: "/login" })}
                     >

@@ -5,6 +5,7 @@ import Footer from "./components/layout/Footer";
 
 import { NextAuthProvider } from "./lib/NextAuthProvider";
 import { helvetica } from "./lib/font";
+import Layout from "./components/layout/Layout";
 
 export default function RootLayout({
   children,
@@ -15,11 +16,7 @@ export default function RootLayout({
     <NextAuthProvider>
       <html>
         <body className={helvetica.className}>
-          {" "}
-          <Navbar />
-          {children}
-          <Footer />
-          <ToastContainer />
+          <Layout>{children}</Layout>
         </body>
       </html>
     </NextAuthProvider>

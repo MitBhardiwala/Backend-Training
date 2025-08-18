@@ -1,10 +1,10 @@
-import { Leave } from "@/app/lib/definitions";
+import { LeaveRecordType } from "@/app/lib/definitions";
 import { getDaysDifference } from "@/app/lib/utils";
 import { LucideProps } from "lucide-react";
 
 interface Props {
   icon: React.FC<LucideProps>;
-  leave: Leave;
+  leave: LeaveRecordType;
 }
 
 export default function LeaveRecord({ icon: Icon, leave }: Props) {

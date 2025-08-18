@@ -87,7 +87,6 @@ export const registerUser = async (
   }
 };
 
-
 export const updateStudent = async (
   req: Request,
   res: Response<ApiResponse>
@@ -119,6 +118,41 @@ export const updateStudent = async (
     res.status(500).json({
       success: false,
       message: API_MESSAGES.DATA.UPDATE_ERROR,
+    });
+  }
+};
+
+export const fetchFacultyAndHodList = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const studentPriority = await fetchRoleId("Student");
+
+    const facultyAndHodList = await prisma.user.findMany({
+      where: {
+        department: req.user.department,
+        roleId: {
+          gt: studentPriority,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: facultyAndHodList
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: facultyAndHodList ? facultyAndHodList : [],
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
     });
   }
 };

@@ -23,7 +23,7 @@ export const handleRegister = async (data: registerUserInterface) => {
       filteredData,
       {
         headers: {
-          "Content-Type": "multipart/form-data", // Important for file uploads
+          "Content-Type": "multipart/form-data", 
         },
       }
     );

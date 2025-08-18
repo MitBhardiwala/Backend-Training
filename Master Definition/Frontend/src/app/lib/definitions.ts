@@ -1,4 +1,4 @@
-export interface User {
+export interface UserType {
   id: number;
   name: string;
   email: string;
@@ -12,7 +12,7 @@ export interface User {
   role: string;
 }
 
-export interface Leave {
+export interface LeaveRecordType {
   id: number;
   startDate: string;
   endDate: string;
@@ -22,4 +22,13 @@ export interface Leave {
   RequestedTo: {
     name: string;
   };
+}
+
+export interface LeaveBalanceType {
+  totalLeave: number;
+  availableLeave: number;
+  usedLeave: number;
+  academicYear: string;
+  totalWorkingDays: number;
+  attendancePercentage: number;
 }

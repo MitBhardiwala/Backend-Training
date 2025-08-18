@@ -1,5 +1,6 @@
 import express, { type Request, type Response } from "express";
 import {
+  fetchFacultyAndHodList,
   registerUser,
   updateStudent,
 } from "../controllers/student.ts";
@@ -27,16 +28,8 @@ router.post("/applyLeave", authenticateToken, checkDeptAssigned, (req, res) => {
   return createLeaveApplication(req, res);
 });
 
-//view status
-router.get(
-  "/leaveStatus",
-  authenticateToken,
-  checkDeptAssigned,
-  fetchLeaveDetails
-);
-
-//view leave balance
-router.get("/leaveBalance", authenticateToken, fetchLeaveBalance);
+//fetch faculties or hod to whom student can apply leave(only of same department)
+router.get("/facultyAndHodList",authenticateToken,fetchFacultyAndHodList)
 
 
 export default router;
