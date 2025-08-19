@@ -1,8 +1,12 @@
 import express from "express";
 import { upload } from "../lib/multerConfig.ts";
-import { createStudent, updateLeaveStatus } from "../controllers/hod.ts";
+import { fetchAllStudents, updateLeaveStatus } from "../controllers/hod.ts";
 import { deleteUser, updateUserDetails } from "../controllers/user.ts";
-import { fetchAllLeaves } from "../controllers/faculty.ts";
+import {
+  createStudent,
+  fetchAllLeaves,
+  fetchHodList,
+} from "../controllers/faculty.ts";
 import {
   createLeaveApplication,
   fetchLeaveBalance,
@@ -20,10 +24,16 @@ router.put("/user/:userId", upload.single("image"), updateUserDetails);
 //delete student
 router.delete("/user/:userId", upload.single("image"), deleteUser);
 
+//fetch all students
+router.get("/allStudents", fetchAllStudents);
+
 //apply leave requests
 router.post("/applyLeave", (req, res) => {
   return createLeaveApplication(req, res, "Faculty");
 });
+
+//fetch hod list
+router.get("/hodList", fetchHodList);
 
 //view student leave requests
 router.get("/leaveRequests", fetchAllLeaves);

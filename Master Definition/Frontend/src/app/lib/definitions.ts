@@ -32,3 +32,21 @@ export interface LeaveBalanceType {
   totalWorkingDays: number;
   attendancePercentage: number;
 }
+
+export interface ErrorType {
+  success: boolean;
+  error: string;
+}
+
+export interface HodStats {
+  totalStudents: number;
+  totalFaculties: number;
+  pendingRequest: number;
+}
+export interface AdminStats {
+  totalUsers: number;
+  totalStudents: number;
+  totalFaculty: number;
+  totalHods: number;
+  totalDepartments: number;
+}

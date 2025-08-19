@@ -128,7 +128,7 @@ export default function ProfilePage({}) {
           onSubmit={handleProfileUpdate}
           fields={userProfileFields}
           submitButtonText="Update Profile"
-          isUpdate={true}
+          disabledFields={['password','department','email']}
         />
       </div>
     </>

@@ -22,7 +22,6 @@ export default function StudentDashboard() {
         setLeaveBalance(userLeaveBalance);
 
         const userLeaveHistory = await getUserLeaveHistory(session.accessToken);
-
         setLeaveHistory(userLeaveHistory);
       } catch (error) {
         console.log(error);

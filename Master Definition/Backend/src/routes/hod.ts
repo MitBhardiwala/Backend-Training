@@ -6,6 +6,7 @@ import {
   fetchAllFaculties,
   createFaculty,
   fetchAllLeaveRequests,
+  fetchStats,
 } from "../controllers/hod.ts";
 
 import { upload } from "../lib/multerConfig.ts";
@@ -31,7 +32,7 @@ router.post("/createFaculty", upload.single("image"), createFaculty);
 router.put("/user/:userId", upload.single("image"), updateUserDetails);
 
 //delete student or faculty
-router.delete("/user/:userId", upload.single("image"), deleteUser);
+router.delete("/user/:userId", deleteUser);
 
 //update student or faculty leave status
 router.put("/updateLeaveStatus", updateLeaveStatus);
@@ -40,5 +41,8 @@ router.put("/updateLeaveStatus", updateLeaveStatus);
 
 //get all faculties
 router.get("/allFaculties", fetchAllFaculties);
+
+//hod stats
+router.get("/stats", fetchStats);
 
 export default router;

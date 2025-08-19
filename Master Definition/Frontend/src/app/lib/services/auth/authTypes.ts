@@ -13,6 +13,7 @@ export interface registerUserInterface {
   address: string;
   department?: string;
   class?: string;
+  role?: string;
 }
 
 export interface resetPasswordInterface {

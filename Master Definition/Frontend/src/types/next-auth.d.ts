@@ -5,9 +5,14 @@ declare module "next-auth" {
   interface Session {
     user: {
       id?: string; // Example: Add a custom 'id' property
-      
+      role?: string;
+      name?: string;
+      department?: string;
+      email?: string;
+
       // Add any other custom properties here
-    } & DefaultSession["user"];
+    };
+    accessToken: string;
   }
 
   interface User {

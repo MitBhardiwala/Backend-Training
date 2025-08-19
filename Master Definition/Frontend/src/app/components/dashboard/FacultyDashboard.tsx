@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import LeaveBalance from "../Leave/LeaveBalance";
 import LeaveHistory from "../Leave/LeaveHistory";
 import ApplyLeave from "../Leave/ApplyLeave";
+import Link from "next/link";
+import { Button } from "@mui/material";
+
 
 export default function FacultyDashboard() {
   const { data: session } = useSession();
@@ -34,10 +37,14 @@ export default function FacultyDashboard() {
 
   return (
     <>
-      <div>Student Dashborad</div>;
+      <div>Faculty Dashborad</div>;
       <LeaveBalance leaveBalance={leaveBalance} />
       <LeaveHistory leaveHistory={leaveHistory} />
       <ApplyLeave />
+      <Button
+       variant="contained" href="/manage-students">
+        Manage students
+      </Button>
     </>
   );
 }

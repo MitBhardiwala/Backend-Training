@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import StudentDashboard from "../components/dashboard/StudentDashboard";
 import FacultyDashboard from "../components/dashboard/FacultyDashboard";
+import HodDashboard from "../components/dashboard/HodDashboard";
+import AdminDashboard from "../components/dashboard/AdminDashboard";
 
 const DashBoard = () => {
   const { data: session, status } = useSession();
@@ -24,6 +26,10 @@ const DashBoard = () => {
         return <StudentDashboard />;
       case "Faculty":
         return <FacultyDashboard />;
+      case "Hod":
+        return <HodDashboard />;
+      case "Admin":
+        return <AdminDashboard/>
       default:
         return <div>No user role found</div>;
     }

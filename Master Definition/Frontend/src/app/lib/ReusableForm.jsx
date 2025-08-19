@@ -23,7 +23,7 @@ const ReusableForm = ({
   onSubmit,
   fields,
   submitButtonText,
-  isUpdate = false,
+  disabledFields = [],
   className = "container mx-auto w-[40%] flex flex-col justify-center items-center gap-5",
 }) => {
   const renderField = (field, formikProps) => {
@@ -41,6 +41,7 @@ const ReusableForm = ({
               name={field.name}
               fullWidth
               error={isError}
+              disabled={disabledFields.includes(field.name)}
             >
               {field.options?.map((option) => (
                 <MenuItem
@@ -171,9 +172,7 @@ const ReusableForm = ({
             fullWidth
             error={isError}
             helperText={helperText}
-            disabled={
-              isUpdate && (field.name === "email" ||  field.name === "department")
-            }
+            disabled={disabledFields.includes(field.name)}
           />
         );
     }

@@ -4,6 +4,8 @@ import {
   createHod,
   createStudent,
   fetchLeaveReport,
+  fetchStats,
+  fetchAllHods,
 } from "../controllers/admin.ts";
 import { upload } from "../lib/multerConfig.ts";
 import { deleteUser, updateUserDetails } from "../controllers/user.ts";
@@ -28,5 +30,11 @@ router.delete("/user/:userId", deleteUser);
 
 //leave Report
 router.get("/leaveReport", fetchLeaveReport);
+
+//stats
+router.get("/stats", fetchStats);
+
+//fetch all Hods
+router.get("/allHods", fetchAllHods);
 
 export default router;

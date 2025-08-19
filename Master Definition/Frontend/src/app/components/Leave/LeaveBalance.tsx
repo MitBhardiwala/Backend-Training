@@ -1,6 +1,6 @@
 import React from "react";
 import { Clock9 } from "lucide-react";
-import LeaveBox from "./LeaveBox";
+import StatsBox from "./StatsBox";
 import { LeaveBalanceType } from "@/app/lib/definitions";
 
 const LeaveBalance = ({ leaveBalance }: { leaveBalance: LeaveBalanceType }) => {
@@ -12,22 +12,22 @@ const LeaveBalance = ({ leaveBalance }: { leaveBalance: LeaveBalanceType }) => {
     <>
       <p>Leave Details:</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-        <LeaveBox
+        <StatsBox
           icon={Clock9}
           leave={leaveBalance.availableLeave}
           title="Leaves Available"
         />
-        <LeaveBox
+        <StatsBox
           icon={Clock9}
           leave={leaveBalance.usedLeave}
           title="Leaves Used"
         />
-        <LeaveBox
+        <StatsBox
           icon={Clock9}
           leave={leaveBalance.totalLeave}
           title="Total Leaves"
         />
-        <LeaveBox
+        <StatsBox
           icon={Clock9}
           leave={leaveBalance.attendancePercentage}
           title="Attendance percentage"

@@ -8,7 +8,7 @@ interface IconProps {
   title: string;
 }
 
-const LeaveBox = ({ icon: Icon, leave, title }: IconProps) => {
+const StatsBox = ({ icon: Icon, leave, title }: IconProps) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border p-4 ">
       <div className="flex items-center space-x-3">
@@ -27,4 +27,4 @@ const LeaveBox = ({ icon: Icon, leave, title }: IconProps) => {
   );
 };
 
-export default LeaveBox;
+export default StatsBox;

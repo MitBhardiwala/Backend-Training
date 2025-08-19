@@ -20,7 +20,7 @@ export const authenticateToken = async (
     if (!token) {
       return res.status(500).json({
         success: false,
-        message: API_MESSAGES.AUTH.INVALID_TOKEN,
+        error: API_MESSAGES.AUTH.INVALID_TOKEN,
       });
     }
 
@@ -34,7 +34,7 @@ export const authenticateToken = async (
     if (!user) {
       return res.status(500).json({
         success: false,
-        message: API_MESSAGES.AUTH.INVALID_TOKEN,
+        error: API_MESSAGES.AUTH.INVALID_TOKEN,
       });
     }
 
@@ -50,7 +50,7 @@ export const authenticateToken = async (
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: API_MESSAGES.AUTH.INVALID_TOKEN,
+      error: API_MESSAGES.AUTH.INVALID_TOKEN,
     });
   }
 };
@@ -65,7 +65,7 @@ export const authenticateHod = async (
   if (req.user.roleId !== hodRoleId) {
     return res.status(500).json({
       success: false,
-      message: API_MESSAGES.AUTH.UNAUTHORIZED,
+      error: API_MESSAGES.AUTH.UNAUTHORIZED,
     });
   }
   next();
@@ -81,7 +81,7 @@ export const authenticateFaculty = async (
   if (req.user.roleId !== hodRoleId) {
     return res.status(500).json({
       success: false,
-      message: API_MESSAGES.AUTH.UNAUTHORIZED,
+      error: API_MESSAGES.AUTH.UNAUTHORIZED,
     });
   }
   next();
@@ -96,7 +96,7 @@ export const authenticateAdmin = async (
   if (req.user.roleId !== hodRoleId) {
     return res.status(500).json({
       success: false,
-      message: API_MESSAGES.AUTH.UNAUTHORIZED,
+      error: API_MESSAGES.AUTH.UNAUTHORIZED,
     });
   }
   next();

@@ -18,6 +18,8 @@ const router = express.Router();
 //user login ( student, faculty, hod and admin)
 
 router.post("/login", loginUser);
+
+
 router.put("", upload.single("image"), authenticateToken, updateUser);
 router.get("", authenticateToken, fetchUser);
 router.post("/requestPasswordReset", requestPasswordReset);
@@ -28,5 +30,7 @@ router.get("/leaveHistory", authenticateToken, fetchLeaveHistory);
 
 //fetch departments
 router.get("/departments",fetchDepartments);
+
+router.get("/:id",getUserById)
 
 export default router;

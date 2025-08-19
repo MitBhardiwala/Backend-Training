@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { applyLeave } from "@/app/lib/services/user/user";
 import { useEffect, useState } from "react";
 import { getFacultyHodList } from "@/app/lib/services/student/student";
+import { getHodList } from "@/app/lib/services/faculty/faculty";
 
 interface ApplyLeaveFormValues {
   reason: string;
@@ -21,6 +22,7 @@ interface ApplyLeaveFormValues {
 
 const ApplyLeave: React.FC = () => {
   const { data: session } = useSession();
+  const role = session.user.role;
   const [requestToUserList, setRequestToUserList] = useState([]);
   const router = useRouter();
 
@@ -76,7 +78,10 @@ const ApplyLeave: React.FC = () => {
   useEffect(() => {
     const fetchRequestToUserList = async () => {
       try {
-        const response = await getFacultyHodList(session.accessToken);
+        const response =
+          role === "Student"
+            ? await getFacultyHodList(session.accessToken)
+            : await getHodList(session.accessToken);
         setRequestToUserList([...response]);
       } catch (error) {
         console.log(error);

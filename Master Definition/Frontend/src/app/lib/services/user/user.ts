@@ -1,4 +1,5 @@
 import axios from "axios";
+import { UserType } from "../../definitions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -37,7 +38,7 @@ export const getUserLeaveBalance = async (accessToken: string) => {
 export const getUserDetailsById = async (id: number) => {
   try {
     const response = await axios.get(`${BASE_URL}/user/${id}`);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return error.response.data;
@@ -90,7 +91,10 @@ export const applyLeave = async (
   }
 };
 
-export const updateUserProfile = async (accessToken, user) => {
+export const updateUserProfile = async (
+  accessToken: string,
+  user: UserType
+) => {
   try {
     const response = await axios.put(`${BASE_URL}/user`, user, {
       headers: {
@@ -118,4 +122,3 @@ export const getDepartments = async () => {
     return { success: false, error: "An unknown error occurred." };
   }
 };
-

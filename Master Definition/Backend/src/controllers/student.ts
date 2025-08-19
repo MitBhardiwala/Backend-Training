@@ -42,15 +42,15 @@ export const registerUser = async (
         error: API_MESSAGES.VALIDATION.IMAGE_NOT_FOUND,
       });
     }
-    //creating the Student Object
-    const studentRoleId = await fetchRoleId(role);
+    //creating the user Object
+    const userRoleId = await fetchRoleId(role);
     const hashedPassword = await hashPassword(req.body.password);
     const encodedImage = toDataUri(req.file.path);
 
     const newUserData: User = {
       ...req.body,
       password: hashedPassword,
-      roleId: studentRoleId,
+      roleId: userRoleId,
       image: encodedImage,
     };
 

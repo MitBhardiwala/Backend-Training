@@ -27,10 +27,11 @@ export const fetchAllStudents = async (
       omit: {
         password: true,
         image: true,
-        class: true,
         createdAt: true,
         updatedAt: true,
         roleId: true,
+        verificationOtp: true,
+        verificationOtpExpires: true,
       },
     });
 
@@ -191,6 +192,54 @@ export const updateLeaveStatus = async (
     return res.status(500).json({
       success: false,
       error: API_MESSAGES.LEAVE_REQUEST.ERROR,
+    });
+  }
+};
+
+export const fetchStats = async (req: Request, res: Response<ApiResponse>) => {
+  try {
+    const facultyRoleId = await fetchRoleId("Faculty");
+    const studentRoleId = await fetchRoleId("Student");
+
+    const totalStudents = await prisma.user.count({
+      where: {
+        OR: [{ roleId: facultyRoleId }, { roleId: studentRoleId }],
+        department: req.user.department,
+      },
+    });
+    const totalFaculties = await prisma.user.count({
+      where: {
+        roleId: facultyRoleId,
+        department: req.user.department,
+      },
+    });
+
+    const pendingRequest = await prisma.leaveRequest.count({
+      where: {
+        RequestedBy: {
+          department: req.user.department,
+        },
+        status: "pending",
+      },
+    });
+
+    const stats = {
+      totalStudents: totalStudents,
+      totalFaculties: totalFaculties,
+      pendingRequest: pendingRequest,
+    };
+
+    res.status(200).json({
+      success: true,
+      message: stats
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: stats ? stats : [],
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
     });
   }
 };
