@@ -16,6 +16,7 @@ import Link from "next/link";
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Image from "next/image";
+
 const ReusableForm = ({
   title,
   initialValues,
@@ -27,9 +28,11 @@ const ReusableForm = ({
   className = "container mx-auto w-[40%] flex flex-col justify-center items-center gap-5",
 }) => {
   const renderField = (field, formikProps) => {
-    const { errors, touched, setFieldValue } = formikProps;
+    const { errors, touched, setFieldValue, values } = formikProps;
     const isError = touched[field.name] && Boolean(errors[field.name]);
     const helperText = touched[field.name] && errors[field.name];
+    const isDisabled = disabledFields.includes(field.name);
+
     switch (field.type) {
       case "select":
         return (
@@ -41,7 +44,7 @@ const ReusableForm = ({
               name={field.name}
               fullWidth
               error={isError}
-              disabled={disabledFields.includes(field.name)}
+              disabled={isDisabled}
             >
               {field.options?.map((option) => (
                 <MenuItem
@@ -76,16 +79,31 @@ const ReusableForm = ({
                 }
               }}
               accept={field.accept}
+              disabled={isDisabled}
             />
-            {initialValues.image && (
-              <Image
-                src={initialValues.image}
-                width={50}
-                height={50}
-                alt="profile photo"
-                className="rounded-full object-cover"
-              />
+            {values[field.name] && typeof values[field.name] === "string" && (
+              <div style={{ marginTop: "10px" }}>
+                <p style={{ fontSize: "0.875rem", marginBottom: "5px" }}>
+                  Current image:
+                </p>
+                <Image
+                  src={values[field.name]}
+                  width={100}
+                  height={100}
+                  alt="Current profile photo"
+                  className="rounded-full object-cover"
+                />
+              </div>
             )}
+            {values[field.name] &&
+              typeof values[field.name] === "object" &&
+              values[field.name].name && (
+                <div style={{ marginTop: "10px" }}>
+                  <p style={{ fontSize: "0.875rem", color: "green" }}>
+                    New file selected: {values[field.name].name}
+                  </p>
+                </div>
+              )}
             {isError && (
               <div
                 style={{ color: "red", fontSize: "0.75rem", marginTop: "3px" }}
@@ -100,9 +118,10 @@ const ReusableForm = ({
           <div key={field.name}>
             <InputLabel>{field.label}:</InputLabel>
             <DateRangePicker
-              value={formikProps.values[field.name]}
+              value={values[field.name]}
               format={field.format || "MM/dd/yyyy"}
               onChange={(date) => setFieldValue(field.name, date)}
+              disabled={isDisabled}
             />
             {isError && (
               <div
@@ -114,12 +133,10 @@ const ReusableForm = ({
             {field.showSelected && (
               <p style={{ fontSize: "0.875rem", marginTop: "5px" }}>
                 Selected Date Range:{" "}
-                {formikProps.values[field.name] &&
-                formikProps.values[field.name][0] &&
-                formikProps.values[field.name][1]
-                  ? `${formikProps.values[
-                      field.name
-                    ][0]?.toDateString()} - ${formikProps.values[
+                {values[field.name] &&
+                values[field.name][0] &&
+                values[field.name][1]
+                  ? `${values[field.name][0]?.toDateString()} - ${values[
                       field.name
                     ][1]?.toDateString()}`
                   : "None"}
@@ -129,7 +146,12 @@ const ReusableForm = ({
         );
       case "radio":
         return (
-          <FormControl key={field.name} component="fieldset" error={isError}>
+          <FormControl
+            key={field.name}
+            component="fieldset"
+            error={isError}
+            disabled={isDisabled}
+          >
             <FormLabel component="legend">{field.label}:</FormLabel>
             <Field name={field.name}>
               {({ field: fieldProps }) => (
@@ -140,6 +162,7 @@ const ReusableForm = ({
                       value={option.value}
                       control={<Radio />}
                       label={option.label}
+                      disabled={isDisabled}
                     />
                   ))}
                 </RadioGroup>
@@ -172,11 +195,12 @@ const ReusableForm = ({
             fullWidth
             error={isError}
             helperText={helperText}
-            disabled={disabledFields.includes(field.name)}
+            disabled={isDisabled}
           />
         );
     }
   };
+
   return (
     <div className={className}>
       <p className="text-3xl">{title}</p>
@@ -206,4 +230,5 @@ const ReusableForm = ({
     </div>
   );
 };
+
 export default ReusableForm;

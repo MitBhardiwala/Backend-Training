@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { getUserDetails, updateUserProfile } from "../lib/services/user/user";
 import ReusableForm from "../lib/ReusableForm";
-import { registerSchema, updateProfileSchema } from "../lib/schemas/auth";
+import { updateProfileSchema } from "../lib/schemas/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -46,7 +46,7 @@ export default function ProfilePage({}) {
     },
     {
       name: "phone",
-      type: "number",
+      type: "text",
       label: "Phone",
     },
     {
@@ -86,17 +86,28 @@ export default function ProfilePage({}) {
     values: UserProfileValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
-    const { email, department, ...updatedUser } = values;
-    const result = await updateUserProfile(session.accessToken, updatedUser);
-    if (result.success) {
-      toast.success(result.message);
-      router.push("/");
-    } else {
-      toast.error(result.error);
-    }
+    try {
+      const { email, department, ...updatedUser } = values;
+      
+      if (typeof updatedUser.image === 'string') {
+        delete updatedUser.image;
+      }
+      
+      const result = await updateUserProfile(session.accessToken, updatedUser);
+      if (result.success) {
+        toast.success(result.message);
+        router.push("/");
+      } else {
+        toast.error(result.error);
+      }
 
-    console.log(updatedUser);
-    setSubmitting(false);
+      console.log(updatedUser);
+    } catch (error) {
+      toast.error("An error occurred while updating profile");
+      console.error(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -107,6 +118,7 @@ export default function ProfilePage({}) {
         setInitialValues(user);
       } catch (error) {
         console.log(error);
+        toast.error("Failed to load user details");
       }
     };
     if (session) {
@@ -114,7 +126,7 @@ export default function ProfilePage({}) {
     }
   }, [session]);
 
-  if (status === "loading") return <div>Loading. ..</div>;
+  if (status === "loading") return <div>Loading...</div>;
 
   if (!session) return <div>No session token found</div>;
 
@@ -128,7 +140,7 @@ export default function ProfilePage({}) {
           onSubmit={handleProfileUpdate}
           fields={userProfileFields}
           submitButtonText="Update Profile"
-          disabledFields={['password','department','email']}
+          disabledFields={['email','department']}
         />
       </div>
     </>

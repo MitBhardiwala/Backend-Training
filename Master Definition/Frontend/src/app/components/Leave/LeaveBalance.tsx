@@ -1,39 +1,43 @@
 import React from "react";
-import { Clock9 } from "lucide-react";
+import { Calendar, Clock, CheckCircle, BarChart3 } from "lucide-react";
 import StatsBox from "./StatsBox";
 import { LeaveBalanceType } from "@/app/lib/definitions";
 
 const LeaveBalance = ({ leaveBalance }: { leaveBalance: LeaveBalanceType }) => {
   if (!leaveBalance) {
-    return <div>No leave details found ...</div>;
+    return (
+      <div className="bg-white rounded-lg p-6 text-center text-gray-500">
+        No leave details found
+      </div>
+    );
   }
 
   return (
-    <>
-      <p>Leave Details:</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+    <div className="bg-white rounded-lg p-6">
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Leave Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsBox
-          icon={Clock9}
+          icon={Calendar}
           leave={leaveBalance.availableLeave}
-          title="Leaves Available"
+          title="Available Leaves"
         />
         <StatsBox
-          icon={Clock9}
+          icon={Clock}
           leave={leaveBalance.usedLeave}
-          title="Leaves Used"
+          title="Used Leaves"
         />
         <StatsBox
-          icon={Clock9}
+          icon={CheckCircle}
           leave={leaveBalance.totalLeave}
           title="Total Leaves"
         />
         <StatsBox
-          icon={Clock9}
+          icon={BarChart3}
           leave={leaveBalance.attendancePercentage}
-          title="Attendance percentage"
+          title="Attendance %"
         />
       </div>
-    </>
+    </div>
   );
 };
 

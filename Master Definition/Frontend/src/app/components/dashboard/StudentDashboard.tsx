@@ -32,11 +32,15 @@ export default function StudentDashboard() {
   }, [session]);
 
   return (
-    <>
-      <div>Student Dashborad</div>;
-      <LeaveBalance leaveBalance={leaveBalance} />
-      <LeaveHistory leaveHistory={leaveHistory} />
-      <ApplyLeave />
-    </>
+    <div className="bg-gray-50 min-h-screen p-6">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
+        <div className="space-y-6">
+          <LeaveBalance leaveBalance={leaveBalance} />
+          <LeaveHistory leaveHistory={leaveHistory} />
+          <ApplyLeave />
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-"use cl";
+"use client";
 
 import * as React from "react";
 import Button from "@mui/material/Button";
@@ -11,7 +11,7 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import { Link } from "lucide-react";
+import { User, LogOut } from "lucide-react";
 import { redirect } from "next/navigation";
 
 interface ComponentProps {
@@ -56,7 +56,6 @@ const Profile: React.FC<ComponentProps> = ({
     }
   }
 
-  // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -76,20 +75,21 @@ const Profile: React.FC<ComponentProps> = ({
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
+          sx={{ minWidth: 'auto', padding: 0 }}
         >
           <Image
             src={image ? image : "/images/profile_photo.jpeg"}
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt="profile photo"
-            className="rounded-full object-cover"
+            className="rounded-full object-cover border-2 border-gray-300"
           />
         </Button>
         <Popper
           open={open}
           anchorEl={anchorRef.current}
           role={undefined}
-          placement="bottom-start"
+          placement="bottom-end"
           transition
           disablePortal
         >
@@ -98,10 +98,10 @@ const Profile: React.FC<ComponentProps> = ({
               {...TransitionProps}
               style={{
                 transformOrigin:
-                  placement === "bottom-start" ? "left top" : "left bottom",
+                  placement === "bottom-end" ? "right top" : "right bottom",
               }}
             >
-              <Paper>
+              <Paper sx={{ minWidth: 200 }}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}
@@ -109,16 +109,12 @@ const Profile: React.FC<ComponentProps> = ({
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <p>{name}</p>
-                      <p>{email}</p>
-                      <p>{department}</p>
+                    <MenuItem disabled>
+                      <div className="flex flex-col items-start py-2">
+                        <p className="font-semibold text-gray-800">{name}</p>
+                        <p className="text-sm text-gray-600">{email}</p>
+                        <p className="text-sm text-gray-500">{department}</p>
+                      </div>
                     </MenuItem>
 
                     <MenuItem
@@ -126,13 +122,17 @@ const Profile: React.FC<ComponentProps> = ({
                         handleClose(e);
                         redirect(`/profile`);
                       }}
+                      className="flex items-center gap-2"
                     >
+                      <User className="w-4 h-4" />
                       Profile
                     </MenuItem>
 
                     <MenuItem
                       onClick={() => signOut({ callbackUrl: "/login" })}
+                      className="flex items-center gap-2 text-red-600"
                     >
+                      <LogOut className="w-4 h-4" />
                       Logout
                     </MenuItem>
                   </MenuList>

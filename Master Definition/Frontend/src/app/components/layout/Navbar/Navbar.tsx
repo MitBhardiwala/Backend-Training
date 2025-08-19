@@ -19,7 +19,6 @@ const Navbar = () => {
       if (session && session?.accessToken) {
         try {
           const response = await getUserDetails(session.accessToken);
-
           setUserDetails(response);
         } catch (error) {
           console.log("Error in fetching user data :", error);
@@ -30,38 +29,39 @@ const Navbar = () => {
   }, [session, status]);
 
   return (
-    <>
-      <div className="flex bg-amber-100 justify-around items-center p-5 ">
-        <p className="text-3xl text-blue-700 text">Leave Management</p>
-        <div className="flex justify-center items-center gap-4">
-          {status === "authenticated" && (
-            <Profile
-              id={userDetails?.id ?? undefined}
-              image={userDetails?.image}
-              name={userDetails?.name ?? ""}
-              email={userDetails?.email ?? ""}
-              department={userDetails?.department ?? ""}
-            />
-          )}
+    <div className="flex bg-blue-50 justify-between items-center p-5">
+      <button
+        onClick={() => router.push("/dashboard")}
+        className="text-3xl text-blue-700 cursor-pointer"
+      >
+        Leave Management
+      </button>
 
-          <Button
-            sx={{ borderColor: "black", color: "black" }}
-            variant="outlined"
-            size="medium"
-            onClick={() => {
-              if (status === "authenticated") {
-                signOut({ callbackUrl: "/login" });
-              } else {
-                router.push("/login");
-              }
-            }}
-          >
-            {status === "authenticated" ? "Sign Out" : "Sign In"}
-          </Button>
-        </div>
+      <div className="flex items-center gap-4">
+        {status === "authenticated" && (
+          <Profile
+            id={userDetails?.id ?? undefined}
+            image={userDetails?.image}
+            name={userDetails?.name ?? ""}
+            email={userDetails?.email ?? ""}
+            department={userDetails?.department ?? ""}
+          />
+        )}
+
+        <Button
+          variant="outlined"
+          onClick={() => {
+            if (status === "authenticated") {
+              signOut({ callbackUrl: "/login" });
+            } else {
+              router.push("/login");
+            }
+          }}
+        >
+          {status === "authenticated" ? "Sign Out" : "Sign In"}
+        </Button>
       </div>
-      ;
-    </>
+    </div>
   );
 };
 

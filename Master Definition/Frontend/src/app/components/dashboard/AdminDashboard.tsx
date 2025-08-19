@@ -20,16 +20,18 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const fetchStats = async () => {
+      if (!session?.accessToken) return;
       try {
-        const respone = await getAdminStats(session.accessToken);
-        setStats(respone);
+        const response = await getAdminStats(session.accessToken);
+        setStats(response);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchStats();
-  }, []);
+  }, [session]);
+
   return (
     <>
       <div>Hod dashboard</div>;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "nodemon --exec tsx src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
@@ -49,6 +49,8 @@
     "nodemon": "^3.1.10",
     "react-toastify": "^11.0.5",
     "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "tsx": "^4.20.4",
     "typescript": "^5.9.2"
   },
   "devDependencies": {

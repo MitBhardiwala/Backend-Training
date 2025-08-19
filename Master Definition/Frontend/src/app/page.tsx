@@ -15,11 +15,31 @@ export default function Home() {
     }
   }, [session]);
 
-  if (status === "loading") return <div>Loading....</div>;
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div>Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <Button>Login</Button>
-    </>
+    <div className="min-h-screen flex justify-center items-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-blue-700 mb-4">
+          Leave Management
+        </h1>
+        <p className="text-gray-600 mb-8">
+          Manage your leave requests
+        </p>
+        
+        <Button
+          variant="contained"
+          onClick={() => router.push("/login")}
+        >
+          Login
+        </Button>
+      </div>
+    </div>
   );
 }

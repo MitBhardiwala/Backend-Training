@@ -34,6 +34,7 @@ export const userUpdateSchema = Joi.object({
   phone: Joi.number().optional(),
   address: Joi.string().optional(),
   class: Joi.string().optional(),
+  department: Joi.string().optional(),
 }).options({ allowUnknown: false });
 
 export const userApplyLeaveSchema = Joi.object({
@@ -66,6 +67,7 @@ export const userUpdateSchemaByHigherAuthority = Joi.object({
   address: Joi.string().optional(),
   department: Joi.string().optional(),
   class: Joi.string().optional(),
+  image: Joi.string().optional(),
 }).options({ allowUnknown: false });
 
 export const resetPasswordSchema = Joi.object({

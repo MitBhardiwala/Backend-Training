@@ -1,11 +1,13 @@
 import express from "express";
 import {
-  createFaculty,
-  createHod,
-  createStudent,
-  fetchLeaveReport,
-  fetchStats,
-  fetchAllHods,
+	createFaculty,
+	createHod,
+	createStudent,
+	fetchLeaveReport,
+	fetchStats,
+	fetchAllHods,
+	fetchAllStudents,
+	fetchAllFaculties,
 } from "../controllers/admin.ts";
 import { upload } from "../lib/multerConfig.ts";
 import { deleteUser, updateUserDetails } from "../controllers/user.ts";
@@ -36,5 +38,11 @@ router.get("/stats", fetchStats);
 
 //fetch all Hods
 router.get("/allHods", fetchAllHods);
+
+//fetch all Students
+router.get("/allStudents", fetchAllStudents);
+
+//fetch all Faculties
+router.get("/allFaculties", fetchAllFaculties);
 
 export default router;
