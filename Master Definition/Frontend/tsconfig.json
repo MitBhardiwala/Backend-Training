@@ -36,7 +36,7 @@
     "src/app/lib/services/auth/auth.js",
     "src/types/next-auth.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "src/app/lib/ReusableForm.jsx"  ],
   "exclude": [
     "node_modules"
   ]

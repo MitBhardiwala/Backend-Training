@@ -9,26 +9,40 @@ import { useEffect, useState } from "react";
 import LeaveBalance from "../Leave/LeaveBalance";
 import LeaveHistory from "../Leave/LeaveHistory";
 import ApplyLeave from "../Leave/ApplyLeave";
-import Link from "next/link";
-import { Button } from "@mui/material";
 
+import { Button } from "@mui/material";
+import { LeaveBalanceType } from "@/app/lib/definitions";
 
 export default function FacultyDashboard() {
   const { data: session } = useSession();
-  const [leaveBalance, setLeaveBalance] = useState([]);
+  const [leaveBalance, setLeaveBalance] = useState<LeaveBalanceType>({
+    totalLeave: 0,
+    availableLeave: 0,
+    usedLeave: 0,
+    totalWorkingDays: 0,
+    attendancePercentage: 0,
+  });
   const [leaveHistory, setLeaveHistory] = useState([]);
 
   useEffect(() => {
+    if (session) {
+    }
     const fetchDetails = async () => {
-      try {
-        const userLeaveBalance = await getUserLeaveBalance(session.accessToken);
-        setLeaveBalance(userLeaveBalance);
+      if (session) {
+        try {
+          const userLeaveBalance = await getUserLeaveBalance(
+            session.accessToken
+          );
+          setLeaveBalance(userLeaveBalance);
 
-        const userLeaveHistory = await getUserLeaveHistory(session.accessToken);
+          const userLeaveHistory = await getUserLeaveHistory(
+            session.accessToken
+          );
 
-        setLeaveHistory(userLeaveHistory);
-      } catch (error) {
-        console.log(error);
+          setLeaveHistory(userLeaveHistory);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
 
@@ -37,14 +51,14 @@ export default function FacultyDashboard() {
 
   return (
     <>
-      <div>Faculty Dashborad</div>;
-      <LeaveBalance leaveBalance={leaveBalance} />
-      <LeaveHistory leaveHistory={leaveHistory} />
-      <ApplyLeave />
-      <Button
-       variant="contained" href="/manage-students">
-        Manage students
-      </Button>
+      <div className="space-y-6">
+        <LeaveBalance leaveBalance={leaveBalance} />
+        <LeaveHistory leaveHistory={leaveHistory} />
+        <ApplyLeave />
+        <Button variant="contained" href="/manage-students">
+          Manage students
+        </Button>
+      </div>
     </>
   );
 }

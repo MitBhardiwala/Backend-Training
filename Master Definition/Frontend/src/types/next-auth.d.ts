@@ -4,11 +4,11 @@ import NextAuth, { DefaultSession } from "next-auth";
 declare module "next-auth" {
   interface Session {
     user: {
-      id?: string; // Example: Add a custom 'id' property
-      role?: string;
-      name?: string;
-      department?: string;
-      email?: string;
+      id: string; // Example: Add a custom 'id' property
+      role: string;
+      name: string;
+      department: string | null;
+      email: string;
 
       // Add any other custom properties here
     };

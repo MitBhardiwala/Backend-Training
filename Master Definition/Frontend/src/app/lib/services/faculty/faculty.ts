@@ -2,6 +2,7 @@ import axios from "axios";
 import { registerUserInterface } from "../auth/authTypes";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
+
 interface MyObject {
   [key: string]: string | number | undefined;
 }
@@ -22,9 +23,9 @@ export const getHodList = async (accessToken: string) => {
   }
 };
 
-export const fetchStudentsList = async (accessToken: string) => {
+export const fetchFacultysList = async (accessToken: string, role: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/faculty/allStudents`, {
+    const response = await axios.get(`${BASE_URL}/${role}/allFaculties`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -37,11 +38,14 @@ export const fetchStudentsList = async (accessToken: string) => {
     return { success: false, error: "An unknown error occurred." };
   }
 };
-
-export const deleteStudent = async (accessToken: string, studentId: number) => {
+export const deleteFaculty = async (
+  accessToken: string,
+  facultyId: number,
+  role: string
+) => {
   try {
     const response = await axios.delete(
-      `${BASE_URL}/faculty/user/${studentId}`,
+      `${BASE_URL}/${role}/user/${facultyId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -57,9 +61,10 @@ export const deleteStudent = async (accessToken: string, studentId: number) => {
   }
 };
 
-export const createStudent = async (
+export const createFaculty = async (
   accessToken: string,
-  data: registerUserInterface
+  data: registerUserInterface,
+  role: string
 ) => {
   try {
     //removed null values
@@ -72,7 +77,7 @@ export const createStudent = async (
     });
 
     const response = await axios.post(
-      `${BASE_URL}/faculty/createStudent`,
+      `${BASE_URL}/${role}/createFaculty`,
       filteredData,
       {
         headers: {
@@ -84,16 +89,19 @@ export const createStudent = async (
 
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
+    if (axios.isAxiosError(error) && error.response && error.response.data) {
       return error.response.data;
     }
+
     return { success: false, error: "An unknown error occurred." };
   }
 };
-export const updateStudent = async (
+
+export const updateFaculty = async (
   accessToken: string,
   data: registerUserInterface,
-  userId:number
+  facultyId: number,
+  role: string
 ) => {
   try {
     //removed null values
@@ -106,7 +114,7 @@ export const updateStudent = async (
     });
 
     const response = await axios.put(
-      `${BASE_URL}/faculty/user/${userId}`,
+      `${BASE_URL}/${role}/user/${facultyId}`,
       filteredData,
       {
         headers: {

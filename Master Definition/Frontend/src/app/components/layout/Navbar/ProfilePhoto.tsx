@@ -13,22 +13,9 @@ import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { User, LogOut } from "lucide-react";
 import { redirect } from "next/navigation";
+import { UserType } from "@/app/lib/definitions";
 
-interface ComponentProps {
-  id: number | undefined;
-  image: string | undefined;
-  name: string;
-  email: string;
-  department: string;
-}
-
-const Profile: React.FC<ComponentProps> = ({
-  id,
-  image,
-  name,
-  email,
-  department,
-}) => {
+const Profile = ({ user }: { user: UserType }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -67,7 +54,7 @@ const Profile: React.FC<ComponentProps> = ({
 
   return (
     <Stack direction="row" spacing={2}>
-      <div>
+      <div className="z-10">
         <Button
           ref={anchorRef}
           id="composition-button"
@@ -75,10 +62,10 @@ const Profile: React.FC<ComponentProps> = ({
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-          sx={{ minWidth: 'auto', padding: 0 }}
+          sx={{ minWidth: "auto", padding: 0 }}
         >
           <Image
-            src={image ? image : "/images/profile_photo.jpeg"}
+            src={user.image ? user.image : "/images/profile_photo.jpeg"}
             width={40}
             height={40}
             alt="profile photo"
@@ -111,9 +98,13 @@ const Profile: React.FC<ComponentProps> = ({
                   >
                     <MenuItem disabled>
                       <div className="flex flex-col items-start py-2">
-                        <p className="font-semibold text-gray-800">{name}</p>
-                        <p className="text-sm text-gray-600">{email}</p>
-                        <p className="text-sm text-gray-500">{department}</p>
+                        <p className="font-semibold text-gray-800">
+                          {user.name}
+                        </p>
+                        <p className="text-sm text-gray-600">{user.email}</p>
+                        <p className="text-sm text-gray-500">
+                          {user.department}
+                        </p>
                       </div>
                     </MenuItem>
 

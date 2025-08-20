@@ -3,7 +3,7 @@ import { getHodStats } from "@/app/lib/services/hod/hod";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import StatsBox from "../Leave/StatsBox";
-import { Clock9 } from "lucide-react";
+import { CircleUserRound, Clock9, SquareUser, User } from "lucide-react";
 import { Button } from "@mui/material";
 import { HodStats } from "@/app/lib/definitions";
 
@@ -17,11 +17,13 @@ export default function HodDashboard() {
 
   useEffect(() => {
     const fetchStats = async () => {
-      try {
-        const respone = await getHodStats(session.accessToken);
-        setStats(respone);
-      } catch (error) {
-        console.log(error);
+      if (session) {
+        try {
+          const respone = await getHodStats(session.accessToken);
+          setStats(respone);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
 
@@ -30,22 +32,27 @@ export default function HodDashboard() {
 
   return (
     <>
-      <div>Hod dashboard</div>;
-      <StatsBox
-        icon={Clock9}
-        leave={stats.totalStudents}
-        title="Total Students"
-      />
-      <StatsBox
-        icon={Clock9}
-        leave={stats.totalFaculties}
-        title="Total Faculties"
-      />
-      <StatsBox
-        icon={Clock9}
-        leave={stats.pendingRequest}
-        title="Pending Leave Request"
-      />
+      <div className="bg-white rounded-lg p-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Stats Overview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <StatsBox
+            icon={User}
+            leave={stats.totalStudents}
+            title="Total Students"
+          />
+          <StatsBox
+            icon={CircleUserRound}
+            leave={stats.totalFaculties}
+            title="Total Faculties"
+          />
+          <StatsBox
+            icon={SquareUser}
+            leave={stats.pendingRequest}
+            title="Pending Leave Request"
+          />
+        </div>
+      </div>
+
       <Button variant="contained" href="/manage-students">
         Manage students
       </Button>

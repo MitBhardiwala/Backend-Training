@@ -30,22 +30,13 @@ const Navbar = () => {
 
   return (
     <div className="flex bg-blue-50 justify-between items-center p-5">
-      <button
-        onClick={() => router.push("/dashboard")}
-        className="text-3xl text-blue-700 cursor-pointer"
-      >
-        Leave Management
+      <button onClick={() => router.push("/dashboard")}>
+        <p className="text-2xl text-blue-700 cursor-pointer">Leave Management</p>
       </button>
 
       <div className="flex items-center gap-4">
-        {status === "authenticated" && (
-          <Profile
-            id={userDetails?.id ?? undefined}
-            image={userDetails?.image}
-            name={userDetails?.name ?? ""}
-            email={userDetails?.email ?? ""}
-            department={userDetails?.department ?? ""}
-          />
+        {status === "authenticated" && userDetails && (
+          <Profile user={userDetails} />
         )}
 
         <Button

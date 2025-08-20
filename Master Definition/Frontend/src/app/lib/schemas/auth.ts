@@ -26,14 +26,14 @@ export const registerSchema = Yup.object({
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .required("Required"),
-    image: Yup.mixed()
+  image: Yup.mixed()
     .nullable()
-    .test("fileSize", "File too large", function(value) {
-      if (!value || typeof value === 'string') return true;
+    .test("fileSize", "File too large", function (value) {
+      if (!value || typeof value === "string") return true;
       return value.size <= MAX_FILE_SIZE;
     })
-    .test("fileType", "Unsupported file format", function(value) {
-      if (!value || typeof value === 'string') return true;
+    .test("fileType", "Unsupported file format", function (value) {
+      if (!value || typeof value === "string") return true;
       return SUPPORTED_FORMATS.includes(value.type);
     }),
   gender: Yup.string()
@@ -89,9 +89,6 @@ export const applyLeaveSchema = Yup.object({
     }),
 });
 
-
-
-
 export const updateProfileSchema = Yup.object({
   name: Yup.string().trim().min(1, "Name cannot be empty").required("Required"),
   email: Yup.string()
@@ -102,12 +99,12 @@ export const updateProfileSchema = Yup.object({
     .required("Email is required"),
   image: Yup.mixed()
     .nullable()
-    .test("fileSize", "File too large", function(value) {
-      if (!value || typeof value === 'string') return true;
+    .test("fileSize", "File too large", function (value) {
+      if (!value || typeof value === "string") return true;
       return value.size <= MAX_FILE_SIZE;
     })
-    .test("fileType", "Unsupported file format", function(value) {
-      if (!value || typeof value === 'string') return true;
+    .test("fileType", "Unsupported file format", function (value) {
+      if (!value || typeof value === "string") return true;
       return SUPPORTED_FORMATS.includes(value.type);
     }),
   gender: Yup.string()
@@ -116,7 +113,10 @@ export const updateProfileSchema = Yup.object({
   phone: Yup.string()
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
     .required("Phone number is required"),
-  address: Yup.string().trim().min(1, "Address cannot be empty").required("Address is required"),
-  department: Yup.string().trim().nullable() ,
-  class: Yup.string().trim(),
+  address: Yup.string()
+    .trim()
+    .min(1, "Address cannot be empty")
+    .required("Address is required"),
+  department: Yup.string().trim().nullable(),
+  class: Yup.string().trim().min(1, "Class cannot be empty"),
 });

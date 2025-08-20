@@ -1,12 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { handleRegister } from "@/app/lib/services/auth/register";
-import { getDepartments } from "@/app/lib/services/user/user";
 import ReusableForm from "@/app/lib/ReusableForm";
 import { registerSchema } from "@/app/lib/schemas/auth";
 
@@ -25,17 +18,14 @@ interface addUserFormValues {
 const AddUserForm = ({
   userTobeAddedRole,
   handleAddUser,
-  department,
+  departments,
+  isAdmin = false,
 }: {
   userTobeAddedRole: string;
   handleAddUser: (values, { setSubmitting }) => void;
-  department: string;
+  departments: { value: string; label: string }[];
+  isAdmin: boolean;
 }) => {
-  const router = useRouter();
-  const [departments, setDepartments] = useState([
-    { value: department, label: department },
-  ]);
-
   const addUserFields = [
     {
       name: "name",
@@ -99,25 +89,11 @@ const AddUserForm = ({
     image: "",
     phone: "",
     address: "",
-    department: department,
+    department: isAdmin ? "" : departments[0].value,
     class: "",
   };
 
-  // useEffect(() => {
-  //   const fetchDepartment = async () => {
-  //     const data = await getDepartments();
-
-  //     const formattedDepartments = data.map((department: string) => {
-  //       return { value: department, label: department };
-  //     });
-
-  //     setDepartments((prev) => {
-  //       return [...formattedDepartments];
-  //     });
-  //   };
-
-  //   fetchDepartment();
-  // }, []);
+  const disabledFields = isAdmin ? [] : ["department"];
 
   return (
     <div className="flex flex-col justify-center gap-3 bg-yellow-50">
@@ -128,7 +104,7 @@ const AddUserForm = ({
         onSubmit={handleAddUser}
         fields={addUserFields}
         submitButtonText="Add User"
-        disabledFields={["department"]}
+        disabledFields={disabledFields}
       />
     </div>
   );

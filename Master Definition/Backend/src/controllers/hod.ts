@@ -95,9 +95,17 @@ export const fetchAllLeaveRequests = async (
           department: req.user.department,
         },
       },
-      include: {
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        leaveType: true,
+        reason: true,
+        status: true,
+
         RequestedBy: {
           select: {
+            id: true,
             name: true,
             email: true,
             department: true,
@@ -203,7 +211,7 @@ export const fetchStats = async (req: Request, res: Response<ApiResponse>) => {
 
     const totalStudents = await prisma.user.count({
       where: {
-        OR: [{ roleId: facultyRoleId }, { roleId: studentRoleId }],
+        OR: [{ roleId: studentRoleId }],
         department: req.user.department,
       },
     });

@@ -17,11 +17,20 @@ export const fetchAllLeaves = async (
       where: {
         requestToId: req.user.id,
       },
-      include: {
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        leaveType: true,
+        reason: true,
+        status: true,
+
         RequestedBy: {
           select: {
+            id: true,
             name: true,
             email: true,
+            department: true,
           },
         },
       },

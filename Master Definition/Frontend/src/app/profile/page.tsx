@@ -12,7 +12,7 @@ interface UserProfileValues {
   name: string;
   email: string;
   gender: string;
-  image: File | string;
+  image: string;
   phone: string;
   address: string;
   department: string;
@@ -86,39 +86,48 @@ export default function ProfilePage({}) {
     values: UserProfileValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
-    try {
-      const { email, department, ...updatedUser } = values;
-      
-      if (typeof updatedUser.image === 'string') {
-        delete updatedUser.image;
-      }
-      
-      const result = await updateUserProfile(session.accessToken, updatedUser);
-      if (result.success) {
-        toast.success(result.message);
-        router.push("/");
-      } else {
-        toast.error(result.error);
-      }
+    if (session) {
+      try {
+        const { email, department, ...updatedUser } = values;
 
-      console.log(updatedUser);
-    } catch (error) {
-      toast.error("An error occurred while updating profile");
-      console.error(error);
-    } finally {
-      setSubmitting(false);
+        if (typeof updatedUser.image === "string") {
+          delete updatedUser.image;
+        }
+
+        const result = await updateUserProfile(
+          session.accessToken,
+          updatedUser
+        );
+        if (result.success) {
+          toast.success(result.message);
+          router.push("/");
+        } else {
+          toast.error(result.error);
+        }
+      } catch (error) {
+        toast.error("An error occurred while updating profile");
+        console.error(error);
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const userDetails = await getUserDetails(session.accessToken);
-        const { id, role, roleId, grNumber, ...user } = userDetails;
-        setInitialValues(user);
-      } catch (error) {
-        console.log(error);
-        toast.error("Failed to load user details");
+      if (session) {
+        try {
+          const userDetails = await getUserDetails(session.accessToken);
+          console.log(userDetails);
+          const { id, role, roleId, grNumber, ...user } = userDetails;
+          if (user.class === null || undefined) {
+            delete user.class;
+          }
+          setInitialValues(user);
+        } catch (error) {
+          console.log(error);
+          toast.error("Failed to load user details");
+        }
       }
     };
     if (session) {
@@ -140,7 +149,7 @@ export default function ProfilePage({}) {
           onSubmit={handleProfileUpdate}
           fields={userProfileFields}
           submitButtonText="Update Profile"
-          disabledFields={['email','department']}
+          disabledFields={["email", "department"]}
         />
       </div>
     </>

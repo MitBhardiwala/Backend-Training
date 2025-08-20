@@ -1,33 +1,25 @@
 "use client";
 
-
 import { useEffect, useState } from "react";
 
-import {
- 
-  getUserDetailsById,
-} from "@/app/lib/services/user/user";
+import { getUserDetailsById } from "@/app/lib/services/user/user";
 import ReusableForm from "@/app/lib/ReusableForm";
 import { registerSchema } from "@/app/lib/schemas/auth";
-
-
 
 const EditUserForm = ({
   userToBeEditedRole,
   handleEditUser,
-  department,
+  departments,
   userId,
+  isAdmin = false,
 }: {
   userToBeEditedRole: string;
   handleEditUser: (values, { setSubmitting }) => void;
-  department: string;
+  departments: { value: string; label: string }[];
   userId: number;
+  isAdmin: boolean;
 }) => {
-  
-
-  const [departments, setDepartments] = useState([
-    { value: department, label: department },
-  ]);
+  console.log(departments);
   const [loading, setLoading] = useState(true);
   const [initialValues, setInitialValues] = useState({
     name: "",
@@ -37,7 +29,7 @@ const EditUserForm = ({
     image: "",
     phone: "",
     address: "",
-    department: department,
+    department: "",
     class: "",
   });
 
@@ -103,26 +95,25 @@ const EditUserForm = ({
         setInitialValues((prev) => ({
           ...prev,
           name: user.name,
-          email:user.email,
-          department:user.department,
-          gender:user.gender,
-          address:user.address,
-          phone:user.phone,
-          class:user.class || "",
-          image:user.image
-
+          email: user.email,
+          department: user.department || "",
+          gender: user.gender,
+          address: user.address,
+          phone: user.phone,
+          class: user.class || "",
+          image: user.image,
         }));
-        
-        
       } catch (error) {
         console.log(error);
-      }finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchUser();
   }, [userId]);
+
+  const disabledFields = isAdmin ? [''] : ["department", "email"];
 
   return (
     <div className="flex flex-col justify-center gap-3 bg-yellow-50">
@@ -134,7 +125,7 @@ const EditUserForm = ({
           onSubmit={handleEditUser}
           fields={addUserFields}
           submitButtonText="Edit User"
-          disabledFields={["department","email"]}
+          disabledFields={disabledFields}
         />
       )}
     </div>

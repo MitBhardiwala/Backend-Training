@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { loginSchema } from "../lib/schemas/auth";
 import ReusableForm from "../lib/ReusableForm";
-import { Button } from "@mui/material";
 
 interface LoginFormValues {
   email: string;
@@ -52,9 +51,22 @@ const LoginPage: React.FC = () => {
     password: "",
   };
 
+  const additionalButtons = [
+    {
+      text: "forgot password",
+      variant: "text",
+      link: "/forgot-password",
+    },
+    {
+      text: "create account",
+      color: "secondary",
+      link: "/register",
+    },
+  ];
+
   return (
     <>
-      <div className="flex flex-col h-screen justify-center gap-3">
+      <div className="flex flex-col h-screen justify-center gap-3 items-center">
         <ReusableForm
           title="Login form"
           initialValues={initialValues}
@@ -62,13 +74,8 @@ const LoginPage: React.FC = () => {
           onSubmit={handleLogin}
           fields={loginFields}
           submitButtonText="Login"
+          additionalButtons={additionalButtons}
         />
-        <Button variant="text" onClick={() => router.push("/forgot-password")}>
-          Forgot Password
-        </Button>
-        <Button color="secondary" onClick={() => router.push("/register")}>
-          Create account
-        </Button>
       </div>
     </>
   );

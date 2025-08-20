@@ -13,7 +13,7 @@ export default function Home() {
     if (session) {
       router.push("/dashboard");
     }
-  }, [session]);
+  }, [session,router]);
 
   if (status === "loading") {
     return (
@@ -29,14 +29,9 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-blue-700 mb-4">
           Leave Management
         </h1>
-        <p className="text-gray-600 mb-8">
-          Manage your leave requests
-        </p>
-        
-        <Button
-          variant="contained"
-          onClick={() => router.push("/login")}
-        >
+        <p className="text-gray-600 mb-8">Manage your leave requests</p>
+
+        <Button variant="contained" onClick={() => router.push("/login")}>
           Login
         </Button>
       </div>

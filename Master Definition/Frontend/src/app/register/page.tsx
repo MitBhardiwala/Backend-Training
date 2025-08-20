@@ -108,6 +108,14 @@ const RegisterPage: React.FC = () => {
     class: "",
   };
 
+  const additionalButtons = [
+    {
+      text: "login",
+      color: "secondary",
+      link: "/login",
+    },
+  ];
+
   useEffect(() => {
     const fetchDepartment = async () => {
       const data = await getDepartments();
@@ -133,10 +141,8 @@ const RegisterPage: React.FC = () => {
         onSubmit={handleRegisterSubmit}
         fields={registerFields}
         submitButtonText="Register"
+        additionalButtons={additionalButtons}
       />
-      <Button color="secondary" onClick={() => router.push("/login")}>
-        Log in
-      </Button>
     </div>
   );
 };

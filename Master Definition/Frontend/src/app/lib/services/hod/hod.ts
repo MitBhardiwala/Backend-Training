@@ -21,10 +21,9 @@ export const getHodStats = async (accessToken: string) => {
     return { success: false, error: "An unknown error occurred." };
   }
 };
-
-export const fetchFacultysList = async (accessToken: string) => {
+export const fetchHodsList = async (accessToken: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/hod/allFaculties`, {
+    const response = await axios.get(`${BASE_URL}/admin/allHods`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -37,9 +36,9 @@ export const fetchFacultysList = async (accessToken: string) => {
     return { success: false, error: "An unknown error occurred." };
   }
 };
-export const deleteFaculty = async (accessToken: string, facultyId: number) => {
+export const deleteHod = async (accessToken: string, facultyId: number) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/hod/user/${facultyId}`, {
+    const response = await axios.delete(`${BASE_URL}/admin/user/${facultyId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -53,7 +52,7 @@ export const deleteFaculty = async (accessToken: string, facultyId: number) => {
   }
 };
 
-export const createFaculty = async (
+export const createHod = async (
   accessToken: string,
   data: registerUserInterface
 ) => {
@@ -68,7 +67,7 @@ export const createFaculty = async (
     });
 
     const response = await axios.post(
-      `${BASE_URL}/hod/createFaculty`,
+      `${BASE_URL}/admin/createHod`,
       filteredData,
       {
         headers: {
@@ -88,7 +87,7 @@ export const createFaculty = async (
   }
 };
 
-export const updateFaculty = async (
+export const updateHod = async (
   accessToken: string,
   data: registerUserInterface,
   facultyId: number
@@ -104,7 +103,7 @@ export const updateFaculty = async (
     });
 
     const response = await axios.put(
-      `${BASE_URL}/hod/user/${facultyId}`,
+      `${BASE_URL}/admin/user/${facultyId}`,
       filteredData,
       {
         headers: {

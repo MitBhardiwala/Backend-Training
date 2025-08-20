@@ -12,7 +12,6 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import Link from "next/link";
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Image from "next/image";
@@ -26,6 +25,7 @@ const ReusableForm = ({
   submitButtonText,
   disabledFields = [],
   className = "container mx-auto w-[40%] flex flex-col justify-center items-center gap-5",
+  additionalButtons = [],
 }) => {
   const renderField = (field, formikProps) => {
     const { errors, touched, setFieldValue, values } = formikProps;
@@ -51,6 +51,7 @@ const ReusableForm = ({
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}
+                  selected={option.selected}
                 >
                   {option.label}
                 </MenuItem>
@@ -223,6 +224,16 @@ const ReusableForm = ({
               >
                 {submitButtonText}
               </Button>
+              {additionalButtons.length>0 &&
+                additionalButtons.map((button) => (
+                  <Button
+                    variant={button.variant}
+                    href={button.link}
+                    color={button.color}
+                  >
+                    {button.text}
+                  </Button>
+                ))}
             </Form>
           );
         }}

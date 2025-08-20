@@ -93,6 +93,14 @@ const ForgotPasswordPage: React.FC = () => {
     otp: "",
   };
 
+  const additionalButtons = [
+    {
+      text: "login",
+      variant: "text",
+      link: "/login",
+    },
+  ];
+
   return (
     <div className="flex flex-col h-screen justify-center gap-3">
       <ReusableForm
@@ -102,10 +110,8 @@ const ForgotPasswordPage: React.FC = () => {
         onSubmit={handleForgotPassword}
         fields={isOtpSent ? resetFields : emailFields}
         submitButtonText={isOtpSent ? "Confirm Password" : "Send Otp"}
+        additionalButtons={additionalButtons}
       />
-      <Button variant="text" onClick={() => router.push("/login")}>
-        Login
-      </Button>
     </div>
   );
 };

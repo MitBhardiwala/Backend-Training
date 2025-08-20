@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { applyLeaveSchema } from "@/app/lib/schemas/auth";
 import { DateRangePicker } from "rsuite";
@@ -15,27 +14,37 @@ import { getHodList } from "@/app/lib/services/faculty/faculty";
 
 interface ApplyLeaveFormValues {
   reason: string;
-  requestTo: number;
+  requestTo: string;
   leaveType: string;
   dateRange: [Date | null, Date | null] | null;
 }
 
-const ApplyLeave: React.FC = () => {
+const ApplyLeave = () => {
   const { data: session } = useSession();
-  const role = session.user.role;
   const [requestToUserList, setRequestToUserList] = useState([]);
-  const router = useRouter();
+
+  useEffect(() => {
+    const fetchRequestToUserList = async () => {
+      try {
+        if (session) {
+          const response =
+            session.user.role === "Student"
+              ? await getFacultyHodList(session.accessToken)
+              : await getHodList(session.accessToken);
+          setRequestToUserList(response);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchRequestToUserList();
+  }, [session]);
 
   const handleApplyLeave = async (
     values: ApplyLeaveFormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
-    if (!session?.user?.id || !session?.accessToken) {
-      toast.error("User session not found. Please login again.");
-      setSubmitting(false);
-      return;
-    }
-
     if (!values.dateRange || !values.dateRange[0] || !values.dateRange[1]) {
       toast.error("Please select a valid date range");
       setSubmitting(false);
@@ -75,28 +84,8 @@ const ApplyLeave: React.FC = () => {
     dateRange: [null, null],
   };
 
-  useEffect(() => {
-    const fetchRequestToUserList = async () => {
-      try {
-        const response =
-          role === "Student"
-            ? await getFacultyHodList(session.accessToken)
-            : await getHodList(session.accessToken);
-        setRequestToUserList([...response]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchRequestToUserList();
-  }, []);
-
-  useEffect(() => {}, [requestToUserList]);
-
   return (
     <div>
-      <div>Apply leave</div>
-
       <div className="container mx-auto w-[50%] flex flex-col justify-center items-center gap-5">
         <p className="text-3xl">Apply leave form</p>
         <Formik
