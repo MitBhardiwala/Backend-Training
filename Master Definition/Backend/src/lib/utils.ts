@@ -225,3 +225,23 @@ export const checkEligibleforLeave = (
   }
   return true;
 };
+
+export const getDatesBasedOnLeaveType = (
+  startDate: string,
+  endDate: string,
+  leaveType: string
+) => {
+  const newStartDate = new Date(startDate);
+  leaveType === "secondHalf"
+    ? newStartDate.setUTCHours(14, 0, 0, 0)
+    : newStartDate.setUTCHours(9, 0, 0, 0);
+  const formattedStartDate = newStartDate.toISOString();
+
+  const newEndDate = new Date(endDate);
+  leaveType === "firstHalf"
+    ? newEndDate.setUTCHours(13, 0, 0, 0)
+    : newEndDate.setUTCHours(18, 30, 0, 0);
+  const formattedEndDate = newEndDate.toISOString();
+
+  return { newStartDate: formattedStartDate, newEndDate: formattedEndDate };
+};

@@ -10,6 +10,7 @@ interface addUserFormValues {
   gender: string;
   image: File | string;
   phone: string;
+  grNumber: string;
   address: string;
   department: string;
   class: string;
@@ -46,6 +47,11 @@ const AddUserForm = ({
       name: "phone",
       type: "number",
       label: "Phone",
+    },
+    {
+      name: "grNumber",
+      type: "text",
+      label: "Gr number",
     },
     {
       name: "image",
@@ -88,6 +94,7 @@ const AddUserForm = ({
     gender: "",
     image: "",
     phone: "",
+    grNumber: "",
     address: "",
     department: isAdmin ? "" : departments[0].value,
     class: "",
@@ -96,7 +103,7 @@ const AddUserForm = ({
   const disabledFields = isAdmin ? [] : ["department"];
 
   return (
-    <div className="flex flex-col justify-center gap-3 bg-yellow-50">
+    <div className="flex flex-col justify-center gap-3 bg-white">
       <ReusableForm
         title={`Add ${userTobeAddedRole} form`}
         initialValues={initialValues}

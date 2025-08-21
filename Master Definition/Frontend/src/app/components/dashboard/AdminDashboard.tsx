@@ -1,36 +1,27 @@
-"use client";
-
-import { AdminStats, HodStats } from "@/app/lib/definitions";
 import { getAdminStats } from "@/app/lib/services/admin/admin";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import StatsBox from "../Leave/StatsBox";
-import { CircleUserRound, Clock9, RectangleEllipsis, SquareUser, UserRoundCog, UsersRound } from "lucide-react";
+import {
+  CircleUserRound,
+  RectangleEllipsis,
+  SquareUser,
+  UserRoundCog,
+  UsersRound,
+} from "lucide-react";
 import { Button } from "@mui/material";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/services/auth/auth";
 
-export default function AdminDashboard() {
-  const { data: session } = useSession();
-  const [stats, setStats] = useState<AdminStats>({
-    totalUsers: 0,
-    totalStudents: 0,
-    totalFaculty: 0,
-    totalHods: 0,
-    totalDepartments: 0,
-  });
+export default async function AdminDashboard() {
+  const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      if (!session?.accessToken) return;
-      try {
-        const response = await getAdminStats(session.accessToken);
-        setStats(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchStats();
-  }, [session]);
+  if (!session) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg text-red-600">No session token found</div>
+      </div>
+    );
+  }
+  const stats = await getAdminStats(session.accessToken);
 
   return (
     <>
@@ -52,7 +43,11 @@ export default function AdminDashboard() {
             leave={stats.totalFaculty}
             title="Total Faculty"
           />
-          <StatsBox icon={UserRoundCog} leave={stats.totalHods} title="Total Hod" />
+          <StatsBox
+            icon={UserRoundCog}
+            leave={stats.totalHods}
+            title="Total Hod"
+          />
           <StatsBox
             icon={RectangleEllipsis}
             leave={stats.totalDepartments}
@@ -61,10 +56,9 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-     
       <Button variant="contained" href="/manage-students">
         Manage students
-      </Button> 
+      </Button>
       <Button variant="contained" href="/manage-faculties">
         Manage Faculties
       </Button>

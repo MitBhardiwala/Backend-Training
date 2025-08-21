@@ -12,7 +12,6 @@ import { createLeaveApplication, fetchLeaveBalance, fetchLeaveDetails } from "..
 
 const router = express.Router();
 
-// Initialize Multer with the storage engine
 
 //register
 router.post("/register", (req: Request, res: Response) => {

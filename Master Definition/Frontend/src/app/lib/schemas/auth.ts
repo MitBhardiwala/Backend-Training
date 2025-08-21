@@ -35,7 +35,8 @@ export const registerSchema = Yup.object({
     .test("fileType", "Unsupported file format", function (value) {
       if (!value || typeof value === "string") return true;
       return SUPPORTED_FORMATS.includes(value.type);
-    }),
+    })
+    .required(),
   gender: Yup.string()
     .min(2, "Gender required")
     .required("Please select gender"),
@@ -45,6 +46,7 @@ export const registerSchema = Yup.object({
   address: Yup.string().trim().min(1, "Address cannot be empty").required(),
   department: Yup.string().trim().min(1, "Department cannot be empty"),
   class: Yup.string().trim().min(1, "Class cannot be empty"),
+  grNumber: Yup.string().trim().min(1, "grNumber cannot be empty"),
 });
 
 export const forgotPasswordSchema = Yup.object({
@@ -118,5 +120,6 @@ export const updateProfileSchema = Yup.object({
     .min(1, "Address cannot be empty")
     .required("Address is required"),
   department: Yup.string().trim().nullable(),
-  class: Yup.string().trim().min(1, "Class cannot be empty"),
+  class: Yup.string().trim().min(1, "Class cannot be empty").optional(),
+  grNumber: Yup.string().min(1, "Gr Number cannot be less than 0").optional(),
 });

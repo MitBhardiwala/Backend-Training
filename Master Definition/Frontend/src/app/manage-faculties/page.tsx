@@ -51,9 +51,7 @@ export default function ManageFaculty() {
         return { value: department, label: department };
       });
 
-      setDepartments((prev) => {
-        return [...prev, ...formattedDepartments];
-      });
+      setDepartments(formattedDepartments);
     }
   };
 

@@ -4,19 +4,23 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { getLeaveRequests } from "../lib/services/user/user";
 import { toast } from "react-toastify";
-import { LeaveRequestType } from "../lib/definitions";
-import { getDaysDifference } from "../lib/utils";
+import { LeaveRequestType, leaveStatus } from "../lib/definitions";
+import LeaveRequestCard from "../components/Leave/LeaveRequestCard";
+import { Button } from "@mui/material";
+import { updateLeaveStatus } from "../lib/services/hod/hod";
 
 export default function LeaveRequest() {
   const { data: session, status } = useSession();
   const [leaveRequests, setLeaveRequests] = useState([]);
+  const [currStatus, setCurrStatus] = useState<leaveStatus | null>(null);
 
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       if (session && session.user.role) {
         const result = await getLeaveRequests(
           session.accessToken,
-          session.user.role
+          session.user.role,
+          currStatus
         );
 
         if (result.success) {
@@ -28,7 +32,7 @@ export default function LeaveRequest() {
     };
 
     fetchLeaveRequests();
-  }, [session]);
+  }, [session, currStatus]);
 
   if (status === "loading") {
     return (
@@ -60,28 +64,60 @@ export default function LeaveRequest() {
       </div>
     );
 
+  const handleLeaveStatusChange = async (
+    newStatus: string,
+    leaveId: number,
+    requestedUserId: number
+  ) => {
+    const result = await updateLeaveStatus(
+      session.accessToken,
+      newStatus,
+      leaveId,
+      requestedUserId,
+      session.user.role
+    );
+    if (result.success) {
+      toast.success(result.message || "Leave status updated");
+    } else {
+      toast.error(result.error || "Error in upadting leave status");
+    }
+  };
+
   return (
     <>
-      <div>Leave Request Page</div>
-      {leaveRequests.length > 0 && (
-        <div className="flex flex-col justify-center items-center gap-2">
-          {leaveRequests.map((request: LeaveRequestType) => (
-            <div key={request.id} className="border-1">
-              <p>{request.RequestedBy.name}</p>
-              <p>{request.RequestedBy.email}</p>
-              <p>{request.startDate}</p>
-              <p>{request.endDate}</p>
-              <p>{request.leaveType}</p>
-              <p>{request.reason}</p>
-              <p>{request.status}</p>
-              <p>
-                Duration :
-                {getDaysDifference(request.startDate, request.endDate)} days
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+      <div>
+        <div>Leave Request Page</div>
+
+        <Button onClick={() => setCurrStatus(null)}>
+          View all Leave Request
+        </Button>
+        <Button onClick={() => setCurrStatus(leaveStatus.pending)}>
+          Pending Leave Requests
+        </Button>
+        <Button onClick={() => setCurrStatus(leaveStatus.approved)}>
+          Approved Leave Requests
+        </Button>
+        <Button onClick={() => setCurrStatus(leaveStatus.reject)}>
+          Rejected Leave Requests
+        </Button>
+        {leaveRequests.length > 0 && (
+          <div className="flex flex-col justify-center items-center gap-4 bg-white p-6">
+            {leaveRequests.map((request: LeaveRequestType) => (
+              <LeaveRequestCard
+                key={request.id}
+                leaveRequest={request}
+                handleLeaveStatusChange={handleLeaveStatusChange}
+              />
+            ))}
+          </div>
+        )}
+
+        {leaveRequests.length === 0 && (
+          <div className="bg-white rounded-lg p-6 text-center text-gray-500">
+            No leave request found
+          </div>
+        )}
+      </div>
     </>
   );
 }

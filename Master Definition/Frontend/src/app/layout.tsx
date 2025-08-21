@@ -1,8 +1,4 @@
 import "./globals.css";
-import { ToastContainer } from "react-toastify";
-import Navbar from "./components/layout/Navbar/Navbar";
-import Footer from "./components/layout/Footer";
-
 import { NextAuthProvider } from "./lib/NextAuthProvider";
 import { helvetica } from "./lib/font";
 import Layout from "./components/layout/Layout";

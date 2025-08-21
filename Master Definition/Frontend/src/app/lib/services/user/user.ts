@@ -1,5 +1,10 @@
 import axios from "axios";
-import { UpdatedUserType, UserType } from "../../definitions";
+import {
+  LeaveRecordType,
+  leaveStatus,
+  UpdatedUserType,
+  UserType,
+} from "../../definitions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -123,9 +128,16 @@ export const getDepartments = async () => {
   }
 };
 
-export const getLeaveRequests = async (accessToken: string, role: string) => {
+export const getLeaveRequests = async (
+  accessToken: string,
+  role: string,
+  status: "pending" | "approved" | "rejected" | null
+) => {
   try {
     const response = await axios.get(`${BASE_URL}/${role}/leaveRequests`, {
+      params: {
+        status: status,
+      },
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

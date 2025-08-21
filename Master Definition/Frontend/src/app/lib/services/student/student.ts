@@ -87,18 +87,11 @@ export const updateStudent = async (
   role: string
 ) => {
   try {
-    //removed null values
-    const filteredData: MyObject = {};
-    Object.keys(data).forEach((key) => {
-      const value = data[key as keyof registerUserInterface];
-      if (value !== null && value !== "") {
-        filteredData[key] = value;
-      }
-    });
+    
 
     const response = await axios.put(
       `${BASE_URL}/${role}/user/${userId}`,
-      filteredData,
+      data,
       {
         headers: {
           "Content-Type": "multipart/form-data",

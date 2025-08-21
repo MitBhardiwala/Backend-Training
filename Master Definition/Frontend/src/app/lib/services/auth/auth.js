@@ -1,4 +1,3 @@
-import { error } from "console";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -50,7 +49,8 @@ export const authOptions = {
     }),
   ],
   session: {
-    strategy: "jwt", // Using JWT for session management
+    strategy: "jwt", // Using JWT for session management,
+    maxAge: 14400, // 4 hours
   },
   pages: {
     signIn: "/login", // Customize your sign-in page if necessary
@@ -70,7 +70,7 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
         session.user.email = token.email;

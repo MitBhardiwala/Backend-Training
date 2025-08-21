@@ -79,8 +79,8 @@ enum leaveType {
   "fullDay",
 }
 
-enum leaveStatus {
-  "approved",
-  "rejected",
-  "pending",
+export enum leaveStatus {
+  approved = "approved",
+  reject = "rejected",
+  pending = "pending",
 }

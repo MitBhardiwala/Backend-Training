@@ -224,9 +224,10 @@ const ReusableForm = ({
               >
                 {submitButtonText}
               </Button>
-              {additionalButtons.length>0 &&
+              {additionalButtons.length > 0 &&
                 additionalButtons.map((button) => (
                   <Button
+                    key={button.text}
                     variant={button.variant}
                     href={button.link}
                     color={button.color}

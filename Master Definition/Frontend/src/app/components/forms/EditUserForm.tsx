@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getUserDetailsById } from "@/app/lib/services/user/user";
 import ReusableForm from "@/app/lib/ReusableForm";
-import { registerSchema } from "@/app/lib/schemas/auth";
+import { registerSchema, updateProfileSchema } from "@/app/lib/schemas/auth";
 
 const EditUserForm = ({
   userToBeEditedRole,
@@ -19,15 +19,14 @@ const EditUserForm = ({
   userId: number;
   isAdmin: boolean;
 }) => {
-  console.log(departments);
   const [loading, setLoading] = useState(true);
   const [initialValues, setInitialValues] = useState({
     name: "",
     email: "",
-    password: "",
     gender: "",
     image: "",
     phone: "",
+    grNumber: "",
     address: "",
     department: "",
     class: "",
@@ -45,14 +44,14 @@ const EditUserForm = ({
       label: "Email",
     },
     {
-      name: "password",
-      type: "password",
-      label: "New Password",
-    },
-    {
       name: "phone",
       type: "number",
       label: "Phone",
+    },
+    {
+      name: "grNumber",
+      type: "text",
+      label: "Gr number",
     },
     {
       name: "image",
@@ -102,6 +101,7 @@ const EditUserForm = ({
           phone: user.phone,
           class: user.class || "",
           image: user.image,
+          grNumber: user.grNumber || "",
         }));
       } catch (error) {
         console.log(error);
@@ -113,7 +113,7 @@ const EditUserForm = ({
     fetchUser();
   }, [userId]);
 
-  const disabledFields = isAdmin ? [''] : ["department", "email"];
+  const disabledFields = isAdmin ? [""] : ["department", "email"];
 
   return (
     <div className="flex flex-col justify-center gap-3 bg-yellow-50">
@@ -121,7 +121,7 @@ const EditUserForm = ({
         <ReusableForm
           title={`Edit ${userToBeEditedRole} form`}
           initialValues={initialValues}
-          validationSchema={registerSchema}
+          validationSchema={updateProfileSchema}
           onSubmit={handleEditUser}
           fields={addUserFields}
           submitButtonText="Edit User"

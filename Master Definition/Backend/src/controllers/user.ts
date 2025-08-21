@@ -82,6 +82,7 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+//self update
 export const updateUser = async (req: Request, res: Response<ApiResponse>) => {
   try {
     //user request validation
@@ -91,6 +92,8 @@ export const updateUser = async (req: Request, res: Response<ApiResponse>) => {
     }
 
     const dataToBeUpdated = { ...req.body };
+
+    console.log(dataToBeUpdated);
 
     req.file ? (dataToBeUpdated.image = toDataUri(req.file.path)) : {};
 
@@ -114,11 +117,15 @@ export const updateUser = async (req: Request, res: Response<ApiResponse>) => {
   }
 };
 
+//update user by another user
 export const updateUserDetails = async (
   req: Request,
   res: Response<ApiResponse>
 ) => {
   try {
+
+    console.log(req.body)
+
     //user id
     const { userId } = req.params;
 

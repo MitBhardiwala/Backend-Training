@@ -1,48 +1,27 @@
-"use client";
-
 import {
   getUserLeaveBalance,
   getUserLeaveHistory,
 } from "@/app/lib/services/user/user";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+
 import LeaveBalance from "../Leave/LeaveBalance";
 import LeaveHistory from "../Leave/LeaveHistory";
 import ApplyLeave from "../Leave/ApplyLeave";
-import { LeaveBalanceType } from "@/app/lib/definitions";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/services/auth/auth";
 
-export default function StudentDashboard() {
-  const { data: session } = useSession();
-  const [leaveBalance, setLeaveBalance] = useState<LeaveBalanceType>({
-    totalLeave: 0,
-    availableLeave: 0,
-    usedLeave: 0,
-    totalWorkingDays: 0,
-    attendancePercentage: 0,
-  });
-  const [leaveHistory, setLeaveHistory] = useState([]);
+export default async function StudentDashboard() {
+  const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    const fetchDetails = async () => {
-      if (session) {
-        try {
-          const userLeaveBalance = await getUserLeaveBalance(
-            session.accessToken
-          );
-          setLeaveBalance(userLeaveBalance);
+  if (!session) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg text-red-600">No session token found</div>
+      </div>
+    );
+  }
 
-          const userLeaveHistory = await getUserLeaveHistory(
-            session.accessToken
-          );
-          setLeaveHistory(userLeaveHistory);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    fetchDetails();
-  }, [session]);
+  const leaveBalance = await getUserLeaveBalance(session.accessToken);
+  const leaveHistory = await getUserLeaveHistory(session.accessToken);
 
   return (
     <div className="space-y-6">

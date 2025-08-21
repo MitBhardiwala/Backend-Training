@@ -1,26 +1,15 @@
-"use client";
-
 import { Button } from "@mui/material";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
-export default function Home() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
+import { redirect } from "next/navigation";
 
-  useEffect(() => {
-    if (session) {
-      router.push("/dashboard");
-    }
-  }, [session,router]);
+import { getServerSession } from "next-auth";
+import { authOptions } from "./lib/services/auth/auth";
 
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div>Loading...</div>
-      </div>
-    );
+const Homepage = async () => {
+  const session = await getServerSession(authOptions);
+  
+  if (session?.accessToken) {
+    return redirect("/dashboard");
   }
 
   return (
@@ -31,10 +20,12 @@ export default function Home() {
         </h1>
         <p className="text-gray-600 mb-8">Manage your leave requests</p>
 
-        <Button variant="contained" onClick={() => router.push("/login")}>
+        <Button variant="contained" href="/login">
           Login
         </Button>
       </div>
     </div>
   );
-}
+};
+
+export default Homepage;

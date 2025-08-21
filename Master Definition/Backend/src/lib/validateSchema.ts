@@ -13,11 +13,11 @@ export const userRegistrationSchema = Joi.object({
   gender: Joi.string()
     .valid(...GENDER)
     .required(),
-  grNumber: Joi.string().optional(),
+  grNumber: Joi.number().optional(),
   phone: Joi.number().required(),
-  address: Joi.string().required(),
+  address: Joi.string().trim().required(),
   department: Joi.string().optional(),
-  class: Joi.string().optional(),
+  class: Joi.string().trim().optional(),
 }).options({ allowUnknown: false });
 
 export const userLoginSchema = Joi.object({
@@ -30,10 +30,10 @@ export const userUpdateSchema = Joi.object({
   gender: Joi.string()
     .valid(...GENDER)
     .optional(),
-  grNumber: Joi.string().optional(),
+  grNumber: Joi.string().allow("").optional(),
   phone: Joi.number().optional(),
-  address: Joi.string().optional(),
-  class: Joi.string().optional(),
+  address: Joi.string().trim().optional(),
+  class: Joi.string().allow("").optional(),
   department: Joi.string().optional(),
 }).options({ allowUnknown: false });
 
@@ -62,11 +62,11 @@ export const userUpdateSchemaByHigherAuthority = Joi.object({
   gender: Joi.string()
     .valid(...GENDER)
     .optional(),
-  grNumber: Joi.string().optional(),
+  grNumber: Joi.string().allow("").optional(),
   phone: Joi.number().optional(),
-  address: Joi.string().optional(),
-  department: Joi.string().optional(),
-  class: Joi.string().optional(),
+  address: Joi.string().trim().optional(),
+  department: Joi.string().allow("").optional(),
+  class: Joi.string().allow("").optional(),
   image: Joi.string().optional(),
 }).options({ allowUnknown: false });
 

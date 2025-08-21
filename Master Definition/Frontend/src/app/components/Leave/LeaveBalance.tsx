@@ -1,3 +1,5 @@
+"use server"
+
 import React from "react";
 import { Calendar, Clock, CheckCircle, BarChart3 } from "lucide-react";
 import StatsBox from "./StatsBox";

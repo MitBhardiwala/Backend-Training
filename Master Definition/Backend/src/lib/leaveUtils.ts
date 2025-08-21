@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import {
   checkEligibleforLeave,
   fetchRolePriority,
+  getDatesBasedOnLeaveType,
   type ApiResponse,
 } from "./utils.ts";
 import { userApplyLeaveSchema } from "./validateSchema.ts";
@@ -80,12 +81,17 @@ export const createLeaveApplication = async (
       where: { userId: req.user.id },
     });
 
+    const { newStartDate, newEndDate } = getDatesBasedOnLeaveType(
+      startDate,
+      endDate,
+      leaveType
+    );
+
     // const isEligible = checkEligibleforLeave(
     //   startDate,
     //   endDate,
     //   userExistingLeaves
     // );
-
 
     // if (!isEligible) {
     //   return res.status(500).json({
@@ -95,8 +101,8 @@ export const createLeaveApplication = async (
     // }
 
     const leaveData = {
-      startDate: startDate,
-      endDate: endDate,
+      startDate: newStartDate,
+      endDate: newEndDate,
       requestToId: requestToId,
       reason: reason,
       userId: req.user.id,
@@ -113,6 +119,7 @@ export const createLeaveApplication = async (
       data: newLeave,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: API_MESSAGES.USER.LEAVE_ERROR,

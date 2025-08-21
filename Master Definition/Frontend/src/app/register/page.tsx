@@ -16,6 +16,7 @@ interface RegisterFormValues {
   gender: string;
   image: File | string;
   phone: string;
+  grNumber: string;
   address: string;
   department: string;
   class: string;
@@ -47,6 +48,11 @@ const RegisterPage: React.FC = () => {
       name: "phone",
       type: "number",
       label: "Phone",
+    },
+    {
+      name: "grNumber",
+      type: "text",
+      label: "Gr Number",
     },
     {
       name: "image",
@@ -106,6 +112,7 @@ const RegisterPage: React.FC = () => {
     address: "",
     department: "",
     class: "",
+    grNumber: "",
   };
 
   const additionalButtons = [

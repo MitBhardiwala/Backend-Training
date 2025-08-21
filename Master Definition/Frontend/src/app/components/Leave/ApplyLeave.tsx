@@ -11,6 +11,7 @@ import { applyLeave } from "@/app/lib/services/user/user";
 import { useEffect, useState } from "react";
 import { getFacultyHodList } from "@/app/lib/services/student/student";
 import { getHodList } from "@/app/lib/services/faculty/faculty";
+import { useRouter } from "next/navigation";
 
 interface ApplyLeaveFormValues {
   reason: string;
@@ -22,6 +23,7 @@ interface ApplyLeaveFormValues {
 const ApplyLeave = () => {
   const { data: session } = useSession();
   const [requestToUserList, setRequestToUserList] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchRequestToUserList = async () => {
@@ -66,6 +68,7 @@ const ApplyLeave = () => {
         toast.success(
           result.message || "Leave application submitted successfully!"
         );
+        router.refresh();
       } else {
         toast.error(result.error || "Failed to submit leave application");
       }
@@ -108,9 +111,7 @@ const ApplyLeave = () => {
               />
 
               <div>
-                <InputLabel id="requestTo-label">
-                  Select Faculty or Hod:
-                </InputLabel>
+                <InputLabel id="requestTo-label">Select Faculty:</InputLabel>
                 <Field
                   as={Select}
                   labelId="requestTo-label"
@@ -119,7 +120,7 @@ const ApplyLeave = () => {
                   error={touched.requestTo && Boolean(errors.requestTo)}
                 >
                   <MenuItem value="" disabled>
-                    Select Faculty or Hod type
+                    Select Faculty
                   </MenuItem>
 
                   {requestToUserList.map(

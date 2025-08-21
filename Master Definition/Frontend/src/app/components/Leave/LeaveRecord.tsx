@@ -21,7 +21,7 @@ export default function LeaveRecord({ icon: Icon, leave }: Props) {
               {leave.reason}
             </span>
             <span
-              className={`text-xs px-2 py-1 rounded-full ${
+              className={`px-2 py-1 rounded-full ${
                 leave.status === "approved"
                   ? "bg-green-100 text-green-700"
                   : leave.status === "pending"

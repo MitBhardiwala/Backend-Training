@@ -121,3 +121,37 @@ export const updateHod = async (
     return { success: false, error: "An unknown error occurred." };
   }
 };
+
+export const updateLeaveStatus = async (
+  accessToken: string,
+  newStatus: string,
+  leaveId: number,
+  requestedUSerId: number,
+  role: string
+) => {
+  try {
+    //removed null values
+
+    const response = await axios.put(
+      `${BASE_URL}/${role}/updateLeaveStatus/`,
+      {
+        userId: requestedUSerId,
+        leaveId: leaveId,
+        updatedStatus: newStatus,
+      },
+
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    }
+    return { success: false, error: "An unknown error occurred." };
+  }
+};

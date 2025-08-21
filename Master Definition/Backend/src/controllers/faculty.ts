@@ -7,14 +7,18 @@ import {
 import prisma from "../lib/db.ts";
 import API_MESSAGES from "../lib/constants.ts";
 import { registerUser } from "./student.ts";
+import type { Status } from "../generated/prisma/index.js";
 
 export const fetchAllLeaves = async (
   req: Request,
   res: Response<ApiResponse>
 ) => {
   try {
+    const { status } = req.query;
+
     const leaveRequests = await prisma.leaveRequest.findMany({
       where: {
+        status: status,
         requestToId: req.user.id,
       },
       select: {

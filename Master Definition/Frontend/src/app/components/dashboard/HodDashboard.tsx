@@ -1,34 +1,14 @@
-"use client";
 import { getHodStats } from "@/app/lib/services/hod/hod";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import StatsBox from "../Leave/StatsBox";
 import { CircleUserRound, Clock9, SquareUser, User } from "lucide-react";
 import { Button } from "@mui/material";
-import { HodStats } from "@/app/lib/definitions";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/services/auth/auth";
 
-export default function HodDashboard() {
-  const { data: session } = useSession();
-  const [stats, setStats] = useState<HodStats>({
-    totalStudents: 0,
-    totalFaculties: 0,
-    pendingRequest: 0,
-  });
+export default async function HodDashboard() {
+  const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      if (session) {
-        try {
-          const respone = await getHodStats(session.accessToken);
-          setStats(respone);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    fetchStats();
-  }, []);
+  const stats = await getHodStats(session.accessToken);
 
   return (
     <>
@@ -53,12 +33,17 @@ export default function HodDashboard() {
         </div>
       </div>
 
-      <Button variant="contained" href="/manage-students">
-        Manage students
-      </Button>
-      <Button variant="contained" href="/manage-faculties">
-        Manage Faculties
-      </Button>
+      <div className="mt-4 bg-white p-5 flex justify-around">
+        <Button variant="contained" href="/manage-students">
+          Manage students
+        </Button>
+        <Button variant="contained" href="/manage-faculties">
+          Manage Faculties
+        </Button>
+        <Button variant="contained" href="/leave-requests">
+          View Leave Requests
+        </Button>
+      </div>
     </>
   );
 }

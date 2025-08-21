@@ -89,8 +89,11 @@ export const fetchAllLeaveRequests = async (
   res: Response<ApiResponse>
 ) => {
   try {
+    const { status } = req.query;
+
     const leaveRequests = await prisma.leaveRequest.findMany({
       where: {
+        status: status,
         RequestedBy: {
           department: req.user.department,
         },

@@ -7,17 +7,7 @@ import ReusableForm from "../lib/ReusableForm";
 import { updateProfileSchema } from "../lib/schemas/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-
-interface UserProfileValues {
-  name: string;
-  email: string;
-  gender: string;
-  image: string;
-  phone: string;
-  address: string;
-  department: string;
-  class: string;
-}
+import { removeNullValues } from "../lib/utils";
 
 export default function ProfilePage({}) {
   const router = useRouter();
@@ -28,6 +18,7 @@ export default function ProfilePage({}) {
     gender: "",
     image: "",
     phone: "",
+    grNumber: "",
     address: "",
     department: "",
     class: "",
@@ -46,8 +37,13 @@ export default function ProfilePage({}) {
     },
     {
       name: "phone",
-      type: "text",
+      type: "number",
       label: "Phone",
+    },
+    {
+      name: "grNumber",
+      type: "number",
+      label: "Gr Number",
     },
     {
       name: "image",
@@ -118,12 +114,12 @@ export default function ProfilePage({}) {
       if (session) {
         try {
           const userDetails = await getUserDetails(session.accessToken);
-          console.log(userDetails);
-          const { id, role, roleId, grNumber, ...user } = userDetails;
-          if (user.class === null || undefined) {
-            delete user.class;
-          }
-          setInitialValues(user);
+
+          const { id, role, roleId, ...user } = userDetails;
+
+          const filterData = removeNullValues(user);
+
+          setInitialValues({ ...initialValues, ...filterData });
         } catch (error) {
           console.log(error);
           toast.error("Failed to load user details");
