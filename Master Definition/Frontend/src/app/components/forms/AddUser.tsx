@@ -103,7 +103,7 @@ const AddUserForm = ({
   const disabledFields = isAdmin ? [] : ["department"];
 
   return (
-    <div className="flex flex-col justify-center gap-3 bg-white">
+    <div className="flex flex-col justify-center gap-3 bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
       <ReusableForm
         title={`Add ${userTobeAddedRole} form`}
         initialValues={initialValues}

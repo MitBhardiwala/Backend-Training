@@ -239,6 +239,7 @@ export default function ManageStudent() {
           aria-describedby="modal-modal-description"
         >
           <EditUserForm
+          
             departments={departments}
             handleEditUser={handleEditStudent}
             userToBeEditedRole="Student"

@@ -24,7 +24,7 @@ const ReusableForm = ({
   fields,
   submitButtonText,
   disabledFields = [],
-  className = "container mx-auto w-[40%] flex flex-col justify-center items-center gap-5",
+  className = "w-full flex flex-col justify-center items-center gap-5",
   additionalButtons = [],
 }) => {
   const renderField = (field, formikProps) => {

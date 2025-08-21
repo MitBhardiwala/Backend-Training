@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+/** @type {import("next-auth").NextAuthOptions} */
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -23,7 +24,6 @@ export const authOptions = {
             headers: {
               "Content-type": "application/json",
             },
-
             body: JSON.stringify(bodyData),
           });
 
@@ -49,11 +49,11 @@ export const authOptions = {
     }),
   ],
   session: {
-    strategy: "jwt", // Using JWT for session management,
+    strategy: /** @type {const} */ ("jwt"),
     maxAge: 14400, // 4 hours
   },
   pages: {
-    signIn: "/login", // Customize your sign-in page if necessary
+    signIn: "/login",
   },
   callbacks: {
     async redirect({ url }) {

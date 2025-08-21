@@ -94,9 +94,7 @@ export const fetchAllLeaveRequests = async (
     const leaveRequests = await prisma.leaveRequest.findMany({
       where: {
         status: status,
-        RequestedBy: {
-          department: req.user.department,
-        },
+        requestToId: req.user.id,
       },
       select: {
         id: true,

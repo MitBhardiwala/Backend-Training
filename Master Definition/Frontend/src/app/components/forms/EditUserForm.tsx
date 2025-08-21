@@ -116,7 +116,8 @@ const EditUserForm = ({
   const disabledFields = isAdmin ? [""] : ["department", "email"];
 
   return (
-    <div className="flex flex-col justify-center gap-3 bg-yellow-50">
+    <div className="flex flex-col justify-center gap-3 bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full my-8">
+      {" "}
       {!loading && (
         <ReusableForm
           title={`Edit ${userToBeEditedRole} form`}

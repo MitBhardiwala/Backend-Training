@@ -1,5 +1,7 @@
 import { getAdminStats } from "@/app/lib/services/admin/admin";
+import { getLeaveReport } from "@/app/lib/services/admin/admin";
 import StatsBox from "../Leave/StatsBox";
+import LeaveReport from "../Leave/LeaveReport";
 import {
   CircleUserRound,
   RectangleEllipsis,
@@ -21,7 +23,9 @@ export default async function AdminDashboard() {
       </div>
     );
   }
+
   const stats = await getAdminStats(session.accessToken);
+  const leaveReportData = await getLeaveReport(session.accessToken);
 
   return (
     <>
@@ -55,6 +59,8 @@ export default async function AdminDashboard() {
           />
         </div>
       </div>
+
+      <LeaveReport data={leaveReportData} />
 
       <Button variant="contained" href="/manage-students">
         Manage students

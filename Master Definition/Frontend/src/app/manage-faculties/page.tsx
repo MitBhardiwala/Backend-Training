@@ -218,8 +218,12 @@ export default function ManageFaculty() {
         <Modal
           open={addFacultyForm}
           onClose={() => setAddFacultyForm(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(5px)",
+          }}
         >
           <AddUserForm
             departments={departments}
@@ -232,8 +236,13 @@ export default function ManageFaculty() {
         <Modal
           open={editFacultyForm}
           onClose={() => setEditFacultyForm(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(5px)",
+            overflow: "auto",
+          }}
         >
           <EditUserForm
             departments={departments}
