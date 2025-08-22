@@ -9,6 +9,7 @@ import {
   getUserById,
   fetchLeaveHistory,
   fetchDepartments,
+  fetchAllUsers,
 } from "../controllers/user.ts";
 import { authenticateToken } from "../middleware/authMiddleware.ts";
 import { upload } from "../lib/multerConfig.ts";
@@ -19,7 +20,6 @@ const router = express.Router();
 
 router.post("/login", loginUser);
 
-
 router.put("", upload.single("image"), authenticateToken, updateUser);
 router.get("", authenticateToken, fetchUser);
 router.post("/requestPasswordReset", requestPasswordReset);
@@ -29,8 +29,13 @@ router.get("/leaveBalance", authenticateToken, fetchUserLeaveBalance);
 router.get("/leaveHistory", authenticateToken, fetchLeaveHistory);
 
 //fetch departments
-router.get("/departments",fetchDepartments);
+router.get("/departments", fetchDepartments);
 
-router.get("/:id",getUserById)
+//all users
+router.get("/all", fetchAllUsers);
+
+router.get("/:id", getUserById);
+
+
 
 export default router;

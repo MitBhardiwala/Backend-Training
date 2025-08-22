@@ -27,14 +27,22 @@ export default async function FacultyDashboard() {
     <>
       <div className="space-y-6">
         <LeaveBalance leaveBalance={leaveBalance} />
+        <div className="mt-4 bg-white p-5  mb-3">
+          <h2 className="text-xl font-bold text-gray-800 mb-4 w-full">
+            User Management
+          </h2>
+          <div className="flex justify-around">
+            <Button variant="contained" href="/manage-students">
+              Manage students
+            </Button>
+            <Button variant="contained" href="/leave-requests">
+              View Leave Requests
+            </Button>
+          </div>
+        </div>
+
         <LeaveHistory leaveHistory={leaveHistory} />
         <ApplyLeave />
-        <Button variant="contained" href="/manage-students">
-          Manage students
-        </Button>
-        <Button variant="contained" href="/leave-requests">
-          View Leave Requests
-        </Button>
       </div>
     </>
   );

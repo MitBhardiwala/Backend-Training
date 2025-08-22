@@ -47,21 +47,24 @@ export const fetchLeaveReport = async (
       },
     });
 
-    const userwithMaxLeave = await prisma.userLeave.findMany({
-      where: {
-        usedLeave: maxLeaves._max.usedLeave,
-      },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-            department: true,
-            phone: true,
+    let userwithMaxLeave: any = [];
+    if (maxLeaves._max.usedLeave !== null) {
+      userwithMaxLeave = await prisma.userLeave.findMany({
+        where: {
+          usedLeave: maxLeaves._max.usedLeave as number,
+        },
+        include: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+              department: true,
+              phone: true,
+            },
           },
         },
-      },
-    });
+      });
+    }
 
     res.status(200).json({
       success: true,

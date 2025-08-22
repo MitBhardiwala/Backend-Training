@@ -60,17 +60,24 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      <LeaveReport data={leaveReportData} />
+      <div className="mt-4 bg-white p-5  mb-3">
+        <h2 className="text-xl font-bold text-gray-800 mb-4 w-full">
+          User Management
+        </h2>
+        <div className="flex justify-around flex-col md:flex-row md:justify-around gap-3">
+          <Button variant="contained" href="/manage-students">
+            Manage students
+          </Button>
+          <Button variant="contained" href="/manage-faculties">
+            Manage Faculties
+          </Button>
+          <Button variant="contained" href="/manage-hods">
+            Manage Hods
+          </Button>
+        </div>
+      </div>
 
-      <Button variant="contained" href="/manage-students">
-        Manage students
-      </Button>
-      <Button variant="contained" href="/manage-faculties">
-        Manage Faculties
-      </Button>
-      <Button variant="contained" href="/manage-hods">
-        Manage Hods
-      </Button>
+      <LeaveReport data={leaveReportData} />
     </>
   );
 }

@@ -1,5 +1,3 @@
-
-
 import { LucideProps } from "lucide-react";
 
 interface IconProps {
@@ -16,9 +14,7 @@ const StatsBox = ({ icon: Icon, leave, title }: IconProps) => {
           <Icon className="w-6 h-6 text-blue-600" />
         </div>
         <div>
-          <div className="text-2xl font-bold text-gray-900">
-            {leave || 0}
-          </div>
+          <div className="text-2xl font-bold text-gray-900">{leave || 0}</div>
           <div className="text-sm text-gray-600">{title}</div>
         </div>
       </div>

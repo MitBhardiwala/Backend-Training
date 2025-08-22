@@ -1,11 +1,8 @@
 import axios from "axios";
 import { registerUserInterface } from "../auth/authTypes";
+import { MyObject } from "../../definitions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
-
-interface MyObject {
-  [key: string]: string | number | undefined;
-}
 
 export const fetchStudentsList = async (accessToken: string, role: string) => {
   try {

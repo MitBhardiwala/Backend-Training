@@ -35,6 +35,7 @@ export const userUpdateSchema = Joi.object({
   address: Joi.string().trim().optional(),
   class: Joi.string().allow("").optional(),
   department: Joi.string().optional(),
+  image: Joi.string().optional(),
 }).options({ allowUnknown: false });
 
 export const userApplyLeaveSchema = Joi.object({

@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import React from "react";
 import { Calendar, Clock, CheckCircle, BarChart3 } from "lucide-react";
@@ -35,7 +35,7 @@ const LeaveBalance = ({ leaveBalance }: { leaveBalance: LeaveBalanceType }) => {
         />
         <StatsBox
           icon={BarChart3}
-          leave={leaveBalance.attendancePercentage}
+          leave={parseFloat(leaveBalance.attendancePercentage.substring(0, 5))}
           title="Attendance %"
         />
       </div>

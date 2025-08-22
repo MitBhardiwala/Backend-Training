@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { UserType } from "../lib/definitions";
 import { Button, Modal } from "@mui/material";
 import {
@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import AddUserForm from "../components/forms/AddUser";
 import EditUserForm from "../components/forms/EditUserForm";
 import { getDepartments } from "../lib/services/user/user";
+import { registerUserInterface } from "../lib/services/auth/authTypes";
 
 export default function ManageFaculty() {
   const { data: session, status } = useSession();
@@ -22,7 +23,7 @@ export default function ManageFaculty() {
   const [currEditFacultyId, setCurrEditFacultyId] = useState(0);
   const [departments, setDepartments] = useState([{ value: "", label: "" }]);
 
-  const fetchFaculties = async () => {
+  const fetchFaculties = useCallback(async () => {
     if (session) {
       try {
         const response = await fetchFacultysList(
@@ -34,9 +35,9 @@ export default function ManageFaculty() {
         console.log(error);
       }
     }
-  };
+  }, [session]);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     if (session && session.user.role !== "Admin" && session.user.department) {
       setDepartments([
         {
@@ -53,14 +54,14 @@ export default function ManageFaculty() {
 
       setDepartments(formattedDepartments);
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     if (session) {
       fetchFaculties();
       fetchDepartments();
     }
-  }, [session]);
+  }, [session, fetchDepartments, fetchFaculties]);
 
   if (status === "loading")
     return (
@@ -106,7 +107,7 @@ export default function ManageFaculty() {
   };
 
   const handleAddFaculty = async (
-    values,
+    values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
     const result = await createFaculty(
@@ -127,7 +128,7 @@ export default function ManageFaculty() {
   };
 
   const handleEditFaculty = async (
-    values,
+    values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
     const result = await updateFaculty(
@@ -153,7 +154,7 @@ export default function ManageFaculty() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg p-6 mb-6">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl">Manage Faculties</h1>
+              <h1 className="text-xl">Manage Faculties</h1>
               <Button
                 onClick={() => setAddFacultyForm(true)}
                 variant="contained"
@@ -214,45 +215,43 @@ export default function ManageFaculty() {
             )}
           </div>
         </div>
-
-        <Modal
-          open={addFacultyForm}
-          onClose={() => setAddFacultyForm(false)}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backdropFilter: "blur(5px)",
-          }}
-        >
-          <AddUserForm
-            departments={departments}
-            handleAddUser={handleAddFaculty}
-            userTobeAddedRole="Faculty"
-            isAdmin={session.user.role === "Admin"}
-          />
-        </Modal>
-
-        <Modal
-          open={editFacultyForm}
-          onClose={() => setEditFacultyForm(false)}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backdropFilter: "blur(5px)",
-            overflow: "auto",
-          }}
-        >
-          <EditUserForm
-            departments={departments}
-            handleEditUser={handleEditFaculty}
-            userToBeEditedRole="Faculty"
-            userId={currEditFacultyId}
-            isAdmin={session.user.role === "Admin"}
-          />
-        </Modal>
       </div>
+      <Modal
+        open={addFacultyForm}
+        onClose={() => setAddFacultyForm(false)}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <AddUserForm
+          departments={departments}
+          handleAddUser={handleAddFaculty}
+          userTobeAddedRole="Faculty"
+          isAdmin={session.user.role === "Admin"}
+        />
+      </Modal>
+
+      <Modal
+        open={editFacultyForm}
+        onClose={() => setEditFacultyForm(false)}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <EditUserForm
+          departments={departments}
+          handleEditUser={handleEditFaculty}
+          userToBeEditedRole="Faculty"
+          userId={currEditFacultyId}
+          isAdmin={session.user.role === "Admin"}
+        />
+      </Modal>
     </>
   );
 }

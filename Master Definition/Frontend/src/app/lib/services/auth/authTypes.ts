@@ -8,7 +8,7 @@ export interface registerUserInterface {
   email: string;
   password: string;
   gender: string;
-  image: string;
+  image: string | File;
   phone: string;
   address: string;
   department?: string;

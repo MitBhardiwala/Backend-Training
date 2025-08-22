@@ -1,10 +1,6 @@
 import axios from "axios";
-import {
-  LeaveRecordType,
-  leaveStatus,
-  UpdatedUserType,
-  UserType,
-} from "../../definitions";
+import { UpdatedUserType } from "../../definitions";
+import { de } from "date-fns/locale";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -15,6 +11,7 @@ export const getUserDetails = async (accessToken: string) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+
     return response.data.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -138,6 +135,31 @@ export const getLeaveRequests = async (
       params: {
         status: status,
       },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    }
+    return { success: false, error: "An unknown error occurred." };
+  }
+};
+
+export const getAllUsers = async (
+  accessToken: string,
+  roleName?: string,
+  department?: string
+) => {
+  try {
+    let filterOptions = {};
+    roleName ? (filterOptions.roleName = roleName) : {};
+    department ? (filterOptions.department = department) : {};
+
+    const response = await axios.get(`${BASE_URL}/user/all`, {
+      params: filterOptions,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

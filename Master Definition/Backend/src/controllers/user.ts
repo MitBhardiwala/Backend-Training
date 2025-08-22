@@ -19,6 +19,7 @@ import {
 } from "../lib/validateSchema.ts";
 import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.ts";
 import prisma from "../lib/db.ts";
+import { fileURLToPath } from "url";
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
@@ -123,9 +124,6 @@ export const updateUserDetails = async (
   res: Response<ApiResponse>
 ) => {
   try {
-
-    console.log(req.body)
-
     //user id
     const { userId } = req.params;
 
@@ -492,18 +490,14 @@ export const fetchDepartments = async (
   res: Response<ApiResponse>
 ) => {
   try {
-    const data = await prisma.user.groupBy({
-      by: ["department"],
-      where: {
-        department: {
-          not: null,
-        },
-      },
-    });
-
-    const departments = data.map((department) => {
-      return department.department;
-    });
+    const departments = [
+      "cse",
+      "ece",
+      "chemical",
+      "mechanical",
+      "fashion",
+      "design",
+    ];
 
     res.status(200).json({
       success: true,
@@ -513,6 +507,48 @@ export const fetchDepartments = async (
       data: departments ? departments : [],
     });
   } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
+    });
+  }
+};
+
+export const fetchAllUsers = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const { roleName = "", department = "" } = req.query;
+
+    let filterOptions: { department?: string; role?: { name: string } } = {};
+    if (department) {
+      filterOptions.department = department as string;
+    }
+    if (roleName) {
+      filterOptions.role = {
+        name: (roleName.charAt(0).toUpperCase() + roleName.slice(1)) as string,
+      };
+    }
+    const data = await prisma.user.findMany({
+      where: filterOptions,
+
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        department: true,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: data
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: data ? data : [],
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       error: API_MESSAGES.DATA.FETCH_ERROR,

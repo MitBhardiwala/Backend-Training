@@ -1,5 +1,4 @@
-import { useSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StudentDashboard from "../components/dashboard/StudentDashboard";
 import FacultyDashboard from "../components/dashboard/FacultyDashboard";
 import HodDashboard from "../components/dashboard/HodDashboard";

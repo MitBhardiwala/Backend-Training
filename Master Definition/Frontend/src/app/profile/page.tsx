@@ -9,19 +9,33 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { removeNullValues } from "../lib/utils";
 
+interface UserProfileValues {
+  name: string;
+  email: string;
+  password: string;
+  gender: string;
+  image: File | string;
+  phone: string;
+  grNumber: string;
+  address: string;
+  department: string;
+  class: string;
+}
+
 export default function ProfilePage({}) {
   const router = useRouter();
   const { data: session, status } = useSession();
+
   const [initialValues, setInitialValues] = useState({
     name: "",
     email: "",
-    gender: "",
-    image: "",
     phone: "",
     grNumber: "",
+    image: "",
     address: "",
-    department: "",
     class: "",
+    department: "",
+    gender: "",
   });
 
   const userProfileFields = [
@@ -86,10 +100,6 @@ export default function ProfilePage({}) {
       try {
         const { email, department, ...updatedUser } = values;
 
-        if (typeof updatedUser.image === "string") {
-          delete updatedUser.image;
-        }
-
         const result = await updateUserProfile(
           session.accessToken,
           updatedUser
@@ -129,15 +139,25 @@ export default function ProfilePage({}) {
     if (session) {
       fetchUser();
     }
-  }, [session]);
+  }, [session, initialValues]);
 
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading")
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
 
-  if (!session) return <div>No session token found</div>;
+  if (!session)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg text-red-600">No session token found</div>
+      </div>
+    );
 
   return (
     <>
-      <div className="flex flex-col h-screen justify-center gap-3">
+      <div className="flex flex-col justify-center gap-3 items-center h-full ">
         <ReusableForm
           title="Update Profile"
           initialValues={initialValues}

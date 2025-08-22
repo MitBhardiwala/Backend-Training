@@ -54,23 +54,25 @@ const ApplyLeave = () => {
     }
 
     try {
-      const leaveData = {
-        startDate: values.dateRange[0].toISOString(),
-        endDate: values.dateRange[1].toISOString(),
-        leaveType: values.leaveType,
-        reason: values.reason,
-        requestToId: Number(values.requestTo),
-      };
+      if (session) {
+        const leaveData = {
+          startDate: values.dateRange[0].toISOString(),
+          endDate: values.dateRange[1].toISOString(),
+          leaveType: values.leaveType,
+          reason: values.reason,
+          requestToId: Number(values.requestTo),
+        };
 
-      const result = await applyLeave(leaveData, session.accessToken);
+        const result = await applyLeave(leaveData, session.accessToken);
 
-      if (result.success) {
-        toast.success(
-          result.message || "Leave application submitted successfully!"
-        );
-        router.refresh();
-      } else {
-        toast.error(result.error || "Failed to submit leave application");
+        if (result.success) {
+          toast.success(
+            result.message || "Leave application submitted successfully!"
+          );
+          router.refresh();
+        } else {
+          toast.error(result.error || "Failed to submit leave application");
+        }
       }
     } catch (error) {
       toast.error("Failed to submit leave application");
@@ -80,7 +82,7 @@ const ApplyLeave = () => {
     setSubmitting(false);
   };
 
-  const initialValues = {
+  const initialValues: ApplyLeaveFormValues = {
     reason: "",
     requestTo: "",
     leaveType: "",
@@ -89,7 +91,7 @@ const ApplyLeave = () => {
 
   return (
     <div>
-      <div className="container mx-auto w-[50%] flex flex-col justify-center items-center gap-5">
+      <div className="container mx-auto flex flex-col justify-center items-center gap-5 max-w-2xl">
         <p className="text-3xl">Apply leave form</p>
         <Formik
           initialValues={initialValues}
@@ -174,7 +176,13 @@ const ApplyLeave = () => {
               <div>
                 <InputLabel>Select Date Range:</InputLabel>
                 <DateRangePicker
-                  value={values.dateRange}
+                  value={
+                    values.dateRange &&
+                    values.dateRange[0] &&
+                    values.dateRange[1]
+                      ? [values.dateRange[0], values.dateRange[1]]
+                      : null
+                  }
                   format="MM/dd/yyyy"
                   onChange={(date) => setFieldValue("dateRange", date)}
                   style={{ width: "100%" }}

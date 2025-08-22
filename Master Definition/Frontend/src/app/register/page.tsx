@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { registerSchema } from "../lib/schemas/auth";
 import { handleRegister } from "../lib/services/auth/register";
 import ReusableForm from "../lib/ReusableForm";
-import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getDepartments } from "../lib/services/user/user";
 
@@ -131,16 +130,14 @@ const RegisterPage: React.FC = () => {
         return { value: department, label: department };
       });
 
-      setDepartments((prev) => {
-        return [...formattedDepartments];
-      });
+      setDepartments(formattedDepartments);
     };
 
     fetchDepartment();
   }, []);
 
   return (
-    <div className="flex flex-col h-screen justify-center gap-3">
+    <div className="flex flex-col justify-center gap-3 items-center h-full">
       <ReusableForm
         title="Register form"
         initialValues={initialValues}

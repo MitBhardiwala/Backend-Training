@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   createStudent,
   deleteStudent,
@@ -13,6 +13,7 @@ import { UserType } from "../lib/definitions";
 import AddUserForm from "../components/forms/AddUser";
 import EditUserForm from "../components/forms/EditUserForm";
 import { getDepartments } from "../lib/services/user/user";
+import { registerUserInterface } from "../lib/services/auth/authTypes";
 
 export default function ManageStudent() {
   const { data: session, status } = useSession();
@@ -22,7 +23,7 @@ export default function ManageStudent() {
   const [currEditUserID, setCurrEditUserID] = useState(0);
   const [departments, setDepartments] = useState([{ value: "", label: "" }]);
 
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     if (session && session.user.role) {
       try {
         const response = await fetchStudentsList(
@@ -35,9 +36,9 @@ export default function ManageStudent() {
         console.log(error);
       }
     }
-  };
+  }, [session]);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     if (session && session.user.role !== "Admin" && session.user.department) {
       setDepartments([
         {
@@ -54,14 +55,14 @@ export default function ManageStudent() {
 
       setDepartments(formattedDepartments);
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     if (session) {
       fetchStudents();
       fetchDepartments();
     }
-  }, [session]);
+  }, [session, fetchStudents, fetchDepartments]);
 
   if (status === "loading")
     return (
@@ -113,7 +114,7 @@ export default function ManageStudent() {
   };
 
   const handleAddStudent = async (
-    values,
+    values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
     const result = await createStudent(
@@ -133,7 +134,7 @@ export default function ManageStudent() {
     setSubmitting(false);
   };
   const handleEditStudent = async (
-    values,
+    values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
     const result = await updateStudent(
@@ -158,7 +159,7 @@ export default function ManageStudent() {
       <div className="min-h-screen bg-gray-50 p-6">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg p-6 mb-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-6">
               <h1 className="text-2xl">Manage Students</h1>
               <Button onClick={() => setAddUserForm(true)} variant="contained">
                 Add Student
@@ -174,7 +175,7 @@ export default function ManageStudent() {
                 {students.map((student: UserType) => (
                   <div
                     key={student.id}
-                    className="flex items-center justify-between p-4 rounded-lg border border-gray-200"
+                    className="flex flex-col md:flex-row gap-3 items-center justify-between p-4 rounded-lg border border-gray-200"
                   >
                     <div className="flex items-center">
                       <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
@@ -221,8 +222,12 @@ export default function ManageStudent() {
         <Modal
           open={addUserForm}
           onClose={() => setAddUserForm(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(5px)",
+          }}
         >
           <AddUserForm
             departments={departments}
@@ -235,11 +240,14 @@ export default function ManageStudent() {
         <Modal
           open={editUserForm}
           onClose={() => setEditUserForm(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(5px)",
+          }}
         >
           <EditUserForm
-          
             departments={departments}
             handleEditUser={handleEditStudent}
             userToBeEditedRole="Student"

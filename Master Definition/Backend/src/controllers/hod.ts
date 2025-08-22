@@ -14,6 +14,7 @@ import {
   userUpdateSchema,
 } from "../lib/validateSchema.ts";
 import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.ts";
+import type { Status } from "../generated/prisma/index.js";
 
 export const fetchAllStudents = async (
   req: Request,
@@ -93,7 +94,7 @@ export const fetchAllLeaveRequests = async (
 
     const leaveRequests = await prisma.leaveRequest.findMany({
       where: {
-        status: status,
+        status: status as Status,
         requestToId: req.user.id,
       },
       select: {

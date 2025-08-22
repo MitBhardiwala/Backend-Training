@@ -35,7 +35,7 @@ export default function LeaveRequest() {
 
   if (status === "loading") {
     return (
-     <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg">Loading...</div>
       </div>
     );
@@ -43,14 +43,14 @@ export default function LeaveRequest() {
 
   if (!session)
     return (
-        <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg text-red-600">No session token found</div>
       </div>
     );
 
   if (session.user.role !== "Hod" && session.user.role !== "Faculty")
     return (
-       <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg text-red-600">Unauthorized User</div>
       </div>
     );
@@ -76,9 +76,8 @@ export default function LeaveRequest() {
       requestedUserId,
       session.user.role
     );
-    
+
     if (result.success) {
-      // Refetch the leave requests to get updated data
       const result2 = await getLeaveRequests(
         session.accessToken,
         session.user.role,
@@ -94,51 +93,53 @@ export default function LeaveRequest() {
   };
 
   const getActiveButtonClass = (statusFilter: leaveStatus | null) => {
-    return currStatus === statusFilter
-      ? "bg-blue-600 text-white"
-      : "bg-white";
+    return currStatus === statusFilter ? "bg-blue-600 text-white" : "bg-white";
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="font-bold mb-2">Leave Requests</h1>
-          <p>Manage and review leave requests from your team</p>
         </div>
 
-        {/* Filter Buttons */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setCurrStatus(null)}
-              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(null)}`}
+              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(
+                null
+              )}`}
             >
               All Requests
             </button>
             <button
               onClick={() => setCurrStatus(leaveStatus.pending)}
-              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(leaveStatus.pending)}`}
+              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(
+                leaveStatus.pending
+              )}`}
             >
               Pending
             </button>
             <button
               onClick={() => setCurrStatus(leaveStatus.approved)}
-              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(leaveStatus.approved)}`}
+              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(
+                leaveStatus.approved
+              )}`}
             >
               Approved
             </button>
             <button
               onClick={() => setCurrStatus(leaveStatus.reject)}
-              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(leaveStatus.reject)}`}
+              className={`px-4 py-2 rounded-lg border ${getActiveButtonClass(
+                leaveStatus.reject
+              )}`}
             >
               Rejected
             </button>
           </div>
         </div>
 
-        {/* Leave Requests */}
         {leaveRequests.length > 0 ? (
           <div className="space-y-4">
             {leaveRequests.map((request: LeaveRequestType) => (
@@ -151,11 +152,7 @@ export default function LeaveRequest() {
           </div>
         ) : (
           <div className="p-12 text-center border">
-            <div className="mb-2">📋</div>
             <div>No leave requests found</div>
-            <p className="mt-1">
-              {currStatus ? `No ${currStatus} requests at the moment` : "No requests to display"}
-            </p>
           </div>
         )}
       </div>

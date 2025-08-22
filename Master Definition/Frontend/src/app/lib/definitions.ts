@@ -14,7 +14,7 @@ export interface UserType {
 export interface UpdatedUserType {
   name: string;
   gender: string;
-  image: string;
+  image: string | File;
   grNumber?: string;
   class?: string;
   department?: string;
@@ -38,7 +38,7 @@ export interface LeaveBalanceType {
   availableLeave: number;
   usedLeave: number;
   totalWorkingDays: number;
-  attendancePercentage: number;
+  attendancePercentage: string;
 }
 
 export interface ErrorType {
@@ -83,4 +83,8 @@ export enum leaveStatus {
   approved = "approved",
   reject = "rejected",
   pending = "pending",
+}
+
+export interface MyObject {
+  [key: string]: string | number | undefined | File;
 }

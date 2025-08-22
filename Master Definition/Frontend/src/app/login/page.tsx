@@ -66,7 +66,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen justify-center gap-3 items-center">
+      <div className="h-[86vh] flex flex-col justify-center items-center">
         <ReusableForm
           title="Login form"
           initialValues={initialValues}

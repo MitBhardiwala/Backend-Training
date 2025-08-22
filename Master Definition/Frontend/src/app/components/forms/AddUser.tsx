@@ -2,6 +2,7 @@
 
 import ReusableForm from "@/app/lib/ReusableForm";
 import { registerSchema } from "@/app/lib/schemas/auth";
+import { registerUserInterface } from "@/app/lib/services/auth/authTypes";
 
 interface addUserFormValues {
   name: string;
@@ -23,7 +24,10 @@ const AddUserForm = ({
   isAdmin = false,
 }: {
   userTobeAddedRole: string;
-  handleAddUser: (values, { setSubmitting }) => void;
+  handleAddUser: (
+    values: registerUserInterface,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  ) => void;
   departments: { value: string; label: string }[];
   isAdmin: boolean;
 }) => {
@@ -103,14 +107,14 @@ const AddUserForm = ({
   const disabledFields = isAdmin ? [] : ["department"];
 
   return (
-    <div className="flex flex-col justify-center gap-3 bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="overflow-scroll no-scrollbar max-h-[90%] bg-white p-6 rounded-xl w-full  max-w-2xl">
       <ReusableForm
         title={`Add ${userTobeAddedRole} form`}
         initialValues={initialValues}
         validationSchema={registerSchema}
         onSubmit={handleAddUser}
         fields={addUserFields}
-        submitButtonText="Add User"
+        submitButtonText={`Add ${userTobeAddedRole}`}
         disabledFields={disabledFields}
       />
     </div>

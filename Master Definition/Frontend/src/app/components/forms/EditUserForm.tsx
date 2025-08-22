@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import { getUserDetailsById } from "@/app/lib/services/user/user";
 import ReusableForm from "@/app/lib/ReusableForm";
-import { registerSchema, updateProfileSchema } from "@/app/lib/schemas/auth";
+import { updateProfileSchema } from "@/app/lib/schemas/auth";
+import { registerUserInterface } from "@/app/lib/services/auth/authTypes";
 
 const EditUserForm = ({
   userToBeEditedRole,
@@ -14,7 +15,10 @@ const EditUserForm = ({
   isAdmin = false,
 }: {
   userToBeEditedRole: string;
-  handleEditUser: (values, { setSubmitting }) => void;
+  handleEditUser: (
+    values: registerUserInterface,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  ) => void;
   departments: { value: string; label: string }[];
   userId: number;
   isAdmin: boolean;
@@ -116,8 +120,7 @@ const EditUserForm = ({
   const disabledFields = isAdmin ? [""] : ["department", "email"];
 
   return (
-    <div className="flex flex-col justify-center gap-3 bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full my-8">
-      {" "}
+    <div className="overflow-scroll no-scrollbar max-h-[90%] bg-white p-6 rounded-xl w-full  max-w-2xl">
       {!loading && (
         <ReusableForm
           title={`Edit ${userToBeEditedRole} form`}

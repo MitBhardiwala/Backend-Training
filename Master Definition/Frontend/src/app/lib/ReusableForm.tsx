@@ -16,6 +16,35 @@ import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Image from "next/image";
 
+import { FormikHelpers } from "formik";
+
+interface Field {
+  name: string;
+  type: string;
+  label?: string | undefined;
+  accept?: string;
+  options?: { value: string; label: string; disabled?: boolean }[];
+  targetField?: string | undefined;
+  text?: string | undefined;
+}
+
+interface ReusableFormProps {
+  title: string;
+  initialValues: { [key: any]: string };
+  validationSchema: any;
+  onSubmit: (values: any, formikHelpers: FormikHelpers<any>) => void;
+  fields: Field[];
+  submitButtonText: string;
+  disabledFields?: string[];
+  className?: string;
+  additionalButtons?: {
+    text: string;
+    link: string;
+    variant?: string;
+    color?: string;
+  }[];
+}
+
 const ReusableForm = ({
   title,
   initialValues,
@@ -23,15 +52,19 @@ const ReusableForm = ({
   onSubmit,
   fields,
   submitButtonText,
-  disabledFields = [],
-  className = "w-full flex flex-col justify-center items-center gap-5",
-  additionalButtons = [],
-}) => {
-  const renderField = (field, formikProps) => {
+  disabledFields,
+  className = "flex flex-col justify-center items-center gap-5 w-full max-w-2xl",
+  additionalButtons,
+}: ReusableFormProps) => {
+
+  console.log(initialValues)
+  const renderField = (field: Field, formikProps) => {
     const { errors, touched, setFieldValue, values } = formikProps;
     const isError = touched[field.name] && Boolean(errors[field.name]);
     const helperText = touched[field.name] && errors[field.name];
-    const isDisabled = disabledFields.includes(field.name);
+    const isDisabled = disabledFields
+      ? disabledFields.includes(field.name)
+      : false;
 
     switch (field.type) {
       case "select":
@@ -51,7 +84,6 @@ const ReusableForm = ({
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}
-                  selected={option.selected}
                 >
                   {option.label}
                 </MenuItem>
@@ -224,7 +256,8 @@ const ReusableForm = ({
               >
                 {submitButtonText}
               </Button>
-              {additionalButtons.length > 0 &&
+              {additionalButtons &&
+                additionalButtons.length > 0 &&
                 additionalButtons.map((button) => (
                   <Button
                     key={button.text}

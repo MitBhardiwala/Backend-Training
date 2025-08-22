@@ -11,12 +11,12 @@ export default function LeaveRecord({ icon: Icon, leave }: Props) {
   const duration = getDaysDifference(leave.startDate, leave.endDate);
 
   return (
-    <div className="bg-gray-50 rounded-md p-4">
+    <div className="bg-gray-50 rounded-md p-4 border-gray-300 border ">
       <div className="flex items-start space-x-3">
         <Icon className="h-5 w-5 text-gray-600 mt-1" />
 
         <div className="flex-1 space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-center justify-between">
             <span className="text-sm font-medium text-gray-900">
               {leave.reason}
             </span>
@@ -33,7 +33,7 @@ export default function LeaveRecord({ icon: Icon, leave }: Props) {
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+          <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600">
             <div>
               <span className="font-medium">Applied:</span>{" "}
               {leave.createdAt.substring(0, 10)}
@@ -43,7 +43,7 @@ export default function LeaveRecord({ icon: Icon, leave }: Props) {
             </div>
           </div>
 
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-600 text-center md:text-start">
             <span className="font-medium">Applied to:</span>{" "}
             {leave.RequestedTo.name}
           </div>

@@ -6,7 +6,6 @@ import { useState } from "react";
 import { emailSchema, forgotPasswordSchema } from "../lib/schemas/auth";
 import { sendOtp, verifyOtp } from "../lib/services/auth/forgotPassword";
 import ReusableForm from "../lib/ReusableForm";
-import { Button } from "@mui/material";
 
 interface ForgotPasswordFormValues {
   email: string;
@@ -102,7 +101,7 @@ const ForgotPasswordPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col h-screen justify-center gap-3">
+    <div className="flex flex-col justify-center gap-3 items-center h-[86vh]">
       <ReusableForm
         title="Forgot password form"
         initialValues={initialValues}

@@ -47,4 +47,6 @@ router.get("/leaveStatus", fetchLeaveDetails);
 //view leave balance
 router.get("/leaveBalance", fetchLeaveBalance);
 
+
+
 export default router;

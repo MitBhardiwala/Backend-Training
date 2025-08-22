@@ -1,10 +1,10 @@
 import { signIn } from "next-auth/react";
 import { registerUserInterface } from "./authTypes";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
 interface MyObject {
-  [key: string]: string | number | undefined;
+  [key: string]: string | number | File | undefined;
 }
 
 export const handleRegister = async (data: registerUserInterface) => {
@@ -23,7 +23,7 @@ export const handleRegister = async (data: registerUserInterface) => {
       filteredData,
       {
         headers: {
-          "Content-Type": "multipart/form-data", 
+          "Content-Type": "multipart/form-data",
         },
       }
     );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   createHod,
   deleteHod,
@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import AddUserForm from "../components/forms/AddUser";
 import EditUserForm from "../components/forms/EditUserForm";
 import { getDepartments } from "../lib/services/user/user";
+import { registerUserInterface } from "../lib/services/auth/authTypes";
 
 export default function ManageHod() {
   const { data: session, status } = useSession();
@@ -22,7 +23,7 @@ export default function ManageHod() {
   const [editHodForm, setEditHodForm] = useState(false);
   const [currEditHodID, setCurrEditHodID] = useState(0);
   const [departments, setDepartments] = useState([{ value: "", label: "" }]);
-  const fetchHods = async () => {
+  const fetchHods = useCallback(async () => {
     if (session) {
       try {
         const response = await fetchHodsList(session.accessToken);
@@ -31,9 +32,9 @@ export default function ManageHod() {
         console.log(error);
       }
     }
-  };
+  }, [session]);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     if (session && session.user.role !== "Admin" && session.user.department) {
       setDepartments([
         {
@@ -50,14 +51,14 @@ export default function ManageHod() {
 
       setDepartments(formattedDepartments);
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     if (session) {
       fetchHods();
       fetchDepartments();
     }
-  }, [session]);
+  }, [session, fetchHods, fetchDepartments]);
 
   if (status === "loading")
     return (
@@ -100,7 +101,7 @@ export default function ManageHod() {
   };
 
   const handleAddHod = async (
-    values,
+    values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
     const result = await createHod(session.accessToken, values);
@@ -116,7 +117,7 @@ export default function ManageHod() {
     setSubmitting(false);
   };
   const handleEditStudent = async (
-    values,
+    values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
     const result = await updateHod(session.accessToken, values, currEditHodID);
@@ -199,8 +200,12 @@ export default function ManageHod() {
         <Modal
           open={addHodForm}
           onClose={() => setAddHodForm(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(5px)",
+          }}
         >
           <AddUserForm
             departments={departments}
@@ -213,8 +218,12 @@ export default function ManageHod() {
         <Modal
           open={editHodForm}
           onClose={() => setEditHodForm(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(5px)",
+          }}
         >
           <EditUserForm
             departments={departments}
