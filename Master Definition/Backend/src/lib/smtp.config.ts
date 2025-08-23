@@ -1,5 +1,7 @@
 import { configDotenv } from "dotenv";
 import nodemailer from "nodemailer";
+import path from "path";
+import hbs from "nodemailer-express-handlebars";
 
 configDotenv();
 
@@ -15,3 +17,17 @@ export const transporter = nodemailer.createTransport({
     pass: SMTP_PASS,
   },
 });
+
+// Configure Handlebars plugin for Nodemailer
+transporter.use(
+  "compile",
+  hbs({
+    viewEngine: {
+      extname: ".hbs",
+      partialsDir: path.resolve("./templates/"),
+      defaultLayout: "",
+    },
+    viewPath: path.resolve("./src/templates/"), 
+    extName: ".hbs",
+  })
+);

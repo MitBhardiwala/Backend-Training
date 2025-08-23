@@ -91,18 +91,10 @@ export const updateHod = async (
   facultyId: number
 ) => {
   try {
-    //removed null values
-    const filteredData: MyObject = {};
-    Object.keys(data).forEach((key) => {
-      const value = data[key as keyof registerUserInterface];
-      if (value !== null && value !== "") {
-        filteredData[key] = value;
-      }
-    });
 
     const response = await axios.put(
       `${BASE_URL}/admin/user/${facultyId}`,
-      filteredData,
+      data,
       {
         headers: {
           "Content-Type": "multipart/form-data",

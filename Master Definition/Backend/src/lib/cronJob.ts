@@ -58,7 +58,7 @@ const sendPendingLeaveReminder = async () => {
         from: SMTP_EMAIL,
         to: email,
         subject: "Pending leave request",
-        html: `<p>You have pending leave request. Please update the leave status.</p>`,
+        template: "pendingLeavesEmailTemplate",
       });
     });
   } catch (error) {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { UpdatedUserType } from "../../definitions";
-import { de } from "date-fns/locale";
+import { registerUserInterface } from "../auth/authTypes";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -150,20 +150,66 @@ export const getLeaveRequests = async (
 
 export const getAllUsers = async (
   accessToken: string,
-  roleName?: string,
-  department?: string
+  filterOptions: {
+    roleName?: string;
+    department?: string;
+  }
 ) => {
   try {
-    let filterOptions = {};
-    roleName ? (filterOptions.roleName = roleName) : {};
-    department ? (filterOptions.department = department) : {};
-
     const response = await axios.get(`${BASE_URL}/user/all`, {
       params: filterOptions,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    }
+    return { success: false, error: "An unknown error occurred." };
+  }
+};
+
+export const deleteUser = async (
+  accessToken: string,
+  userId: number,
+  managerRole: string
+) => {
+  try {
+    const response = await axios.delete(
+      `${BASE_URL}/${managerRole}/user/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    }
+    return { success: false, error: "An unknown error occurred." };
+  }
+};
+
+export const updateUser = async (
+  accessToken: string,
+  userId: number,
+  managerRole: string,
+  data: registerUserInterface
+) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/${managerRole}/user/${userId}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

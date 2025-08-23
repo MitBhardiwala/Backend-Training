@@ -85,50 +85,6 @@ export const fetchAllFaculties = async (
   }
 };
 
-export const fetchAllLeaveRequests = async (
-  req: Request,
-  res: Response<ApiResponse>
-) => {
-  try {
-    const { status } = req.query;
-
-    const leaveRequests = await prisma.leaveRequest.findMany({
-      where: {
-        status: status as Status,
-        requestToId: req.user.id,
-      },
-      select: {
-        id: true,
-        startDate: true,
-        endDate: true,
-        leaveType: true,
-        reason: true,
-        status: true,
-
-        RequestedBy: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            department: true,
-          },
-        },
-      },
-    });
-    res.status(200).json({
-      success: true,
-      message: leaveRequests
-        ? API_MESSAGES.DATA.FETCH_SUCCESS
-        : API_MESSAGES.DATA.NOT_FOUND,
-      data: leaveRequests ? leaveRequests : [],
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: API_MESSAGES.DATA.FETCH_ERROR,
-    });
-  }
-};
 
 export const createStudent = (req: Request, res: Response<ApiResponse>) => {
   const hodDept = req.user.department;
@@ -213,7 +169,7 @@ export const fetchStats = async (req: Request, res: Response<ApiResponse>) => {
 
     const totalStudents = await prisma.user.count({
       where: {
-        OR: [{ roleId: studentRoleId }],
+        roleId: studentRoleId,
         department: req.user.department,
       },
     });

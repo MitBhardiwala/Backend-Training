@@ -8,9 +8,7 @@ import * as fs from "fs";
 import prisma from "./db.ts";
 import bcrypt from "bcryptjs";
 import type { Leave, User, UserPayload } from "./types.ts";
-import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
-import { userApplyLeaveSchema } from "./validateSchema.ts";
 
 import API_MESSAGES from "./constants.ts";
 import { transporter } from "./smtp.config.ts";
@@ -181,7 +179,8 @@ export const sendOtpEmail = async (email: string) => {
       from: SMTP_EMAIL,
       to: email,
       subject: "Your OTP for Verification",
-      html: `<p>Your One-Time Password (OTP) is: <strong>${verificationOtp}</strong></p><p>This OTP is valid for 10 minutes.</p>`,
+      template: "otpEmailTemplate",
+      context: { otp: verificationOtp },
     });
 
     await prisma.user.update({

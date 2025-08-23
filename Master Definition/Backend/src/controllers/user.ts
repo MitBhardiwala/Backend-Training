@@ -20,6 +20,8 @@ import {
 import { joiGlobalErrorHandler } from "../lib/joiErrorHandler.ts";
 import prisma from "../lib/db.ts";
 import { fileURLToPath } from "url";
+import type { Role } from "../generated/prisma/index.js";
+import { register } from "module";
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
@@ -454,6 +456,10 @@ export const fetchLeaveHistory = async (
   res: Response<ApiResponse>
 ) => {
   try {
+    const { limit, offset } = req.query;
+
+    const take = limit ? parseInt(limit as string) : Number.MAX_SAFE_INTEGER;
+    const skip = offset ? parseInt(offset as string) : 0;
     const leaveHistory = await prisma.leaveRequest.findMany({
       where: { userId: req.user.id },
       select: {
@@ -469,6 +475,8 @@ export const fetchLeaveHistory = async (
           },
         },
       },
+      take: take,
+      skip: skip,
     });
     res.status(200).json({
       success: true,
@@ -519,7 +527,7 @@ export const fetchAllUsers = async (
   res: Response<ApiResponse>
 ) => {
   try {
-    const { roleName = "", department = "" } = req.query;
+    const { roleName = "", department = "", limit, offset } = req.query;
 
     let filterOptions: { department?: string; role?: { name: string } } = {};
     if (department) {
@@ -527,9 +535,13 @@ export const fetchAllUsers = async (
     }
     if (roleName) {
       filterOptions.role = {
-        name: (roleName.charAt(0).toUpperCase() + roleName.slice(1)) as string,
+        name:
+          String(roleName).charAt(0).toUpperCase() + String(roleName).slice(1),
       };
     }
+    const take = limit ? parseInt(limit as string) : Number.MAX_SAFE_INTEGER;
+    const skip = offset ? parseInt(offset as string) : 0;
+
     const data = await prisma.user.findMany({
       where: filterOptions,
 
@@ -539,6 +551,8 @@ export const fetchAllUsers = async (
         email: true,
         department: true,
       },
+      take: take,
+      skip: skip,
     });
     res.status(200).json({
       success: true,
@@ -555,3 +569,4 @@ export const fetchAllUsers = async (
     });
   }
 };
+

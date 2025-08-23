@@ -9,6 +9,7 @@ import { userApplyLeaveSchema } from "./validateSchema.ts";
 import { joiGlobalErrorHandler } from "./joiErrorHandler.ts";
 import prisma from "./db.ts";
 import API_MESSAGES from "./constants.ts";
+import type { Status } from "../generated/prisma/index.js";
 
 export const createLeaveApplication = async (
   req: Request,
@@ -41,7 +42,7 @@ export const createLeaveApplication = async (
       where: { userId: req.user.id },
     });
 
-    if (!userLeaveDetails || userLeaveDetails.availableLeave === 0) {
+    if (!userLeaveDetails || userLeaveDetails.availableLeave <= 0) {
       return res.status(400).json({
         success: false,
         error: API_MESSAGES.USER.LEAVE_NOT_ALLOWED,
@@ -76,11 +77,6 @@ export const createLeaveApplication = async (
       });
     }
 
-    //check if user has already applied leave between given days
-    const userExistingLeaves = await prisma.leaveRequest.findMany({
-      where: { userId: req.user.id },
-    });
-
     const { newStartDate, newEndDate } = getDatesBasedOnLeaveType(
       startDate,
       endDate,
@@ -106,7 +102,6 @@ export const createLeaveApplication = async (
       data: newLeave,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: API_MESSAGES.USER.LEAVE_ERROR,
@@ -171,6 +166,57 @@ export const fetchLeaveBalance = async (
     });
   } catch (error) {
     res.status(200).json({
+      success: false,
+      error: API_MESSAGES.DATA.FETCH_ERROR,
+    });
+  }
+};
+
+//fetch all leave requests received
+export const fetchAllLeavesRequests = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
+  try {
+    const { status, limit, offset } = req.query;
+
+    const take = limit ? parseInt(limit as string) : Number.MAX_SAFE_INTEGER;
+    const skip = offset ? parseInt(offset as string) : 0;
+
+    const leaveRequests = await prisma.leaveRequest.findMany({
+      where: {
+        status: status as Status,
+        requestToId: req.user.id,
+      },
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        leaveType: true,
+        reason: true,
+        status: true,
+
+        RequestedBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            department: true,
+          },
+        },
+      },
+      take: take,
+      skip: skip,
+    });
+    res.status(200).json({
+      success: true,
+      message: leaveRequests
+        ? API_MESSAGES.DATA.FETCH_SUCCESS
+        : API_MESSAGES.DATA.NOT_FOUND,
+      data: leaveRequests ? leaveRequests : [],
+    });
+  } catch (error) {
+    res.status(500).json({
       success: false,
       error: API_MESSAGES.DATA.FETCH_ERROR,
     });

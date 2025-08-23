@@ -5,12 +5,12 @@ import {
   updateLeaveStatus,
   fetchAllFaculties,
   createFaculty,
-  fetchAllLeaveRequests,
   fetchStats,
 } from "../controllers/hod.ts";
 
 import { upload } from "../lib/multerConfig.ts";
 import { deleteUser, updateUserDetails } from "../controllers/user.ts";
+import { fetchAllLeavesRequests } from "../lib/leaveUtils.ts";
 
 const router = express.Router();
 
@@ -19,8 +19,8 @@ const router = express.Router();
 //get all students ( hod will be able to view the student details only of its own department)
 router.get("/allStudents", fetchAllStudents);
 
-//fetch leave request of students
-router.get("/leaveRequests", fetchAllLeaveRequests);
+//fetch leave request received
+router.get("/leaveRequests", fetchAllLeavesRequests);
 
 //create student
 router.post("/createStudent", upload.single("image"), createStudent);

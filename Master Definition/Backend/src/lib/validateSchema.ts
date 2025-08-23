@@ -57,7 +57,7 @@ export const userApproveLeaveSchema = Joi.object({
 }).options({ allowUnknown: false });
 
 export const userUpdateSchemaByHigherAuthority = Joi.object({
-  name: Joi.string().alphanum().min(3).max(30).optional(),
+  name: Joi.string().min(3).max(30).optional(),
   email: Joi.string().email().optional(),
   password: Joi.string().min(6).optional(),
   gender: Joi.string()
