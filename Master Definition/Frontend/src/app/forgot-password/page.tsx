@@ -95,13 +95,13 @@ const ForgotPasswordPage: React.FC = () => {
   const additionalButtons = [
     {
       text: "login",
-      variant: "text",
+      variant: "text" as const,
       link: "/login",
     },
   ];
 
   return (
-    <div className="flex flex-col justify-center gap-3 items-center h-[86vh]">
+    <div className="flex flex-col justify-center gap-3 items-center h-full">
       <ReusableForm
         title="Forgot password form"
         initialValues={initialValues}

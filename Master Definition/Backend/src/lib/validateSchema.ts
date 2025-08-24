@@ -13,12 +13,13 @@ export const userRegistrationSchema = Joi.object({
   gender: Joi.string()
     .valid(...GENDER)
     .required(),
-  grNumber: Joi.number().optional(),
+  grNumber: Joi.string().optional(),
   phone: Joi.number().required(),
   address: Joi.string().trim().required(),
   department: Joi.string().optional(),
   class: Joi.string().trim().optional(),
-}).options({ allowUnknown: false });
+  image: Joi.string().optional(),
+});
 
 export const userLoginSchema = Joi.object({
   email: Joi.string().email().required(),

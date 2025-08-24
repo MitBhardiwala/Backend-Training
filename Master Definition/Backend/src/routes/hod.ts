@@ -1,15 +1,17 @@
 import express from "express";
 import {
   fetchAllStudents,
-  createStudent,
   updateLeaveStatus,
   fetchAllFaculties,
-  createFaculty,
   fetchStats,
 } from "../controllers/hod.ts";
 
 import { upload } from "../lib/multerConfig.ts";
-import { deleteUser, updateUserDetails } from "../controllers/user.ts";
+import {
+  createUser,
+  deleteUser,
+  updateUserDetails,
+} from "../controllers/user.ts";
 import { fetchAllLeavesRequests } from "../lib/leaveUtils.ts";
 
 const router = express.Router();
@@ -22,11 +24,8 @@ router.get("/allStudents", fetchAllStudents);
 //fetch leave request received
 router.get("/leaveRequests", fetchAllLeavesRequests);
 
-//create student
-router.post("/createStudent", upload.single("image"), createStudent);
-
-//create faculty
-router.post("/createFaculty", upload.single("image"), createFaculty);
+//create user
+router.post("/createUser", upload.single("image"), createUser);
 
 //update student or faculty
 router.put("/user/:userId", upload.single("image"), updateUserDetails);

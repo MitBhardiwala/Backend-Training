@@ -1,6 +1,16 @@
-import LeaveRecord from "./LeaveRecord";
-import { FileText } from "lucide-react";
+import React from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Box
+} from '@mui/material';
 import { LeaveRecordType } from "@/app/lib/definitions";
+import { getDaysDifference } from "@/app/lib/utils";
 
 const LeaveHistory = ({
   leaveHistory,
@@ -9,21 +19,56 @@ const LeaveHistory = ({
 }) => {
   if (!leaveHistory.length) {
     return (
-      <div className="bg-white rounded-lg p-6 text-center text-gray-500">
+      <Box sx={{ textAlign: 'center', p: 3 }}>
         No leave history found
-      </div>
+      </Box>
     );
   }
 
+  const getStatusStyle = (status: string) => {
+    switch (status) {
+      case 'approved':
+        return { backgroundColor: '#dcfce7', color: '#15803d' };
+      case 'pending':
+        return { backgroundColor: '#fef3c7', color: '#d97706' };
+      default:
+        return { backgroundColor: '#fee2e2', color: '#dc2626' };
+    }
+  };
+
   return (
-    <div className="bg-white rounded-lg p-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Leave History</h2>
-      <div className="space-y-3 flex flex-col">
-        {leaveHistory.map((leave: LeaveRecordType) => (
-          <LeaveRecord key={leave.id} leave={leave} icon={FileText} />
-        ))}
-      </div>
-    </div>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="leave history table">
+        <TableHead>
+          <TableRow>
+            <TableCell>S.No.</TableCell>
+            <TableCell>Reason</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Applied</TableCell>
+            <TableCell>Duration</TableCell>
+            <TableCell>Applied To</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {leaveHistory.map((leave: LeaveRecordType, index: number) => (
+            <TableRow key={leave.id}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{leave.reason}</TableCell>
+              <TableCell>
+                <span style={getStatusStyle(leave.status)}>
+                  {leave.status}
+                </span>
+              </TableCell>
+              <TableCell>{leave.createdAt.substring(0, 10)}</TableCell>
+              <TableCell>
+                {getDaysDifference(leave.startDate, leave.endDate)} Days
+              </TableCell>
+              <TableCell>{leave.RequestedTo.name}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

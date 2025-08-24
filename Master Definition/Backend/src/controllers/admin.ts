@@ -4,26 +4,17 @@ import { registerUser } from "./student.ts";
 import API_MESSAGES from "../lib/constants.ts";
 import prisma from "../lib/db.ts";
 
-export const createStudent = (req: Request, res: Response<ApiResponse>) => {
-  return registerUser(req, res, null, "Student");
-};
-export const createHod = (req: Request, res: Response<ApiResponse>) => {
-  const hodDept = req.user.department;
-
-  return registerUser(req, res, null, "Hod");
-};
-export const createFaculty = (req: Request, res: Response<ApiResponse>) => {
-  const hodDept = req.user.department;
-
-  return registerUser(req, res, null, "Faculty");
-};
-
 export const fetchLeaveReport = async (
   req: Request,
   res: Response<ApiResponse>
 ) => {
   try {
     const leaveReport = await prisma.user.findMany({
+      where: {
+        role: {
+          OR: [{ name: "Student" }, { name: "Faculty" }],
+        },
+      },
       select: {
         name: true,
         email: true,

@@ -22,6 +22,7 @@ import prisma from "../lib/db.ts";
 import { fileURLToPath } from "url";
 import type { Role } from "../generated/prisma/index.js";
 import { register } from "module";
+import { registerUser } from "./student.ts";
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
@@ -570,3 +571,21 @@ export const fetchAllUsers = async (
   }
 };
 
+export const createUser = (req: Request, res: Response<ApiResponse>) => {
+  const { role } = req.query;
+
+  const validRoles = ["Student", "Faculty", "Hod"];
+  if (!role || !validRoles.includes(role as string)) {
+    return res.status(400).json({
+      success: false,
+      error: "Invalid or missing role. Valid roles are: Student, Faculty, Hod",
+    });
+  }
+
+  let department = null;
+  if (req.user && req.user.department) {
+    department = req.user.department;
+  }
+
+  return registerUser(req, res, department, role as string);
+};

@@ -65,13 +65,13 @@ export default async function AdminDashboard() {
           User Management
         </h2>
         <div className="flex justify-around flex-col md:flex-row md:justify-around gap-3">
-          <Button variant="contained" href="/manage-students">
+          <Button variant="contained" href="/manage/Student">
             Manage students
           </Button>
-          <Button variant="contained" href="/manage-faculties">
+          <Button variant="contained" href="/manage/Faculty">
             Manage Faculties
           </Button>
-          <Button variant="contained" href="/manage-hods">
+          <Button variant="contained" href="/manage/Hod">
             Manage Hods
           </Button>
         </div>

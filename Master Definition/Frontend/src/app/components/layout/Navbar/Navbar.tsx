@@ -29,7 +29,7 @@ const Navbar = () => {
   }, [session, status]);
 
   return (
-    <div className="flex bg-blue-100 justify-between items-center p-5 h-[10vh]">
+    <div className="flex bg-blue-100 justify-between items-center p-5 h-[10vh] flex-shrink-0">
       <button onClick={() => router.push("/dashboard")}>
         <p className="text-2xl text-blue-700 cursor-pointer">
           Leave Management

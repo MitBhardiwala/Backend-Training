@@ -53,12 +53,12 @@ const LoginPage: React.FC = () => {
 
   const additionalButtons = [
     {
-      text: "forgot password",
+      text: "forgot password" as const,
       variant: "text",
       link: "/forgot-password",
     },
     {
-      text: "create account",
+      text: "create account" as const,
       color: "secondary",
       link: "/register",
     },
@@ -66,7 +66,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <>
-      <div className="h-[86vh] flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center h-full">
         <ReusableForm
           title="Login form"
           initialValues={initialValues}

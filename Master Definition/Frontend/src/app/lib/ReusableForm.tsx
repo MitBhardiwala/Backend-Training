@@ -16,7 +16,7 @@ import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Image from "next/image";
 
-import { FormikHelpers } from "formik";
+import { FormikHelpers, FormikProps } from "formik";
 
 interface Field {
   name: string;
@@ -26,11 +26,13 @@ interface Field {
   options?: { value: string; label: string; disabled?: boolean }[];
   targetField?: string | undefined;
   text?: string | undefined;
+  format?: string;
+  showSelected?: boolean;
 }
 
 interface ReusableFormProps {
   title: string;
-  initialValues: { [key: any]: string };
+  initialValues: { [key: string]: any };
   validationSchema: any;
   onSubmit: (values: any, formikHelpers: FormikHelpers<any>) => void;
   fields: Field[];
@@ -40,8 +42,15 @@ interface ReusableFormProps {
   additionalButtons?: {
     text: string;
     link: string;
-    variant?: string;
-    color?: string;
+    variant?: "text" | "outlined" | "contained";
+    color?:
+      | "inherit"
+      | "primary"
+      | "secondary"
+      | "success"
+      | "error"
+      | "info"
+      | "warning";
   }[];
 }
 
@@ -56,9 +65,8 @@ const ReusableForm = ({
   className = "flex flex-col justify-center items-center gap-5 w-full max-w-2xl",
   additionalButtons,
 }: ReusableFormProps) => {
-
-  console.log(initialValues)
-  const renderField = (field: Field, formikProps) => {
+  console.log(initialValues);
+  const renderField = (field: Field, formikProps: FormikProps<any>) => {
     const { errors, touched, setFieldValue, values } = formikProps;
     const isError = touched[field.name] && Boolean(errors[field.name]);
     const helperText = touched[field.name] && errors[field.name];
@@ -93,7 +101,7 @@ const ReusableForm = ({
               <div
                 style={{ color: "red", fontSize: "0.75rem", marginTop: "3px" }}
               >
-                {helperText}
+                {helperText as string}
               </div>
             )}
           </div>
@@ -120,7 +128,7 @@ const ReusableForm = ({
                   Current image:
                 </p>
                 <Image
-                  src={values[field.name]}
+                  src={values[field.name] as string}
                   width={100}
                   height={100}
                   alt="Current profile photo"
@@ -130,10 +138,10 @@ const ReusableForm = ({
             )}
             {values[field.name] &&
               typeof values[field.name] === "object" &&
-              values[field.name].name && (
+              (values[field.name] as File).name && (
                 <div style={{ marginTop: "10px" }}>
                   <p style={{ fontSize: "0.875rem", color: "green" }}>
-                    New file selected: {values[field.name].name}
+                    New file selected: {(values[field.name] as File).name}
                   </p>
                 </div>
               )}
@@ -141,7 +149,7 @@ const ReusableForm = ({
               <div
                 style={{ color: "red", fontSize: "0.75rem", marginTop: "3px" }}
               >
-                {helperText}
+                {helperText as string}
               </div>
             )}
           </div>
@@ -160,7 +168,7 @@ const ReusableForm = ({
               <div
                 style={{ color: "red", fontSize: "0.75rem", marginTop: "3px" }}
               >
-                {helperText}
+                {helperText as string}
               </div>
             )}
             {field.showSelected && (
@@ -187,7 +195,7 @@ const ReusableForm = ({
           >
             <FormLabel component="legend">{field.label}:</FormLabel>
             <Field name={field.name}>
-              {({ field: fieldProps }) => (
+              {({ field: fieldProps }: { field: any }) => (
                 <RadioGroup {...fieldProps}>
                   {field.options?.map((option) => (
                     <FormControlLabel
@@ -205,7 +213,7 @@ const ReusableForm = ({
               <div
                 style={{ color: "red", fontSize: "0.75rem", marginTop: "3px" }}
               >
-                {helperText}
+                {helperText as string}
               </div>
             )}
           </FormControl>
@@ -227,7 +235,7 @@ const ReusableForm = ({
             variant="outlined"
             fullWidth
             error={isError}
-            helperText={helperText}
+            helperText={helperText as string}
             disabled={isDisabled}
           />
         );

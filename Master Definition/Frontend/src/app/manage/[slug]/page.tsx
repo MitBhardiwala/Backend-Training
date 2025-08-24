@@ -1,25 +1,25 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { fetchStudentsList } from "../lib/services/student/student";
 import { useSession } from "next-auth/react";
 import {
+  addUser,
   deleteUser,
   getAllUsers,
   getDepartments,
   updateUser,
-} from "../lib/services/user/user";
+} from "../../lib/services/user/user";
 import { Button, Modal } from "@mui/material";
-import { UserType } from "../lib/definitions";
-import AddUserForm from "../components/forms/AddUser";
-import EditUserForm from "../components/forms/EditUserForm";
-import { registerUserInterface } from "../lib/services/auth/authTypes";
+import { UserType } from "../../lib/definitions";
+import AddUserForm from "../../components/forms/AddUser";
+import EditUserForm from "../../components/forms/EditUserForm";
+import { registerUserInterface } from "../../lib/services/auth/authTypes";
 import { toast } from "react-toastify";
 
 export default function Manage() {
-  const searchParams = useSearchParams();
-  const role = searchParams.get("role");
+  const { slug } = useParams();
+  const role = slug as string;
   const { data: session, status } = useSession();
   const [users, setUsers] = useState([]);
   const [addUserForm, setAddUserForm] = useState(false);
@@ -86,20 +86,21 @@ export default function Manage() {
     values: registerUserInterface,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ): Promise<void> => {
-    // const result = await createStudent(
-    //   session.accessToken,
-    //   values,
-    //   session.user.role
-    // );
-    // if (result.success) {
-    //   toast.success(result.message);
-    //   fetchStudents();
-    //   setAddUserForm(false);
-    // } else {
-    //   console.log(result);
-    //   toast.error(result.error || "Error in adding user");
-    // }
-    // setSubmitting(false)
+    const result = await addUser(
+      session.accessToken,
+      session.user.role,
+      values,
+      role
+    );
+    if (result.success) {
+      toast.success(result.message);
+      fetchUsers();
+      setAddUserForm(false);
+    } else {
+      console.log(result);
+      toast.error(result.error || "Error in adding user");
+    }
+    setSubmitting(false);
   };
   const handleEditUser = async (
     values: registerUserInterface,

@@ -46,10 +46,10 @@ export default async function HodDashboard() {
           User Management
         </h2>
         <div className="flex justify-around">
-          <Button variant="contained" href="/manage-students">
+          <Button variant="contained" href="/manage/Student">
             Manage students
           </Button>
-          <Button variant="contained" href="/manage-faculties">
+          <Button variant="contained" href="/manage/Faculty">
             Manage Faculties
           </Button>
           <Button variant="contained" href="/leave-requests">

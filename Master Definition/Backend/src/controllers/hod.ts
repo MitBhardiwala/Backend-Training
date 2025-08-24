@@ -85,18 +85,6 @@ export const fetchAllFaculties = async (
   }
 };
 
-
-export const createStudent = (req: Request, res: Response<ApiResponse>) => {
-  const hodDept = req.user.department;
-
-  return registerUser(req, res, hodDept, "Student");
-};
-export const createFaculty = (req: Request, res: Response<ApiResponse>) => {
-  const hodDept = req.user.department;
-
-  return registerUser(req, res, hodDept, "Faculty");
-};
-
 export const updateLeaveStatus = async (
   req: Request,
   res: Response<ApiResponse>
@@ -182,9 +170,7 @@ export const fetchStats = async (req: Request, res: Response<ApiResponse>) => {
 
     const pendingRequest = await prisma.leaveRequest.count({
       where: {
-        RequestedBy: {
-          department: req.user.department,
-        },
+        requestToId: req.user.id,
         status: "pending",
       },
     });

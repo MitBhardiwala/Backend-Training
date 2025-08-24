@@ -32,7 +32,7 @@ export default async function FacultyDashboard() {
             User Management
           </h2>
           <div className="flex justify-around">
-            <Button variant="contained" href="/manage-students">
+            <Button variant="contained" href="/manage/Student">
               Manage students
             </Button>
             <Button variant="contained" href="/leave-requests">

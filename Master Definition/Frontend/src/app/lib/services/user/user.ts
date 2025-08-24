@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UpdatedUserType } from "../../definitions";
+import { MyObject, UpdatedUserType } from "../../definitions";
 import { registerUserInterface } from "../auth/authTypes";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
@@ -128,12 +128,16 @@ export const getDepartments = async () => {
 export const getLeaveRequests = async (
   accessToken: string,
   role: string,
-  status: "pending" | "approved" | "rejected" | null
+  status: "pending" | "approved" | "rejected" | null,
+  limit?: number,
+  offset?: number
 ) => {
   try {
     const response = await axios.get(`${BASE_URL}/${role}/leaveRequests`, {
       params: {
         status: status,
+        limit: limit,
+        offset: offset,
       },
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -206,6 +210,41 @@ export const updateUser = async (
       data,
       {
         headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    }
+    return { success: false, error: "An unknown error occurred." };
+  }
+};
+export const addUser = async (
+  accessToken: string,
+  managerRole: string,
+  data: registerUserInterface,
+  userToBeAddedRole: string
+) => {
+  try {
+    const filteredData: MyObject = {};
+    Object.keys(data).forEach((key) => {
+      const value = data[key as keyof registerUserInterface];
+      if (value !== null && value !== "") {
+        filteredData[key] = value;
+      }
+    });
+    const response = await axios.post(
+      `${BASE_URL}/${managerRole}/createUser`,
+      filteredData,
+      {
+        params: {
+          role: userToBeAddedRole,
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${accessToken}`,
         },
       }

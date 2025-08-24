@@ -82,7 +82,7 @@ export const authOptions = {
       return session;
     },
   },
-  secret: process.env.JWT_SECRET || "your_secret_key",
+  secret: process.env.NEXTAUTH_SECRET || "your_secret_key",
 };
 
 export default NextAuth(authOptions);

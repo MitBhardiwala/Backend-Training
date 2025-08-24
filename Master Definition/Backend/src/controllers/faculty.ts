@@ -9,7 +9,6 @@ import API_MESSAGES from "../lib/constants.ts";
 import { registerUser } from "./student.ts";
 import type { Status } from "../generated/prisma/index.js";
 
-
 export const fetchHodList = async (
   req: Request,
   res: Response<ApiResponse>
@@ -39,9 +38,4 @@ export const fetchHodList = async (
       error: API_MESSAGES.DATA.FETCH_ERROR,
     });
   }
-};
-export const createStudent = (req: Request, res: Response<ApiResponse>) => {
-  const facultyDept = req.user.department;
-
-  return registerUser(req, res, facultyDept, "Student");
 };

@@ -12,26 +12,44 @@ export default function LeaveRequest() {
   const { data: session, status } = useSession();
   const [leaveRequests, setLeaveRequests] = useState<LeaveRequestType[]>([]);
   const [currStatus, setCurrStatus] = useState<leaveStatus | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const recordsPerPage = 5;
 
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       if (session && session.user.role) {
-        const result = await getLeaveRequests(
+        const offset = (currentPage - 1) * recordsPerPage;
+        const totalResult = await getLeaveRequests(
           session.accessToken,
           session.user.role,
           currStatus
         );
 
-        if (result.success) {
-          setLeaveRequests(result.data);
-        } else {
-          console.log("Error : ", result);
+        if (totalResult.success) {
+          setTotalRecords(totalResult.data.length);
+
+          const paginatedResult = await getLeaveRequests(
+            session.accessToken,
+            session.user.role,
+            currStatus,
+            recordsPerPage,
+            offset
+          );
+
+          if (paginatedResult.success) {
+            setLeaveRequests(paginatedResult.data);
+          }
         }
       }
     };
 
     fetchLeaveRequests();
-  }, [session, currStatus]);
+  }, [session, currStatus, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [currStatus]);
 
   if (status === "loading") {
     return (
@@ -78,13 +96,17 @@ export default function LeaveRequest() {
     );
 
     if (result.success) {
+      const offset = (currentPage - 1) * recordsPerPage;
       const result2 = await getLeaveRequests(
         session.accessToken,
         session.user.role,
-        currStatus
+        currStatus,
+        recordsPerPage,
+        offset
       );
       if (result2.success) {
         setLeaveRequests(result2.data);
+        setTotalRecords(result2.total || result2.data.length);
       }
       toast.success(result.message || "Leave status updated");
     } else {
@@ -94,6 +116,22 @@ export default function LeaveRequest() {
 
   const getActiveButtonClass = (statusFilter: leaveStatus | null) => {
     return currStatus === statusFilter ? "bg-blue-600 text-white" : "bg-white";
+  };
+
+  const totalPages = Math.ceil(totalRecords / recordsPerPage);
+  const canGoPrevious = currentPage > 1;
+  const canGoNext = currentPage < totalPages;
+
+  const handlePreviousPage = () => {
+    if (canGoPrevious) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (canGoNext) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return (
@@ -141,15 +179,49 @@ export default function LeaveRequest() {
         </div>
 
         {leaveRequests.length > 0 ? (
-          <div className="space-y-4">
-            {leaveRequests.map((request: LeaveRequestType) => (
-              <LeaveRequestCard
-                key={request.id}
-                leaveRequest={request}
-                handleLeaveStatusChange={handleLeaveStatusChange}
-              />
-            ))}
-          </div>
+          <>
+            <div className="space-y-4 mb-6">
+              {leaveRequests.map((request: LeaveRequestType) => (
+                <LeaveRequestCard
+                  key={request.id}
+                  leaveRequest={request}
+                  handleLeaveStatusChange={handleLeaveStatusChange}
+                />
+              ))}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-6">
+                <button
+                  onClick={handlePreviousPage}
+                  disabled={!canGoPrevious}
+                  className={`px-3 py-1 border ${
+                    canGoPrevious
+                      ? "bg-white text-black border-gray-400"
+                      : "bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                  }`}
+                >
+                  Previous
+                </button>
+
+                <span className="px-3 py-1 bg-gray-100 border border-gray-400">
+                  {currentPage}
+                </span>
+
+                <button
+                  onClick={handleNextPage}
+                  disabled={!canGoNext}
+                  className={`px-3 py-1 border ${
+                    canGoNext
+                      ? "bg-white text-black border-gray-400"
+                      : "bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="p-12 text-center border">
             <div>No leave requests found</div>

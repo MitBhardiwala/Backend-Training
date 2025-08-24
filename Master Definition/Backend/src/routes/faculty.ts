@@ -1,8 +1,12 @@
 import express from "express";
 import { upload } from "../lib/multerConfig.ts";
 import { fetchAllStudents, updateLeaveStatus } from "../controllers/hod.ts";
-import { deleteUser, updateUserDetails } from "../controllers/user.ts";
-import { createStudent, fetchHodList } from "../controllers/faculty.ts";
+import {
+  createUser,
+  deleteUser,
+  updateUserDetails,
+} from "../controllers/user.ts";
+import { fetchHodList } from "../controllers/faculty.ts";
 import {
   createLeaveApplication,
   fetchAllLeavesRequests,
@@ -12,8 +16,8 @@ import {
 
 const router = express.Router();
 
-//create student
-router.post("/createStudent", upload.single("image"), createStudent);
+//create user
+router.post("/createUser", upload.single("image"), createUser);
 
 //update student
 router.put("/user/:userId", upload.single("image"), updateUserDetails);

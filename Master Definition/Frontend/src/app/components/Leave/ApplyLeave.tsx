@@ -53,30 +53,26 @@ const ApplyLeave = () => {
       return;
     }
 
-    try {
-      if (session) {
-        const leaveData = {
-          startDate: values.dateRange[0].toISOString(),
-          endDate: values.dateRange[1].toISOString(),
-          leaveType: values.leaveType,
-          reason: values.reason,
-          requestToId: Number(values.requestTo),
-        };
+    if (session) {
+      const leaveData = {
+        startDate: values.dateRange[0].toISOString(),
+        endDate: values.dateRange[1].toISOString(),
+        leaveType: values.leaveType,
+        reason: values.reason,
+        requestToId: Number(values.requestTo),
+      };
 
-        const result = await applyLeave(leaveData, session.accessToken);
+      const result = await applyLeave(leaveData, session.accessToken);
 
-        if (result.success) {
-          toast.success(
-            result.message || "Leave application submitted successfully!"
-          );
-          router.refresh();
-        } else {
-          toast.error(result.error || "Failed to submit leave application");
-        }
+      if (result.success) {
+        toast.success(
+          result.message || "Leave application submitted successfully!" 
+         
+        );
+        router.refresh();
+      } else {
+        toast.error(result.error || "Failed to submit leave application");
       }
-    } catch (error) {
-      toast.error("Failed to submit leave application");
-      console.error("Error submitting leave:", error);
     }
 
     setSubmitting(false);
