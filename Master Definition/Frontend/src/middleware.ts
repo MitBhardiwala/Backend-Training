@@ -15,20 +15,17 @@ export async function middleware(request: NextRequest) {
   const publicRoutes = ["/register", "/login", "/", "/forgot-password"];
   const isPublicRoute = publicRoutes.includes(pathname);
 
-  // If no token (not logged in)
   if (!token) {
     if (isPublicRoute) {
-      return NextResponse.next(); 
+      return NextResponse.next();
     }
-    return NextResponse.redirect(new URL("/login", request.url)); 
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // If logged in and trying to access public routes, redirect to dashboard
   if (isPublicRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  // Users without department can only access dashboard and profile
   if (userRole !== "Admin" && !department) {
     const allowedPaths = ["/dashboard", "/profile"];
     if (!allowedPaths.includes(pathname)) {
@@ -37,17 +34,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Role-based route permissions
   const routePermissions: Record<string, string[]> = {
     "/manage/Faculty": ["Admin", "Hod"],
     "/manage/Hod": ["Admin"],
     "/manage/Student": ["Admin", "Hod", "Faculty"],
-    "/leave-requests": ["Hod", "Faculty"], // Admin blocked by design
+    "/leave-requests": ["Hod", "Faculty"],
     "/profile": ["Admin", "Hod", "Faculty", "Student"],
     "/dashboard": ["Admin", "Hod", "Faculty", "Student"],
   };
 
-  // Check if current route requires specific permissions
   for (const [route, allowedRoles] of Object.entries(routePermissions)) {
     if (pathname.startsWith(route)) {
       if (!allowedRoles.includes(userRole)) {

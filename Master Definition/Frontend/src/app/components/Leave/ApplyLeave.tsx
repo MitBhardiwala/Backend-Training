@@ -24,7 +24,12 @@ const ApplyLeave = () => {
   const { data: session } = useSession();
   const [requestToUserList, setRequestToUserList] = useState([]);
   const router = useRouter();
-
+  const [initialValues, setInitialValues] = useState({
+    reason: "",
+    requestTo: "",
+    leaveType: "",
+    dateRange: [null, null],
+  });
   useEffect(() => {
     const fetchRequestToUserList = async () => {
       try {
@@ -66,8 +71,7 @@ const ApplyLeave = () => {
 
       if (result.success) {
         toast.success(
-          result.message || "Leave application submitted successfully!" 
-         
+          result.message || "Leave application submitted successfully!"
         );
         router.refresh();
       } else {
